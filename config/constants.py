@@ -5,8 +5,8 @@ DEFAULT_XML_PATH = "./model/stanford_tidybot/scene.xml"
 
 # 베이스 제어 파라미터
 BASE_CTRL_SLICE = slice(0, 3)
-BASE_LIN_STEP = 0.0008
-BASE_YAW_STEP = 0.0010
+BASE_LIN_STEP = 0.002
+BASE_YAW_STEP = 0.002
 
 # 팔 제어 파라미터
 ARM_Q_IDX = list(range(3, 10))

@@ -20,18 +20,6 @@ class RobotConfig:
         self.right_pad_body_id = mujoco.mj_name2id(
             self.model, mujoco.mjtObj.mjOBJ_BODY, "right_pad"
         )
-        self.red_box_id = mujoco.mj_name2id(
-            self.model, mujoco.mjtObj.mjOBJ_BODY, "obstacle1"
-        )
-        self.blue_box_id = mujoco.mj_name2id(
-            self.model, mujoco.mjtObj.mjOBJ_BODY, "obstacle2"
-        )
-        self.yellow_box_id = mujoco.mj_name2id(
-            self.model, mujoco.mjtObj.mjOBJ_BODY, "obstacle3"
-        )
-        self.green_box_id = mujoco.mj_name2id(
-            self.model, mujoco.mjtObj.mjOBJ_BODY, "obstacle4"
-        )
         
     def get_arm_joint_bounds(self):
         """팔 관절 범위 반환"""
