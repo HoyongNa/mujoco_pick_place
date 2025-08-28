@@ -70,7 +70,7 @@
     <site size="0.001" rgba="0.5 0.5 0.5 0.3" group="4"/>
 
     <default class="rangefinder">
-      <site size="0.01" pos="0.24 0 0" rgba="1 0 0 1" group="5"/>
+      <site size="0.01" pos="0.24 0 0" rgba="1 0 0 0.25" group="5"/>
     </default>
   </default>
 
@@ -354,9 +354,9 @@
   </equality>
 
   <actuator>
-    <position name="joint_x" joint="joint_x" kp="200000" kv="10000" forcerange="-800 800"/>
-    <position name="joint_y" joint="joint_y" kp="200000" kv="10000" forcerange="-800 800"/>
-    <position name="joint_th" joint="joint_th" kp="40000"  kv="1000"  forcerange="-400 400"/>
+    <position name="joint_x" joint="joint_x" kp="40000" kv="10000" forcerange="-800 800"/>
+    <position name="joint_y" joint="joint_y" kp="40000" kv="10000" forcerange="-800 800"/>
+    <position name="joint_th" joint="joint_th" kp="8000"  kv="1000"  forcerange="-400 400"/>
 
     <motor name="joint_1" joint="joint_1" gear="100" forcerange="-10000 10000"/>
     <motor name="joint_2" joint="joint_2" gear="100" forcerange="-10000 10000"/>
@@ -404,7 +404,7 @@
         ctrl="0 0 0 0 -0.34906585 3.14159265 -2.54818071 0 -0.87266463 1.57079633 0"/>
   </keyframe>
 
-  <!-- <sensor>
+  <sensor>
     <rangefinder name="rf_00" site="rf_00" cutoff="6.0"/>
     <rangefinder name="rf_01" site="rf_01" cutoff="6.0"/>
     <rangefinder name="rf_02" site="rf_02" cutoff="6.0"/>
@@ -442,5 +442,5 @@
     <rangefinder name="rf_34" site="rf_34" cutoff="6.0"/>
     <rangefinder name="rf_35" site="rf_35" cutoff="6.0"/>
     <rangefinder name="rf_36" site="rf_36" cutoff="6.0"/>
-  </sensor> -->
+  </sensor>
 </mujoco>

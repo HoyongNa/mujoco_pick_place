@@ -30,11 +30,12 @@ class MobilityController:
         self.arm_holder.set_current_as_target()
         self.keyboard_handler.log_controls(robot_frame=True)  # 로봇 프레임 기준
         
-        # 시작 시 현재 베이스 명령을 ctrl에 적용
+        # 시작 시 현재 베이스 명령을 ctrl에 적용 (부드러운 시작)
         with self.base_lock:
             initial_cmd = self.base_cmd_ref.copy()
+        # ctrl 초기화를 현재 위치가 아닌 명령값으로 (전환 시 부드럽게)
         self.data.ctrl[:3] = initial_cmd
-        print(f"[MobilityController] 시작 베이스 위치: {initial_cmd}")
+        print(f"[MobilityController] 시작 베이스 위치: ({initial_cmd[0]:.2f}, {initial_cmd[1]:.2f}, {initial_cmd[2]:.2f})")
         print("[로봇 헤딩 기준 조종 활성화]")
         
         while not self.thread_manager.should_stop():
@@ -65,7 +66,7 @@ class MobilityController:
         """컨트롤러 시작"""
         self.thread_manager.start(self._loop)
         
-    def stop(self, timeout=1.0, zero_on_stop=True):
+    def stop(self, timeout=1.0, zero_on_stop=False):
         """컨트롤러 정지
         
         Args:
@@ -77,9 +78,13 @@ class MobilityController:
             self.base_teleop.reset_command()
             self.data.ctrl[3:10] = 0.0
         else:
-            # 현재 위치 유지
+            # 현재 위치 유지 (전환 시 부드럽게)
             with self.base_lock:
                 final_cmd = self.base_cmd_ref.copy()
-            print(f"[MobilityController] 종료 시 베이스 위치 유지: {final_cmd}")
+                # ctrl에도 적용
+                self.data.ctrl[0] = final_cmd[0]
+                self.data.ctrl[1] = final_cmd[1]
+                self.data.ctrl[2] = final_cmd[2]
+            print(f"[MobilityController] 종료 시 베이스 위치 유지: ({final_cmd[0]:.2f}, {final_cmd[1]:.2f}, {final_cmd[2]:.2f})")
             
         self.thread_manager.stop(timeout)
