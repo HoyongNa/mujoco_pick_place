@@ -1,13 +1,16 @@
-"""키보드 입력 처리"""
+"""키보드 입력 처리 (pynput 사용 - 크로스 플랫폼)"""
 
-import keyboard
+from pynput import keyboard
 import numpy as np
 from config.constants import *
+import threading
+
 
 class KeyboardHandler:
-    """키보드 입력을 베이스 명령으로 변환"""
+    """키보드 입력을 베이스 명령으로 변환 (pynput 기반)"""
     
     def __init__(self):
+        # 키 매핑 (pynput 키 형식)
         self.key_map = {
             KEY_FORWARD: (0, BASE_LIN_STEP),
             KEY_BACKWARD: (0, -BASE_LIN_STEP),
@@ -17,6 +20,92 @@ class KeyboardHandler:
             KEY_ROTATE_RIGHT: (2, -BASE_YAW_STEP),
         }
         
+        # 현재 눌린 키들을 추적
+        self.pressed_keys = set()
+        self._lock = threading.Lock()
+        
+        # 키보드 리스너 시작
+        self.listener = keyboard.Listener(
+            on_press=self._on_press,
+            on_release=self._on_release
+        )
+        self.listener.start()
+        
+    def _on_press(self, key):
+        """키 눌림 이벤트 처리"""
+        try:
+            # 일반 키
+            if hasattr(key, 'char') and key.char:
+                with self._lock:
+                    self.pressed_keys.add(key.char)
+            # 특수 키 (숫자패드 등)
+            elif hasattr(key, 'value'):
+                # pynput에서 숫자패드 키 처리
+                if hasattr(key.value, 'vk'):
+                    # Windows 가상 키코드 기반
+                    vk = key.value.vk
+                    # 숫자패드 매핑 (Windows VK codes)
+                    numpad_map = {
+                        96: '0',   # VK_NUMPAD0
+                        97: '1',   # VK_NUMPAD1
+                        98: '2',   # VK_NUMPAD2
+                        99: '3',   # VK_NUMPAD3
+                        100: '4',  # VK_NUMPAD4
+                        101: '5',  # VK_NUMPAD5
+                        102: '6',  # VK_NUMPAD6
+                        103: '7',  # VK_NUMPAD7
+                        104: '8',  # VK_NUMPAD8
+                        105: '9',  # VK_NUMPAD9
+                    }
+                    if vk in numpad_map:
+                        with self._lock:
+                            self.pressed_keys.add(numpad_map[vk])
+                # Mac/Linux 처리
+                elif hasattr(key.value, 'char'):
+                    with self._lock:
+                        self.pressed_keys.add(key.value.char)
+        except AttributeError:
+            pass
+            
+    def _on_release(self, key):
+        """키 릴리즈 이벤트 처리"""
+        try:
+            # 일반 키
+            if hasattr(key, 'char') and key.char:
+                with self._lock:
+                    self.pressed_keys.discard(key.char)
+            # 특수 키 (숫자패드 등)
+            elif hasattr(key, 'value'):
+                # Windows 가상 키코드 기반
+                if hasattr(key.value, 'vk'):
+                    vk = key.value.vk
+                    numpad_map = {
+                        96: '0',   # VK_NUMPAD0
+                        97: '1',   # VK_NUMPAD1
+                        98: '2',   # VK_NUMPAD2
+                        99: '3',   # VK_NUMPAD3
+                        100: '4',  # VK_NUMPAD4
+                        101: '5',  # VK_NUMPAD5
+                        102: '6',  # VK_NUMPAD6
+                        103: '7',  # VK_NUMPAD7
+                        104: '8',  # VK_NUMPAD8
+                        105: '9',  # VK_NUMPAD9
+                    }
+                    if vk in numpad_map:
+                        with self._lock:
+                            self.pressed_keys.discard(numpad_map[vk])
+                # Mac/Linux 처리
+                elif hasattr(key.value, 'char'):
+                    with self._lock:
+                        self.pressed_keys.discard(key.value.char)
+        except AttributeError:
+            pass
+    
+    def is_pressed(self, key):
+        """특정 키가 눌렸는지 확인"""
+        with self._lock:
+            return key in self.pressed_keys
+    
     def update_command(self, cmd_ref, robot_heading=None):
         """키 입력을 읽어 명령 업데이트
         
@@ -34,10 +123,10 @@ class KeyboardHandler:
     def _update_command_world_frame(self, cmd_ref):
         """월드 좌표계 기준 명령 업데이트 (기존 방식)"""
         for key, (idx, delta) in self.key_map.items():
-            if keyboard.is_pressed(key):
+            if self.is_pressed(key):
                 cmd_ref[idx] += delta
                 
-        if keyboard.is_pressed(KEY_STOP):
+        if self.is_pressed(KEY_STOP):
             cmd_ref[:] = 0.0
             
         return cmd_ref.copy()
@@ -50,17 +139,17 @@ class KeyboardHandler:
         robot_vtheta = 0.0  # 회전
         
         # 키 입력 처리 (로봇 좌표계)
-        if keyboard.is_pressed(KEY_FORWARD):
+        if self.is_pressed(KEY_FORWARD):
             robot_vx += BASE_LIN_STEP
-        if keyboard.is_pressed(KEY_BACKWARD):
+        if self.is_pressed(KEY_BACKWARD):
             robot_vx -= BASE_LIN_STEP
-        if keyboard.is_pressed(KEY_LEFT):
+        if self.is_pressed(KEY_LEFT):
             robot_vy += BASE_LIN_STEP
-        if keyboard.is_pressed(KEY_RIGHT):
+        if self.is_pressed(KEY_RIGHT):
             robot_vy -= BASE_LIN_STEP
-        if keyboard.is_pressed(KEY_ROTATE_LEFT):
+        if self.is_pressed(KEY_ROTATE_LEFT):
             robot_vtheta += BASE_YAW_STEP
-        if keyboard.is_pressed(KEY_ROTATE_RIGHT):
+        if self.is_pressed(KEY_ROTATE_RIGHT):
             robot_vtheta -= BASE_YAW_STEP
         
         # 로봇 좌표계 -> 월드 좌표계 변환
@@ -76,7 +165,7 @@ class KeyboardHandler:
         cmd_ref[1] += world_vy
         cmd_ref[2] += robot_vtheta
         
-        if keyboard.is_pressed(KEY_STOP):
+        if self.is_pressed(KEY_STOP):
             cmd_ref[:] = 0.0
             
         return cmd_ref.copy()
@@ -93,3 +182,12 @@ class KeyboardHandler:
             print(f"  좌/우: {KEY_LEFT}/{KEY_RIGHT}")
         print(f"  회전: {KEY_ROTATE_LEFT}/{KEY_ROTATE_RIGHT}")
         print(f"  정지: {KEY_STOP}")
+    
+    def stop(self):
+        """키보드 리스너 정지"""
+        if hasattr(self, 'listener'):
+            self.listener.stop()
+    
+    def __del__(self):
+        """소멸자 - 리스너 정리"""
+        self.stop()

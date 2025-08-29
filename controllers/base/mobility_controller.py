@@ -1,4 +1,4 @@
-"""MobilityController - 리팩토링된 버전"""
+"""MobilityController - 리팩토링된 버전 (pynput 호환)"""
 
 import mujoco
 from controllers.base.keyboard_handler import KeyboardHandler
@@ -73,6 +73,10 @@ class MobilityController:
             timeout: 스레드 종료 대기 시간
             zero_on_stop: True면 정지 시 베이스 명령을 0으로 설정
         """
+        # 키보드 핸들러 정리 (pynput 리스너 종료)
+        if hasattr(self, 'keyboard_handler'):
+            self.keyboard_handler.stop()
+        
         if zero_on_stop:
             # 베이스를 0으로 설정
             self.base_teleop.reset_command()
@@ -88,3 +92,9 @@ class MobilityController:
             print(f"[MobilityController] 종료 시 베이스 위치 유지: ({final_cmd[0]:.2f}, {final_cmd[1]:.2f}, {final_cmd[2]:.2f})")
             
         self.thread_manager.stop(timeout)
+    
+    def __del__(self):
+        """소멸자 - 리소스 정리"""
+        # 키보드 핸들러 정리
+        if hasattr(self, 'keyboard_handler'):
+            self.keyboard_handler.stop()

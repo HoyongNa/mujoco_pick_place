@@ -15,14 +15,14 @@ class TorqueController:
         # 제어 게인
         self.Kp = np.eye(self.num_joints) * 1500
         self.Kd = np.eye(self.num_joints) * 30
-        self.Ki = np.eye(self.num_joints) * 0
+        self.Ki = np.eye(self.num_joints) * 100
         
         # 적분 항
         self.integral_error = np.zeros(self.num_joints)
         self.max_integral = 0.3
         
         # DOB
-        self.use_dob = False
+        self.use_dob = True
         self.dob_gain = 5.0
         self.qd_prev = np.zeros(self.num_joints)
         self.filtered_disturbance = np.zeros(self.num_joints)

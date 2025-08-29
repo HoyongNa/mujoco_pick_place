@@ -1,0 +1,117 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# MuJoCo specific
+*.mj2
+*.mjb
+
+# Map files (can be large)
+*.npz
+lidar_map_*.npz
+saved_maps/
+
+# Log files
+*.log
+logs/
+
+# Test outputs
+test_output/
+test_results/
+
+# Documentation build
+docs/_build/
+docs/.doctrees/
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+
+# pytest
+.pytest_cache/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# System files
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Temporary files
+*.tmp
+*.bak
+*.backup
+temp/
+tmp/
+
+# Config files with sensitive data (if any)
+config/local_settings.py
+config/secrets.py
+
+# Model files (if large)
+models/*.xml.backup
+models/temp/
+
+# Video/Image outputs
+*.mp4
+*.avi
+*.gif
+*.png
+*.jpg
+*.jpeg
+screenshots/
+recordings/
+
+# Profiling data
+*.prof
+*.stats
+
+# Custom
+.env
+.env.local
+*.pid

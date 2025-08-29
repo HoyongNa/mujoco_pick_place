@@ -7,12 +7,10 @@ Path Planning 패키지
 
 from .map_processor import MapProcessor
 from .astar_planner import AStarPlanner
-from .pure_pursuit import PurePursuit
 from .path_following_controller import PathFollowingController
 
 __all__ = [
     'MapProcessor',
     'AStarPlanner', 
-    'PurePursuit',
     'PathFollowingController'
 ]

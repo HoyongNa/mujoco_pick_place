@@ -40,25 +40,6 @@ class MapProcessor:
         if map_path:
             self.map_path = map_path
             
-        if not self.map_path:
-            # 기본 맵 파일 찾기
-            default_maps = [
-                "lidar_map_20250826_215447.npz",
-                "default_map.npz",
-                "default_4room_map.npz",
-                "simple_test_map.npz",
-                "test_map.npz"
-            ]
-            
-            for default_map in default_maps:
-                if os.path.exists(default_map):
-                    self.map_path = default_map
-                    print(f"[MapProcessor] 기본 맵 파일 발견: {default_map}")
-                    break
-            else:
-                print(f"[MapProcessor] 맵 파일을 찾을 수 없습니다.")
-                return False
-        
         if not os.path.exists(self.map_path):
             print(f"[MapProcessor] 맵 파일이 존재하지 않습니다: {self.map_path}")
             return False
