@@ -6,6 +6,7 @@ occupancy grid 상에서 최단 경로 탐색
 import numpy as np
 import heapq
 from typing import List, Tuple, Optional
+from path_planning.waypoint_interpolation import WaypointInterpolator, InterpolationType
 
 
 class AStarPlanner:
@@ -17,6 +18,9 @@ class AStarPlanner:
             map_processor: MapProcessor 인스턴스
         """
         self.map_processor = map_processor
+        
+        # Waypoint Interpolator 추가
+        self.interpolator = WaypointInterpolator(min_spacing=0.1, max_spacing=0.2)
         
         # 8방향 이동 (dx, dy, cost)
         # 대각선 이동은 √2 비용
@@ -32,13 +36,15 @@ class AStarPlanner:
         ]
         
     def plan(self, start: Tuple[float, float], goal: Tuple[float, float], 
-             use_dilated=True) -> Optional[List[Tuple[float, float]]]:
+             use_dilated=True, simplify=False, use_interpolation=True) -> Optional[List[Tuple[float, float]]]:
         """A* 경로 계획
         
         Args:
             start: 시작 위치 (x, y) in meters
             goal: 목표 위치 (x, y) in meters
             use_dilated: 팽창된 맵 사용 여부
+            simplify: 경로 단순화 여부 (기본값: False)
+            use_interpolation: waypoint 보간 사용 여부 (기본값: True - MPC 성능 향상)
             
         Returns:
             경로 좌표 리스트 [(x1,y1), (x2,y2), ...] or None if no path
@@ -50,7 +56,6 @@ class AStarPlanner:
         # 유효성 체크
         if not self._is_valid_point(start_grid, use_dilated):
             print(f"[AStarPlanner] 시작점이 유효하지 않습니다: {start} → {start_grid}")
-            # 팽창된 맵에서는 막혀있지만 원본 맵에서는 가능한지 확인
             if self._is_valid_point(start_grid, use_dilated=False):
                 print("  -> 원본 맵에서는 유효함. 팽창 반경이 너무 큽니다.")
             return None
@@ -77,9 +82,28 @@ class AStarPlanner:
             world_path.append((x, y))
         
         # 경로 단순화 (선택적)
-        world_path = self._simplify_path(world_path, use_dilated)
+        if simplify:
+            world_path = self._simplify_path(world_path, use_dilated)
+            print(f"[AStarPlanner] 단순화된 경로: {len(world_path)}개 웨이포인트")
         
-        print(f"[AStarPlanner] 경로 생성 완료: {len(world_path)}개 웨이포인트")
+        # Waypoint Interpolation (선택적 - MPC 성능 향상)
+        if use_interpolation:
+            # Simplify와 Interpolation 조합이 가장 효과적
+            if not simplify and len(world_path) > 20:
+                # 원본 경로가 너무 많으면 먼저 단순화
+                world_path = self._simplify_path(world_path, use_dilated)
+                print(f"[AStarPlanner] 보간 전 자동 단순화: {len(world_path)}개 웨이포인트")
+            
+            # Adaptive interpolation 적용
+            interpolated_path = self.interpolator.interpolate(
+                world_path,
+                method=InterpolationType.ADAPTIVE
+            )
+            print(f"[AStarPlanner] 보간된 경로: {len(world_path)} -> {len(interpolated_path)}개 웨이포인트")
+            world_path = interpolated_path
+        else:
+            print(f"[AStarPlanner] 원본 경로 사용: {len(world_path)}개 웨이포인트")
+        
         return world_path
     
     def _astar(self, start_grid: Tuple[int, int], goal_grid: Tuple[int, int], 
@@ -137,10 +161,10 @@ class AStarPlanner:
                 if neighbor in closed_set:
                     continue
                 
-                # 벽과의 거리를 고려한 추가 비용
-                wall_penalty = self._wall_proximity_cost(neighbor, use_dilated)
+                # 벽과의 거리를 고려한 추가 비용 (더 부드러운 경로를 위해 감소)
+                wall_penalty = self._wall_proximity_cost(neighbor, use_dilated) * 0.5
                 
-                # g 스코어 계산 (벽 근접 패널티 포함)
+                # g 스코어 계산
                 tentative_g = g_score[current] + move_cost + wall_penalty
                 
                 # 더 나은 경로 발견
@@ -165,9 +189,9 @@ class AStarPlanner:
         Returns:
             벽 근접 패널티 비용
         """
-        # 주변 5x5 영역에서 벽까지의 최소 거리 계산
+        # 주변 3x3 영역에서 벽까지의 최소 거리 계산 (범위 축소)
         min_distance = float('inf')
-        check_radius = 5  # 검사 반경 (셀 단위)
+        check_radius = 3  # 검사 반경 축소
         
         for dr in range(-check_radius, check_radius + 1):
             for dc in range(-check_radius, check_radius + 1):
@@ -182,10 +206,9 @@ class AStarPlanner:
                     distance = np.sqrt(dr**2 + dc**2)
                     min_distance = min(min_distance, distance)
         
-        # 거리에 따른 패널티 계산
-        if min_distance < 2:  # 2셀 이내에 벽이 있으면 (줄임)
-            # 가까울수록 높은 패널티 (계수도 줄임)
-            return (2 - min_distance) * 1.0
+        # 거리에 따른 패널티 계산 (더 부드럽게)
+        if min_distance < 1.5:  # 1.5셀 이내에 벽이 있으면
+            return (1.5 - min_distance) * 0.5  # 패널티 감소
         else:
             return 0.0
     
@@ -211,7 +234,6 @@ class AStarPlanner:
         Returns:
             유효 여부
         """
-        # is_free 메서드가 is_valid 체크도 내부적으로 수행함
         return self.map_processor.is_free(point[0], point[1], use_dilated)
     
     def _reconstruct_path(self, came_from: dict, current: Tuple[int, int]) -> List[Tuple[int, int]]:
@@ -236,6 +258,9 @@ class AStarPlanner:
     def _simplify_path(self, path: List[Tuple[float, float]], 
                        use_dilated=True) -> List[Tuple[float, float]]:
         """경로 단순화 (불필요한 중간점 제거)
+        
+        Note: 이 기능은 더 직선적인 움직임을 만들어내므로
+              자연스러운 움직임을 원한다면 사용하지 않는 것을 권장
         
         Args:
             path: 원본 경로

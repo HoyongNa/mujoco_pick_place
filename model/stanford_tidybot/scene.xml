@@ -1,5 +1,6 @@
 <mujoco model="tidybot 4-room scene">
   <include file="tidybot.xml"/>
+  <include file="tidybot_robot2.xml"/>
   <option timestep="0.002" solver="Newton" iterations="100" noslip_iterations="40"/>
 
   <!-- 더 큰 환경에 맞게 통계 조정 -->
@@ -78,9 +79,9 @@
             solref="0.01 1" solimp="0.9 0.95 0.002"/>
     </body>
 
-    <body name="blue_box" pos="-2.3 2.5 0.05">
+    <body name="blue_box" pos="-2.4 2.5 0.1">
       <joint type="free"/>
-      <geom type="box" size="0.05 0.05 0.05" 
+      <geom type="box" size="0.1 0.1 0.1" 
             rgba="0 0 1 1" mass="0.5" friction="2 2 2"
             solref="0.01 1" solimp="0.9 0.95 0.002"/>
     </body>
@@ -132,6 +133,21 @@
             rgba="1 0.5 0.8 1" mass="0.5" friction="2 2 2"
             solref="0.01 1" solimp="0.9 0.95 0.002"/>
     </body>
+
+    <!-- ================ 문 입구 장애물 벽 (장애물 회피 테스트용) ================ -->
+    <!-- 각 문 입구를 부분적으로 막아 통로를 좁게 만듦 -->
+    <!-- 문 범위: 동서 방향 x=-1.4~1.4, 남북 방향 y=-1.4~1.4 -->
+    
+    <!-- 장애물 테스트를 위해 활성화 -->
+    <geom name="obstacle_horizontal_left" type="box" size="0.1 0.05 0.5" pos="-0.9 0.3 0.5" 
+          rgba="0.9 0.7 0.1 1" contype="1" conaffinity="1"/>
+    <geom name="obstacle_horizontal_right" type="box" size="0.1 0.05 0.5" pos="0.9 0.3 0.5" 
+          rgba="0.9 0.7 0.1 1" contype="1" conaffinity="1"/>
+    
+    <geom name="obstacle_vertical_top" type="box" size="0.05 0.1 0.5" pos="0.3 0.9 0.5" 
+          rgba="0.9 0.7 0.1 1" contype="1" conaffinity="1"/>
+    <geom name="obstacle_vertical_bottom" type="box" size="0.05 0.1 0.5" pos="0.3 -0.9 0.5" 
+          rgba="0.9 0.7 0.1 1" contype="1" conaffinity="1"/>
 
     <!-- ================ 장식 요소 (선택사항) ================ -->
     <!-- 각 방에 테이블 추가

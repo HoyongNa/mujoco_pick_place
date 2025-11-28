@@ -21,42 +21,43 @@ class GraspChecker:
         if self.viewer is not None and self.viewer.is_running():
             self.viewer.sync()
             
-    def wait_until_grasped(self, threshold=1.0, max_time=2.0, min_pad_distance=0.02):
-        """일정 시간 동안 시뮬레이션을 반복하면서 파지 여부를 실시간 확인"""
-        steps = int(max_time / self.model.opt.timestep)
-        viewer_update_interval = 5
-        last_print_time = time.time()
+    
+    def check_grasp_state(self, force_threshold=1.0, min_pad_distance=0.02, max_pad_distance=0.15):
+        """현재 파지 상태를 실시간으로 체크 (토크 제어기 연동용)
         
-        for step in range(steps):
-            mujoco.mj_step(self.model, self.data)
+        Args:
+            force_threshold: 파지 판단을 위한 최소 접촉력 (N)
+            min_pad_distance: 최소 패드 간격 (m) - 이보다 작으면 물체 없음
+            max_pad_distance: 최대 패드 간격 (m) - 이보다 크면 파지 실패
             
-            if step % viewer_update_interval == 0:
-                self.update_viewer()
-                
-            pad_left = self.data.xipos[self.left_pad_body_id]
-            pad_right = self.data.xipos[self.right_pad_body_id]
-            pad_distance = np.linalg.norm(pad_left - pad_right)
-            
-            if pad_distance < min_pad_distance:
-                continue
-                
-            # 접촉 검사
-            for i in range(self.data.ncon):
-                force = np.zeros(6)
-                mujoco.mj_contactForce(self.model, self.data, i, force)
-                
-                if force[0] > threshold:
-                    print(f"파지 성공 (force: {force[0]:.2f}N, pad_dist: {pad_distance:.3f}m)")
-                    self.update_viewer()
-                    return True
-                    
-            if self.viewer is not None and time.time() - last_print_time > 1.0:
-                print(f"  파지 확인 중... (pad_dist: {pad_distance:.3f}m)")
-                last_print_time = time.time()
-                
-            if self.viewer is not None and not self.viewer.is_running():
-                print(" 사용자가 시뮬레이션을 중단했습니다.")
-                return False
-                
-        print("파지 실패 (시간 초과)")
-        return False
+        Returns:
+            tuple: (is_grasping, max_contact_force, pad_distance)
+                - is_grasping: 파지 여부 (bool)
+                - max_contact_force: 최대 접촉력 (float, N)
+                - pad_distance: 패드 간 거리 (float, m)
+        """
+        # 패드 거리 계산
+        pad_left = self.data.xipos[self.left_pad_body_id]
+        pad_right = self.data.xipos[self.right_pad_body_id]
+        pad_distance = np.linalg.norm(pad_left - pad_right)
+        
+        # 패드가 너무 가까우면 물체가 없는 것
+        if pad_distance < min_pad_distance:
+            return False, 0.0, pad_distance
+        
+        # 패드가 너무 멀면 파지 실패
+        if pad_distance > max_pad_distance:
+            return False, 0.0, pad_distance
+        
+        # 접촉력 확인
+        max_force = 0.0
+        for i in range(self.data.ncon):
+            force = np.zeros(6)
+            mujoco.mj_contactForce(self.model, self.data, i, force)
+            force_magnitude = np.linalg.norm(force[:3])
+            max_force = max(max_force, force_magnitude)
+        
+        # 파지 판단: 적절한 패드 간격 + 충분한 접촉력
+        is_grasping = (min_pad_distance < pad_distance < max_pad_distance) and (max_force > force_threshold)
+        
+        return is_grasping, max_force, pad_distance

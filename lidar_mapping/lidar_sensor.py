@@ -29,7 +29,8 @@ class LidarSensor:
 
         # 실내 기본값
         self.min_range: float = 0.25
-        self.nohit_margin: float = 0.02  # cutoff 근처 값은 no-hit 처리
+        self.nohit_margin: float = 0.1  # cutoff 근처 값은 no-hit 처리 (개선: 여유를 더 줌)
+        self.hit_threshold_ratio: float = 0.92  # cutoff의 92% 이상이면 no-hit으로 처리 (더 엄격하게)
 
         # rangefinder 목록 + 센서별 cutoff 수집
         self.sensors: List[Dict[str, int]] = []
@@ -161,10 +162,21 @@ class LidarSensor:
             if np.isfinite(dist) and dist > self._obs_max[idx]:
                 self._obs_max[idx] = float(dist)
 
-            # 히트/노히트 판정: cutoff 바로 근처는 no-hit
-            nohit_thr = cutoff_eff - self.nohit_margin
-            if (np.isfinite(dist) and dist >= self.min_range and dist < nohit_thr):
-                # hit
+            # 개선된 히트/노히트 판정 로직
+            # 1. 거리가 유효하고 cutoff의 threshold 비율 미만이면 hit
+            # 2. 거리가 cutoff에 가깝거나 초과하면 no-hit
+            # 3. NaN/Inf면 no-hit
+            
+            is_valid_distance = np.isfinite(dist) and dist >= self.min_range
+            is_hit = False
+            
+            if is_valid_distance:
+                # cutoff의 threshold 비율 미만이면 hit로 판정
+                if dist < (cutoff_eff * self.hit_threshold_ratio):
+                    is_hit = True
+            
+            if is_hit:
+                # Hit: 장애물에 부딥힘
                 hit_xy = origin2 + xy * dist
                 points.append([hit_xy[0], hit_xy[1]])
                 origins.append([origin2[0], origin2[1]])
@@ -172,9 +184,16 @@ class LidarSensor:
                 angles.append(theta)
                 valids.append(True)
             else:
-                # no hit → free만 누적, 끝점은 occupied 금지
-                far = max(self.min_range, 
-                         min(cutoff_eff, dist if np.isfinite(dist) else cutoff_eff) - self.nohit_margin)
+                # No-hit: 최대 거리까지 비어있음
+                # 끝점을 cutoff보다 약간 짧게 설정해서 경계 밖으로 나가지 않도록
+                if np.isfinite(dist):
+                    # 실제 측정값이 있지만 cutoff에 가까운 경우
+                    far = min(dist, cutoff_eff) - self.nohit_margin
+                else:
+                    # NaN/Inf인 경우 cutoff까지
+                    far = cutoff_eff - self.nohit_margin
+                
+                far = max(self.min_range, far)  # 최소 거리 보장
                 far_xy = origin2 + xy * far
                 free_points.append([far_xy[0], far_xy[1]])
                 free_origins.append([origin2[0], origin2[1]])

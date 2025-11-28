@@ -1,3 +1,3 @@
-from kinematics.ik_solver import InverseKinematicsSolver
+from kinematics.async_ik_solver import AsyncIKSolver
 
-__all__ = ['InverseKinematicsSolver']
+__all__ = ['AsyncIKSolver']

@@ -112,8 +112,10 @@
           euler="0 1.57 1.57" 
           fovy="55" 
           resolution="640 480"/>
-    <body name="base_link">
-      <inertial pos="0 0 0.035" mass="60" diaginertia="0.001 0.001 0.001"/>
+
+    <!-- <body name="robot1_base_link" pos="-1 1 0"> -->
+    <body name="robot1_base_link" pos="0 0 0"> 
+      <inertial pos="0 0 0" mass="60" diaginertia="0.001 0.001 0.001"/>
       <joint name="joint_x" type="slide" axis="1 0 0" damping="10"/>
       <joint name="joint_y" type="slide" axis="0 1 0" damping="10"/>
       <joint name="joint_th"/>
@@ -354,9 +356,9 @@
   </equality>
 
   <actuator>
-    <position name="joint_x" joint="joint_x" kp="40000" kv="10000" forcerange="-800 800"/>
-    <position name="joint_y" joint="joint_y" kp="40000" kv="10000" forcerange="-800 800"/>
-    <position name="joint_th" joint="joint_th" kp="8000"  kv="1000"  forcerange="-400 400"/>
+    <velocity name="joint_x" joint="joint_x" kv="200" forcerange="-800 800"/>
+    <velocity name="joint_y" joint="joint_y" kv="200" forcerange="-800 800"/>
+    <velocity name="joint_th" joint="joint_th" kv="100"  forcerange="-800 800"/>
 
     <motor name="joint_1" joint="joint_1" gear="100" forcerange="-10000 10000"/>
     <motor name="joint_2" joint="joint_2" gear="100" forcerange="-10000 10000"/>
@@ -374,6 +376,8 @@
       gainprm="1 0 0" biasprm="0 -100 -10"/> -->
   </actuator>
 
+  <!-- Keyframes commented out for dual robot setup -->
+  <!--
   <keyframe>
     <key name="home"
         qpos="0 0 0 1 0 0 0
@@ -403,6 +407,7 @@
          2.7 -2.5 0.05 1 0 0 0"
         ctrl="0 0 0 0 -0.34906585 3.14159265 -2.54818071 0 -0.87266463 1.57079633 0"/>
   </keyframe>
+  -->
 
   <sensor>
     <rangefinder name="rf_00" site="rf_00" cutoff="6.0"/>

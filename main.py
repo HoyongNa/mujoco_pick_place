@@ -1,369 +1,387 @@
-# -*- coding: utf-8 -*-
-'''"""메인 실행 파일 - 경로 계획 기능 추가(F8~F11, 방 이름=1번방~4번방) 버전"""'''
-
-import sys
-import time
+"""
+MuJoCo Navigation & Pick & Place System with LLM Integration (Thread-Safe 버전)
+ LLM executor를 메인 스레드에서 실행하여 MuJoCo thread-safety 문제 해결
+ 모든 물리 스텝이 메인 루프에서 실행 (Centralized Stepping)
+- 입력 스레드: 사용자 명령만 받아서 큐에 저장
+- 메인 스레드: 명령을 큐에서 꺼내서 처리 (동기 실행)
+- 물리 step은 오직 메인 스레드에서만 호출
+"""
 import os
-from pynput import keyboard
-import numpy as np
+import time
 import threading
-
-from config.constants import DEFAULT_XML_PATH, KEY_START
+import logging
+from typing import Optional
+from pynput import keyboard
+from llm_planner.planner import LLMPlanner
+from llm_planner.planner.task_types import TaskPlan
+from llm_planner.executor import TaskExecutor
 from simulation.simulation_manager import SimulationManager
-from tasks.pick_and_place import PickAndPlaceTask
-# from path_planning.map_processor import MapProcessor  # 필요 시 활성화
+from config.constants import DEFAULT_XML_PATH, ARM_Q_IDX, ARM_CTRL_IDX, \
+      ROBOT2_ARM_Q_IDX, ROBOT2_ARM_CTRL_IDX
 
-# 각 방의 목표 위치 정의 (10m x 10m 환경)
-ROOM_POSITIONS = {
-    '1번방': (-2.0,  2.0),   # 북서
-    '2번방': ( 2.0,  2.0),   # 북동
-    '3번방': (-2.0, -2.0),   # 남서
-    '4번방': ( 2.0, -2.0)    # 남동
-}
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+logger = logging.getLogger(__name__)
 
-ROOM_LABELS = {
-    '1번방': '1번방 (북서)',
-    '2번방': '2번방 (북동)',
-    '3번방': '3번방 (남서)',
-    '4번방': '4번방 (남동)'
-}
-
-# Pick&Place tasks 인덱스 매핑 (tasks[0]~tasks[3]과 1번방~4번방의 순서를 매칭)
-ROOM_TO_TASK_IDX = {'1번방': 0, '2번방': 1, '3번방': 2, '4번방': 3}
+# --- 환경 설정 ---
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MAP_FILE = os.path.join(BASE_DIR, "lidar_mapping", "maps", "lidar_map_20250826_215447.npz")
 
 
 class NavigationPickPlaceSystem:
-    """경로 계획과 Pick & Place를 통합한 시스템 (F8~F11 함수키 사용, 방 이름=1번방~4번방)"""
-
+    """통합 시스템 - LLM을 메인 스레드에서 실행하여 thread-safety 보장"""
     def __init__(self):
         self.sim_manager = SimulationManager(DEFAULT_XML_PATH)
-        self.pick_place_task = PickAndPlaceTask(self.sim_manager)
-        self.is_navigating = False
-        self.current_mode = "teleop"  # "teleop", "navigation", "pick_place"
-        self.map_initialized = False
+
+        # 상태
+        #  REMOVED: shared current_mode (was causing cross-robot interference)
+        self.llm_mode_active = False
+        self.saved_arm_position = None
+        self.saved_gripper_position = None
         
-        # pynput 키보드 상태 추적
+        #  Robot2 상태 관리
+        self.saved_arm_position_robot2 = None
+        self.saved_gripper_position_robot2 = None
+        
+        #  팔 제어권 관리 (독립 제어)
+        self.is_arm_busy_robot1 = False  # Robot1 executor가 팔을 사용 중인지
+        self.is_arm_busy_robot2 = False  # Robot2 executor가 팔을 사용 중인지
+        
+        #  Backward compatibility property for old executor.py
+        self._is_arm_busy_compat = False
+
+        #  LLM 명령 큐
+        self.pending_llm_command: Optional[str] = None
+        self._command_lock = threading.Lock()
+        
+        #  Step counter for debugging
+        self._step_count = 0  # Total steps executed
+
+        #  LLM (Dual Executors for parallel operation)
+        self.llm_planner: Optional["LLMPlanner"] = None
+        self.llm_executor_robot1: Optional["TaskExecutor"] = None  # Robot1 executor
+        self.llm_executor_robot2: Optional["TaskExecutor"] = None  # Robot2 executor
+        self.llm_input_thread: Optional[threading.Thread] = None
+        self._init_llm_components()
+
+        # 입력
         self.pressed_keys = set()
         self._key_lock = threading.Lock()
-        self.last_key_time = {}  # 키 디바운싱용
-        self.key_debounce_time = 0.3  # 300ms 디바운싱
-        
-        # 키보드 리스너 설정
-        self.keyboard_listener = keyboard.Listener(
-            on_press=self._on_key_press,
-            on_release=self._on_key_release
-        )
+        self.last_key_time = {}
+        self.key_debounce_time = 0.3
+        self.keyboard_listener = keyboard.Listener(on_press=self._on_key_change(True),
+                                                   on_release=self._on_key_change(False))
         self.keyboard_listener.start()
 
-    def _on_key_press(self, key):
-        """키 눌림 이벤트 처리"""
-        try:
-            with self._key_lock:
-                # F8-F11 키 처리
-                if key == keyboard.Key.f8:
-                    self.pressed_keys.add('f8')
-                elif key == keyboard.Key.f9:
-                    self.pressed_keys.add('f9')
-                elif key == keyboard.Key.f10:
-                    self.pressed_keys.add('f10')
-                elif key == keyboard.Key.f11:
-                    self.pressed_keys.add('f11')
-                # Space 키
-                elif key == keyboard.Key.space:
-                    self.pressed_keys.add('space')
-                # ESC 키
-                elif key == keyboard.Key.esc:
-                    self.pressed_keys.add('escape')
-        except AttributeError:
-            pass
-
-    def _on_key_release(self, key):
-        """키 릴리즈 이벤트 처리"""
-        try:
-            with self._key_lock:
-                # F8-F11 키 처리
-                if key == keyboard.Key.f8:
-                    self.pressed_keys.discard('f8')
-                elif key == keyboard.Key.f9:
-                    self.pressed_keys.discard('f9')
-                elif key == keyboard.Key.f10:
-                    self.pressed_keys.discard('f10')
-                elif key == keyboard.Key.f11:
-                    self.pressed_keys.discard('f11')
-                # Space 키
-                elif key == keyboard.Key.space:
-                    self.pressed_keys.discard('space')
-                # ESC 키
-                elif key == keyboard.Key.esc:
-                    self.pressed_keys.discard('escape')
-        except AttributeError:
-            pass
-
-    def _is_key_pressed(self, key_name):
-        """특정 키가 눌렸는지 확인 (디바운싱 포함)"""
-        with self._key_lock:
-            if key_name in self.pressed_keys:
-                current_time = time.time()
-                last_time = self.last_key_time.get(key_name, 0)
-                
-                # 디바운싱 체크
-                if current_time - last_time > self.key_debounce_time:
-                    self.last_key_time[key_name] = current_time
-                    return True
-            return False
-
-    def initialize(self):
-        """시스템 초기화"""
-        print("\n" + "=" * 60)
-        print(" 🤖 MuJoCo Navigation & Pick & Place 시뮬레이션")
-        print("=" * 60)
-
-        print("\n 🏠 4개 방 구조 (10m x 10m):")
-        print("   ┌────────┬────────┐")
-        print("   │ 1번방  │ 2번방  │  (북쪽)")
-        print("   │  북서  │  북동  │")
-        print("   ├────────┼────────┤")
-        print("   │ 3번방  │ 4번방  │  (남쪽)")
-        print("   │  남서  │  남동  │")
-        print("   └────────┴────────┘")
-
-        print("\n 📦 각 방의 작업:")
-        print("   1번방(북서): 빨간색 박스 → 파란색 박스")
-        print("   2번방(북동): 초록색 박스 → 노란색 박스")
-        print("   3번방(남서): 주황색 박스 → 보라색 박스")
-        print("   4번방(남동): 청록색 박스 → 분홍색 박스")
-
-        print("\n 🎮 조작 방법:")
-        print("   [F8–F11] 키: 해당 방으로 자동 이동 (F8=1번방, F9=2번방, F10=3번방, F11=4번방)")
-        print("   [Space] 키: Pick & Place 작업 실행")
-        print("   [숫자패드]: 베이스 수동 이동 (teleop 모드)")
-        print("      - 8: 전진, 5: 후진")
-        print("      - 4: 왼쪽, 6: 오른쪽")
-        print("      - 7/9: 좌/우 회전")
-        print("      - 2: 정지")
-        print("   [ESC] 키: 종료")
-        print("\n" + "=" * 60)
-
-        # 뷰어 초기화
-        self.sim_manager.initialize_viewer()
-
-        # 맵 생성 또는 로드 시도
-        self._initialize_map()
-
-        print("\n ▶ 준비 완료! 키보드로 조작하세요.")
-        print("=" * 60)
-
-    def _initialize_map(self):
-        """맵 초기화 - 기존 맵이 없으면 비활성화"""
-        print("\n 🗺️  맵 초기화 중...")
-
-        map_files = [f for f in os.listdir('.') if f.endswith('.npz') and 'map' in f.lower()]
-        if not map_files:
-            print("  ⚠️  맵 파일(.npz)을 찾지 못했습니다. 경로 계획 기능 비활성화.")
-            self.map_initialized = False
+    # ---------- LLM ----------
+    def _init_llm_components(self):
+        api_key = os.environ.get("OPENAI_API_KEY", "")
+        if not api_key:
+            logger.info("OPENAI_API_KEY 미설정: LLM 비활성")
             return
 
-        # 가장 최근(수정시각) 맵 파일 사용
-        map_files.sort(key=lambda p: os.path.getmtime(p), reverse=True)
-        map_path = map_files[0]
+        scene_xml_path = os.path.join(BASE_DIR, "model", "stanford_tidybot", "scene.xml")
+        self.llm_planner = LLMPlanner(
+            api_key=api_key, 
+            model="gpt-4o",
+            scene_xml=scene_xml_path if os.path.exists(scene_xml_path) else None,
+        )
+        # ✅ CHANGED: Create separate executors for parallel operation
+        self.llm_executor_robot1 = TaskExecutor(robot_system=self, robot_id=1)
+        self.llm_executor_robot2 = TaskExecutor(robot_system=self, robot_id=2)
 
-        # 경로 추종 컨트롤러 초기화
-        if self.sim_manager.initialize_path_controller(map_path):
-            self.map_initialized = True
-            print(f"  ✅ 맵 초기화 완료: {map_path}")
-        else:
-            print("  ⚠️  맵 초기화 실패 - 경로 계획 기능 비활성화")
-            self.map_initialized = False
 
+    # ---------- 입력 ----------
+    def _on_key_change(self, pressed: bool):
+        def handler(key):
+            name = None
+            if hasattr(key, "char") and key.char == "-":
+                name = "minus"
+            elif key == keyboard.Key.esc:
+                name = "escape"
+            elif key == keyboard.Key.f8:
+                name = "f8"
+            if not name:
+                return
+            with self._key_lock:
+                if pressed:
+                    self.pressed_keys.add(name)
+                else:
+                    self.pressed_keys.discard(name)
+        return handler
+
+    def _is_key_pressed(self, key_name: str) -> bool:
+        with self._key_lock:
+            if key_name not in self.pressed_keys:
+                return False
+            now = time.time()
+            last = self.last_key_time.get(key_name, 0.0)
+            if now - last <= self.key_debounce_time:
+                return False
+            self.last_key_time[key_name] = now
+            return True
+
+    # ---------- 상태 저장/복원 ----------
+    def _save_arm_gripper_state(self):
+        # Robot 1 상태 저장
+        self.sim_manager.saved_arm_position = self.sim_manager.data.qpos[ARM_Q_IDX].copy()
+        self.sim_manager.saved_gripper_state = float(self.sim_manager.data.ctrl[10])
+        # Robot 2 상태 저장
+        self.sim_manager.saved_arm_position_robot2 = self.sim_manager.data.qpos[ROBOT2_ARM_Q_IDX].copy()
+        self.sim_manager.saved_gripper_state_robot2 = float(self.sim_manager.data.ctrl[21])
+
+
+    def _restore_mobility_with_saved_state(self):
+        self.sim_manager.stop_path_control()
+        self.sim_manager.stop_mobility_control()
+
+        #  Start Robot2 mobility control
+        self.sim_manager.start_mobility_control()
+        self.sim_manager.start_mobility_control_robot2()
+
+    # ---------- 모드 전환 ----------
+    def _toggle_llm_mode(self):
+        self._save_arm_gripper_state()
+
+        # LLM -> 키보드
+        if self.llm_mode_active:
+            print("\n🔄 키보드 모드로 전환...")
+            self.llm_mode_active = False
+            with self._command_lock:
+                self.pending_llm_command = None
+            self._restore_mobility_with_saved_state()
+            return
+
+        # 키보드 -> LLM
+        print("\n🔄 LLM 모드로 전환...")
+        self.sim_manager.stop_mobility_control()
+        self.sim_manager.stop_mobility_control_robot2()
+        self.llm_mode_active = True
+        
+        #  입력 스레드 시작 (입력만 받음)
+        if not self.llm_input_thread or not self.llm_input_thread.is_alive():
+            self.llm_input_thread = threading.Thread(target=self._llm_input_handler, daemon=True)
+            self.llm_input_thread.start()
+        
+
+    # ---------- LLM 입력 처리 (별도 스레드, 입력만 받음) ----------
+    def _llm_input_handler(self):
+        print("\n💬 자연어로 명령을 입력하세요.")
+        
+        while self.llm_mode_active:
+            try:
+                cmd = input("\n💬 명령> ").strip()
+            except (EOFError, KeyboardInterrupt):
+                break
+            
+            if not self.llm_mode_active:
+                break
+                
+            if not cmd:
+                continue
+            
+            if cmd.lower() in {"q", "quit", "exit"}:
+                self.llm_mode_active = False
+                break
+            
+            #  SIMPLIFIED: Just queue the raw command
+            with self._command_lock:
+                self.pending_llm_command = cmd
+
+    # ---------- LLM 명령 실행 (메인 스레드에서만 실행) ----------
+    def _process_pending_llm_commands(self):
+        """ 메인 루프: 대기 중인 명령 처리"""
+        command_to_execute = None
+        
+        with self._command_lock:
+            if self.pending_llm_command:
+                command_to_execute = self.pending_llm_command
+                self.pending_llm_command = None
+        
+        if command_to_execute:
+            self._execute_llm_command(command_to_execute)
+            self._save_arm_gripper_state()
+
+    def _execute_llm_command(self, command: str) -> bool:
+            """ Execute LLM command using planner's analysis methods"""
+            # Use Robot1's position as default reference (LLM will determine actual robot)
+            cur = (self.sim_manager.data.qpos[0], self.sim_manager.data.qpos[1])
+
+            # 1) Parse command (LLM determines robot_id)
+            plan = self.llm_planner.parse_command(command, cur)
+
+            # 2)  Use planner's method to check for multi-robot plan
+            if self.llm_planner.is_multi_robot_plan(plan):
+                robot_ids = self.llm_planner.get_robot_ids_in_plan(plan)
+                print(f"\n🤖 혼합 로봇 계획 감지! {robot_ids} - 계획 분리 중...")
+                
+                #  Use planner's method to split the plan
+                split_plans = self.llm_planner.split_plan_by_robot(plan)
+                
+                # Display and execute each sub-plan
+                for robot_id_str, sub_plan in split_plans.items():
+                    robot_num = 1 if robot_id_str == "robot1" else 2
+                    executor = self.llm_executor_robot1 if robot_num == 1 else self.llm_executor_robot2
+                    robot_name = f"Robot{robot_num}"
+                    
+                    # Show sub-plan
+                    explanation = self.llm_planner.explain_plan(sub_plan)
+                    print(f"\n📘 [{robot_name}] 분리된 작업 계획:")
+                    print("-" * 50)
+                    print(explanation)
+                    print("-" * 50)
+                    
+                    # Execute sub-plan
+                    print(f"📋 [{robot_name}] 작업 {len(sub_plan.subtasks)}개 실행 시작...")
+                    executor.execute_plan(sub_plan, async_mode=True)
+                
+                print(f"\n 두 로봇의 계획이 동시에 실행됩니다!")
+                return True
+            
+            # 3) Single robot plan - execute normally
+            else:
+                robot_ids = self.llm_planner.get_robot_ids_in_plan(plan)
+                robot_id_str = list(robot_ids)[0] if robot_ids else "robot1"
+                robot_num = 1 if robot_id_str == "robot1" else 2
+                executor = self.llm_executor_robot1 if robot_num == 1 else self.llm_executor_robot2
+                robot_name = f"Robot{robot_num}"
+                
+                if not executor:
+                    print(f"[{robot_name}] Executor가 없습니다.")
+                    return False
+                
+                # Show plan
+                explanation = self.llm_planner.explain_plan(plan)
+                print(f"\n📘 [{robot_name}] 생성된 작업 계획:")
+                print("-" * 50)
+                print(explanation)
+                print("-" * 50)
+                
+                # Execute plan
+                print(f"📋 [{robot_name}] 작업 {len(plan.subtasks)}개 실행 시작...")
+                ok = executor.execute_plan(plan, async_mode=True)
+                return ok
+
+    # ---------- 초기화/루프 ----------
+    def _print_header(self):
+        print("\n" + "="*60)
+        print(" 🤖 MuJoCo Navigation & Pick & Place System")
+        print("="*60)
+
+    def _print_controls(self):
+        print("\n조작:")
+        print("  [Robot1]")
+        print("    • W/A/S/D: 이동 (전/좌/후/우)")
+        print("    • Q/E: 회전 (좌/우)")
+        print("    • C: 정지")
+        print("  [Robot2]")
+        print("    • Numpad 8/4/5/6: 이동 (전/좌/후/우)")
+        print("    • Numpad 7/9: 회전 (좌/우)")
+        print("    • Numpad 2: 정지")
+        print("  [공통]")
+        print("    • F8 : LLM 모드 토글")
+        print("    • ESC: 종료")
+
+    def initialize(self):
+        self._print_header()
+        self._print_controls()
+
+        self.sim_manager.initialize_viewer()
+    
+        self.sim_manager.initialize_arm_controllers()
+        
+        # ✅ Initialize general arm holders (for LLM/manual modes)
+        self.sim_manager.initialize_arm_holder(robot_id=1)
+        self.sim_manager.initialize_arm_holder(robot_id=2)
+        
+        self.sim_manager.initialize_path_controller(MAP_FILE)
+        self.sim_manager.initialize_path_controller_robot2(MAP_FILE)
+        
+        self.sim_manager.start_mobility_control()
+        self.sim_manager.start_mobility_control_robot2()
+        
+    
     def execute(self):
-        """메인 실행 루프"""
+        """ 메인 실행 루프 - State Machine 기반"""
+        
         try:
             while self.sim_manager.viewer_manager.is_running():
-                # 키 입력 처리
+                # 0) 키 입력
                 self._handle_keyboard_input()
 
-                # 네비게이션 완료 체크
-                if self.current_mode == "navigation" and self.sim_manager.is_navigation_complete():
-                    print("\n ✅ 목표 위치 도착! Teleop 모드로 전환")
-                    self.current_mode = "teleop"
+                # 1) LLM mode
+                if self.llm_mode_active:
+                    # LLM command handling
+                    self._process_pending_llm_commands()
 
-                    # 부드러운 전환을 위해 현재 위치 저장
-                    current_base_pos = self.sim_manager.data.qpos[:3].copy()
+                    # Hold arm - Use GENERAL arm holder (not path controller)
+                    if not self.is_arm_busy_robot1:
+                        if self.sim_manager.arm_holder is not None:
+                            torque = self.sim_manager.arm_holder.compute_hold_torque()
+                            self.sim_manager.data.ctrl[ARM_CTRL_IDX] = torque
+                    if not self.is_arm_busy_robot2:
+                        if self.sim_manager.arm_holder_robot2 is not None:
+                            torque = self.sim_manager.arm_holder_robot2.compute_hold_torque()
+                            self.sim_manager.data.ctrl[ROBOT2_ARM_CTRL_IDX] = torque
+                    
+                    # Executor update
+                    if self.llm_executor_robot1:
+                        self.llm_executor_robot1.update_execution()
+                    if self.llm_executor_robot2:
+                        self.llm_executor_robot2.update_execution()
+                        
+                    # ✅ Path controller update (async velocity computation)
+                    self.sim_manager.update_path_control(self)  # Pass robot_system
+                    self.sim_manager.update_path_control_robot2(self)  # Pass robot_system
 
-                    # PathController 정지 (현재 위치 유지)
-                    self.sim_manager.stop_path_control()
+                # 2) mobility update (in only keyboard mode)
+                if not self.llm_mode_active:
+                    self.sim_manager.update_mobility_control()
 
-                    # 전환 중 물리 시뮬레이션 계속 실행 (제어 공백 방지)
-                    with self.sim_manager.base_lock:
-                        self.sim_manager.base_cmd_ref[:] = current_base_pos
-                        # 시스템 구조에 따라 ctrl 사용 여부는 달라질 수 있습니다.
-                        self.sim_manager.data.ctrl[:3] = current_base_pos  # 기존 코드 유지
-
-                    # 전환 중 직접 물리 시뮬레이션 실행 (10 steps = 0.02초)
-                    time.sleep(1)  # 주석과 실제 값 불일치 있었으나 원래 코드 유지
-
-                    # MobilityController 시작 (현재 위치로)
-                    with self.sim_manager.base_lock:
-                        self.sim_manager.base_cmd_ref[:] = current_base_pos
-                    self.sim_manager.start_mobility_control()
-
-                    self.is_navigating = False
-
-                time.sleep(0.01)
-
-        except KeyboardInterrupt:
-            print("\n종료 중...")
+                # 3) physical stepping
+                self._step_count += 1
+                self.sim_manager.step()
         finally:
+            logger.info(f" Simulation complete. Total steps: {self._step_count}")
             self.cleanup()
 
+    # ---------- 키 처리/네비 ----------
     def _handle_keyboard_input(self):
-        """키보드 입력 처리 (F8~F11)"""
-        # ESC - 종료
-        if self._is_key_pressed('escape'):
+        if self._is_key_pressed("escape"):
+            self.llm_mode_active = False
             self.sim_manager.viewer_manager.close()
             return
 
-        # F8~F11: 방으로 이동
-        fkey_to_room = {'f8': '1번방', 'f9': '2번방', 'f10': '3번방', 'f11': '4번방'}
-        for fkey, room in fkey_to_room.items():
-            if self._is_key_pressed(fkey) and not self.is_navigating:
-                self._navigate_to_room(room)
-                break
-
-        # Space: Pick & Place 실행
-        if self._is_key_pressed('space') and not self.is_navigating:
-            if self.current_mode != "pick_place":
-                self._start_pick_place()
-
-    def _navigate_to_room(self, room_key: str):
-        """지정된 방으로 자동 이동 (room_key는 '1번방'~'4번방')"""
-        if not self.map_initialized:
-            print("\n ⚠️  맵이 초기화되지 않아 자동 이동할 수 없습니다.")
-            print("     숫자패드로 수동 이동하세요.")
+        # LLM Mode toggle (both '-' and F8 keys)
+        if self._is_key_pressed("f8"):
+            self._toggle_llm_mode()
             return
 
-        if room_key not in ROOM_POSITIONS:
-            print(f"\n ❌ 알 수 없는 방 키: {room_key}")
+        if self.llm_mode_active:
             return
-
-        target = ROOM_POSITIONS[room_key]
-
-        # 현재 위치 확인
-        current_pos = self.sim_manager.data.qpos[:2]
-        distance = np.linalg.norm(np.array(target) - current_pos)
-
-        print(f"\n 🚗 {ROOM_LABELS.get(room_key, room_key)}으로 이동 시작")
-        print(f"    현재 위치: ({current_pos[0]:.2f}, {current_pos[1]:.2f})")
-        print(f"    목표 위치: ({target[0]:.2f}, {target[1]:.2f})")
-        print(f"    이동 거리: {distance:.2f}m")
-
-        # 기존 컨트롤러 정지
-        self.sim_manager.stop_mobility_control(maintain_position=True)
-
-        # 경로 계획 및 추종 시작
-        self.sim_manager.start_path_control()
-
-        if self.sim_manager.navigate_to(target, visualize=False):
-            self.current_mode = "navigation"
-            self.is_navigating = True
-            print("    경로 계획 완료, 이동 중...")
-        else:
-            print("    ❌ 경로를 찾을 수 없습니다.")
-            # 실패 시 teleop 모드로 복귀
-            self.sim_manager.stop_path_control()
-            self.sim_manager.start_mobility_control()
-            self.current_mode = "teleop"
-
-    def _start_pick_place(self):
-        """Pick & Place 작업 시작"""
-        print("\n 📦 Pick & Place 모드 시작")
-
-        # 현재 위치에서 가장 가까운 방 찾기
-        current_pos = self.sim_manager.data.qpos[:2]
-        closest_room = None
-        min_distance = float('inf')
-
-        for room_key, room_pos in ROOM_POSITIONS.items():
-            dist = np.linalg.norm(np.array(room_pos) - current_pos)
-            if dist < min_distance:
-                min_distance = dist
-                closest_room = room_key
-
-        print(f"    현재 위치에서 가장 가까운 방: {ROOM_LABELS[closest_room]}")
-        print(f"    거리: {min_distance:.2f}m")
-
-        if min_distance > 2.0:
-            print("    ⚠️  작업 위치에서 너무 멉니다. 먼저 해당 방으로 이동하세요.")
-            return
-
-        # Pick & Place 실행
-        self.current_mode = "pick_place"
-
-        # 모든 네비게이션 정지
-        if self.is_navigating:
-            self.sim_manager.stop_path_control()
-            self.is_navigating = False
-
-        # 가장 가까운 방에 해당하는 태스크 선택
-        task_index = ROOM_TO_TASK_IDX[closest_room]
-        task = self.pick_place_task.tasks[task_index]
-
-        print(f"\n 작업 시작: {task['name']}")
-
-        # 기존 mobility 정지
-        self.sim_manager.stop_mobility_control(maintain_position=True)
-
-        # 컨트롤러 설정
-        self.pick_place_task._setup_controllers()
-
-        # 실행 가능성 체커 생성
-        from tasks.feasibility_checker import FeasibilityChecker
-        self.pick_place_task.feasibility_checker = FeasibilityChecker(
-            self.sim_manager.model, self.sim_manager.data,
-            self.sim_manager.ik_solver, self.sim_manager.config
-        )
-
-        # 단일 작업 실행
-        success = self.pick_place_task._execute_single_task(
-            task["pick"], task["place"], task["name"]
-        )
-
-        if success:
-            print("\n ✅ Pick & Place 작업 완료!")
-        else:
-            print("\n ⚠️  Pick & Place 작업 실패. 베이스 위치를 조정하고 다시 시도하세요.")
-
-        # Teleop 모드로 복귀
-        self.current_mode = "teleop"
-        self.sim_manager.start_mobility_control()
-        print("    Teleop 모드로 복귀")
-
+        
     def cleanup(self):
-        """정리 작업"""
-        print("\n시뮬레이션 종료 중...")
-
-        # 키보드 리스너 정지
-        if hasattr(self, 'keyboard_listener'):
+        print("\n시스템 종료...")
+        self.llm_mode_active = False
+        
+        # Stop keyboard listener
+        try:
             self.keyboard_listener.stop()
-
-        # 컨트롤러 정지
-        if self.is_navigating:
-            self.sim_manager.stop_path_control()
-
+        except Exception:
+            pass
+        
+        # Stop mobility control
         self.sim_manager.stop_mobility_control()
+        self.sim_manager.stop_mobility_control_robot2()
+        
+        # ✅ Shutdown all async workers gracefully
+        self.sim_manager.shutdown_all_workers()
+        
+        # Close viewer
         self.sim_manager.viewer_manager.close()
-
-        print("시뮬레이션이 종료되었습니다.")
-
+        
+        print("종료 완료")
 
 def main():
-    """메인 함수"""
-    print("\n" + "=" * 60)
-    print(" MuJoCo Navigation & Pick & Place Simulation v4.0")
-    print(" Integrated Path Planning and Manipulation System (F8~F11, 방=1번방~4번방)")
-    print("=" * 60)
-
-    # 시스템 생성 및 실행
     system = NavigationPickPlaceSystem()
     system.initialize()
     system.execute()

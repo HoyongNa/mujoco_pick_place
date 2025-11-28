@@ -6,7 +6,7 @@ Occupancy Grid (log-odds)
 
 from __future__ import annotations
 from dataclasses import dataclass
-from typing import Tuple, Optional
+from typing import Tuple, Optional, List
 import numpy as np
 import cv2
 
@@ -48,134 +48,208 @@ class OccupancyGridMap:
 
     # ------------- coords -------------
     def world_to_map(self, x: float, y: float) -> Tuple[int, int]:
-        j = int((x - self.origin[0]) / self.resolution)
-        i = int((y - self.origin[1]) / self.resolution)
-        return i, j
+        """world (x,y) -> map cell (row, col)"""
+        mx = int((x - self.origin[0]) / self.resolution)
+        my = int((y - self.origin[1]) / self.resolution)
+        return (my, mx)
 
-    def map_to_world(self, i: int, j: int) -> Tuple[float, float]:
-        x = self.origin[0] + (j + 0.5) * self.resolution
-        y = self.origin[1] + (i + 0.5) * self.resolution
-        return x, y
+    def map_to_world(self, row: int, col: int) -> Tuple[float, float]:
+        """map cell (row, col) -> world (x,y)"""
+        x = col * self.resolution + self.origin[0]
+        y = row * self.resolution + self.origin[1]
+        return (x, y)
 
-    def in_bounds(self, i: int, j: int) -> bool:
-        return 0 <= i < self.h and 0 <= j < self.w
+    def is_inside(self, row: int, col: int) -> bool:
+        return 0 <= row < self.h and 0 <= col < self.w
 
-    # ------------- ray tracing -------------
-    def _bresenham(self, i0: int, j0: int, i1: int, j1: int):
-        di = abs(i1 - i0)
-        dj = abs(j1 - j0)
-        si = 1 if i0 < i1 else -1
-        sj = 1 if j0 < j1 else -1
-        err = dj - di
-        i, j = i0, j0
-        out = []
-        while True:
-            out.append((i, j))
-            if i == i1 and j == j1:
-                break
-            e2 = 2 * err
-            if e2 > -di:
-                err -= di; j += sj
-            if e2 < dj:
-                err += dj; i += si
-        return out
+    # ------------- update -------------
+    def update_free(self, row: int, col: int):
+        if self.is_inside(row, col):
+            self.log_odds[row, col] = np.clip(
+                self.log_odds[row, col] + self.params.l_free,
+                self.params.l_min, self.params.l_max
+            )
 
-    def update_scan(self,
-                    origin_xy: Tuple[float, float],
-                    points_xy: np.ndarray,
-                    mark_end_as_occupied: bool = True):
-        """
-        origin -> 각각의 point까지 레이로 업데이트.
-        - mark_end_as_occupied=True  : 끝점을 occupied로 누적(실제 hit)
-        - mark_end_as_occupied=False : 끝점도 free로 누적(no-hit; 경로만 free)
-        """
-        if points_xy is None or len(points_xy) == 0:
-            return
+    def update_occupied(self, row: int, col: int):
+        if self.is_inside(row, col):
+            self.log_odds[row, col] = np.clip(
+                self.log_odds[row, col] + self.params.l_occ,
+                self.params.l_min, self.params.l_max
+            )
 
-        oi, oj = self.world_to_map(origin_xy[0], origin_xy[1])
+    def get_probability(self, row: int, col: int) -> float:
+        if not self.is_inside(row, col):
+            return 0.5
+        odds = np.exp(self.log_odds[row, col])
+        return odds / (1.0 + odds)
 
-        for p in points_xy:
-            pi, pj = self.world_to_map(float(p[0]), float(p[1]))
-            cells = self._bresenham(oi, oj, pi, pj)
-            if not cells:
-                continue
-
-            # 1) 경로 free (끝점 제외)
-            for (ci, cj) in cells[:-1]:
-                if self.in_bounds(ci, cj):
-                    self.log_odds[ci, cj] = np.clip(
-                        self.log_odds[ci, cj] + self.params.l_free,
-                        self.params.l_min, self.params.l_max)
-
-            # 2) 끝점 처리
-            ei, ej = cells[-1]
-            if self.in_bounds(ei, ej):
-                inc = self.params.l_occ if mark_end_as_occupied else self.params.l_free
-                self.log_odds[ei, ej] = np.clip(
-                    self.log_odds[ei, ej] + inc,
-                    self.params.l_min, self.params.l_max)
-
-    # ------------- viz / stats -------------
     def get_probability_map(self) -> np.ndarray:
-        return 1.0 / (1.0 + np.exp(-self.log_odds))
+        odds = np.exp(self.log_odds)
+        return odds / (1.0 + odds)
 
+    # ------------- visualization -------------
     def get_visualization_image(self) -> np.ndarray:
-        """
-        RGB 시각화 이미지 (H,W,3) uint8
-        - unknown: gray(128), free: white(255), occupied: black(0)
-        - flip 하지 않음 (imshow에서 origin='lower' 사용)
-        """
-        p = self.get_probability_map()
-        img = np.full((self.h, self.w, 3), 128, np.uint8)  # unknown
-        free = p < self.params.prob_thresh
-        occ  = p >= self.params.prob_thresh
-        img[free] = (255, 255, 255)
-        img[occ]  = (0, 0, 0)
-        return img
+        prob = self.get_probability_map()
+        img = (255 * (1 - prob)).astype(np.uint8)
+        return cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
 
     def get_extent(self) -> Tuple[float, float, float, float]:
-        """matplotlib imshow extent = (xmin, xmax, ymin, ymax)"""
+        """Returns (xmin, xmax, ymin, ymax) for matplotlib imshow"""
         xmin = self.origin[0]
         xmax = self.origin[0] + self.w * self.resolution
         ymin = self.origin[1]
         ymax = self.origin[1] + self.h * self.resolution
         return (xmin, xmax, ymin, ymax)
 
-    def get_statistics(self) -> dict:
-        known = int(np.count_nonzero(self.log_odds))
-        occ   = int(np.count_nonzero(self.log_odds > 0))
-        free  = int(np.count_nonzero(self.log_odds < 0))
-        total = int(self.h * self.w)
-        cov   = 100.0 * known / max(total, 1)
-        return {
-            "coverage_percent": float(cov),
-            "occupied_cells": occ,
-            "free_cells": free,
-            "total_cells": total,
-            "height": self.h,
-            "width": self.w,
-            "resolution": self.resolution,
-        }
-
-    def clear(self):
+    def reset(self):
         self.log_odds.fill(0)
+        
+    def clear(self):
+        """Alias for reset for compatibility"""
+        self.reset()
+        
+    def save(self, filename: str):
+        """Save map to file"""
+        np.savez(filename, 
+                 log_odds=self.log_odds,
+                 resolution=self.resolution,
+                 origin=np.array(self.origin),
+                 map_size=np.array(self.map_size))
+        print(f"[OccupancyGrid] Map saved to {filename}")
+        
+    def get_statistics(self) -> dict:
+        """Get map statistics"""
+        prob_map = self.get_probability_map()
+        return {
+            "occupied_cells": int(np.sum(prob_map > self.params.prob_thresh)),
+            "free_cells": int(np.sum(prob_map < (1 - self.params.prob_thresh))),
+            "unknown_cells": int(np.sum((prob_map >= (1 - self.params.prob_thresh)) & 
+                                       (prob_map <= self.params.prob_thresh))),
+            "total_cells": int(self.h * self.w)
+        }
+    
+    def update_scan(self, sensor_pos: Tuple[float, float], 
+                    endpoints: np.ndarray,
+                    mark_end_as_occupied: bool = True):
+        """
+        라이다 스캔 데이터로 맵 업데이트
+        Bresenham 알고리즘을 사용하여 레이 트레이싱
+        
+        Args:
+            sensor_pos: 센서의 월드 좌표 (x, y)
+            endpoints: 레이저 끝점들의 월드 좌표 배열 (N, 2)
+            mark_end_as_occupied: True면 끝점을 occupied로, False면 free로만
+        """
+        if endpoints.size == 0:
+            return
+            
+        # 센서 위치를 맵 좌표로 변환
+        sensor_row, sensor_col = self.world_to_map(sensor_pos[0], sensor_pos[1])
+        
+        for endpoint in endpoints:
+            end_row, end_col = self.world_to_map(float(endpoint[0]), float(endpoint[1]))
+            
+            # Bresenham line algorithm으로 레이 경로 상의 모든 셀 구하기
+            cells = self._bresenham_line(sensor_row, sensor_col, end_row, end_col)
+            
+            # 레이 경로 상의 셀들을 free로 업데이트 (끝점 제외)
+            for i, (row, col) in enumerate(cells[:-1]):
+                self.update_free(row, col)
+            
+            # 끝점 처리
+            if len(cells) > 0:
+                last_row, last_col = cells[-1]
+                if mark_end_as_occupied:
+                    # Hit: 끝점을 occupied로
+                    self.update_occupied(last_row, last_col)
+                else:
+                    # No-hit: 끝점도 free로 (최대 거리에서 아무것도 없음)
+                    self.update_free(last_row, last_col)
+    
+    def _bresenham_line(self, r0: int, c0: int, r1: int, c1: int) -> List[Tuple[int, int]]:
+        """
+        Bresenham's line algorithm
+        두 셀 사이의 직선 경로 상의 모든 셀 반환
+        """
+        cells = []
+        dr = abs(r1 - r0)
+        dc = abs(c1 - c0)
+        sr = 1 if r0 < r1 else -1
+        sc = 1 if c0 < c1 else -1
+        err = dr - dc
+        
+        r, c = r0, c0
+        
+        while True:
+            if self.is_inside(r, c):
+                cells.append((r, c))
+            
+            if r == r1 and c == c1:
+                break
+                
+            e2 = 2 * err
+            if e2 > -dc:
+                err -= dc
+                r += sr
+            if e2 < dr:
+                err += dr
+                c += sc
+                
+        return cells
 
-    def save(self, path: str):
-        np.savez_compressed(
-            path,
-            log_odds=self.log_odds,
-            resolution=self.resolution,
-            origin=np.asarray(self.origin, dtype=np.float32),
-            h=self.h, w=self.w
-        )
 
-    def load(self, path: str):
-        arr = np.load(path, allow_pickle=False)
-        self.log_odds = arr["log_odds"]
-        self.resolution = float(arr["resolution"])
-        o = arr["origin"]
-        self.origin = (float(o[0]), float(o[1]))
-        self.h, self.w = int(arr["h"]), int(arr["w"])
-        # alias 갱신
-        self.map_size = (self.h, self.w)
-        self.map_origin = self.origin
+# LidarIntegratedController와의 호환성을 위한 래퍼 클래스
+class OccupancyGrid:
+    """LidarIntegratedController와 호환되는 OccupancyGrid 클래스"""
+    
+    def __init__(self, size: Tuple[int, int] = (200, 200), resolution: float = 0.05):
+        """
+        Args:
+            size: 그리드 크기 (width, height)
+            resolution: 셀 해상도 (meters)
+        """
+        # 내부적으로 OccupancyGridMap 사용
+        self._map = OccupancyGridMap(map_size=(size[1], size[0]), resolution=resolution)
+        
+        # 호환성을 위한 속성
+        self.size = size
+        self.resolution = resolution
+        self.origin = self._map.origin
+        self.grid = self._map.log_odds  # log-odds 맵 직접 참조
+        
+    def update_cell_free(self, col: int, row: int):
+        """셀을 free로 업데이트 (인터페이스 맞춤)"""
+        self._map.update_free(row, col)
+        
+    def update_cell_occupied(self, col: int, row: int):
+        """셀을 occupied로 업데이트 (인터페이스 맞춤)"""
+        self._map.update_occupied(row, col)
+        
+    def get_probability(self, col: int, row: int) -> float:
+        """특정 셀의 점유 확률 반환"""
+        return self._map.get_probability(row, col)
+        
+    def get_probability_map(self) -> np.ndarray:
+        """전체 확률 맵 반환"""
+        return self._map.get_probability_map()
+        
+    def world_to_map(self, x: float, y: float) -> Tuple[int, int]:
+        """월드 좌표를 맵 좌표로 변환"""
+        row, col = self._map.world_to_map(x, y)
+        return (col, row)  # (x, y) 순서로 반환
+        
+    def map_to_world(self, col: int, row: int) -> Tuple[float, float]:
+        """맵 좌표를 월드 좌표로 변환"""
+        return self._map.map_to_world(row, col)
+        
+    def is_inside(self, col: int, row: int) -> bool:
+        """좌표가 맵 내부인지 확인"""
+        return self._map.is_inside(row, col)
+        
+    def update_scan(self, sensor_pos: Tuple[float, float], endpoints: np.ndarray, mark_end_as_occupied: bool = True):
+        """라이다 스캔 데이터로 맵 업데이트 (래퍼 메서드)"""
+        return self._map.update_scan(sensor_pos, endpoints, mark_end_as_occupied)
+    
+    def reset(self):
+        """맵 초기화"""
+        self._map.reset()

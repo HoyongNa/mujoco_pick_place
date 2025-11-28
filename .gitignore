@@ -1,12 +1,13 @@
-# Python
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
+
+# C extensions
 *.so
+
+# Distribution / packaging
 .Python
-env/
-venv/
-ENV/
 build/
 develop-eggs/
 dist/
@@ -19,99 +20,173 @@ parts/
 sdist/
 var/
 wheels/
+pip-wheel-metadata/
+share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
-# Virtual Environment
-venv/
-ENV/
-env/
-.venv/
+# PyInstaller
+*.manifest
+*.spec
 
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-.DS_Store
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
-*.ipynb
 
-# MuJoCo specific
-*.mj2
-*.mjb
+# IPython
+profile_default/
+ipython_config.py
 
-# Map files (can be large)
-*.npz
-lidar_map_*.npz
-saved_maps/
+# pyenv
+.python-version
 
-# Log files
-*.log
-logs/
+# pipenv
+Pipfile.lock
 
-# Test outputs
-test_output/
-test_results/
+# PEP 582
+__pypackages__/
 
-# Documentation build
-docs/_build/
-docs/.doctrees/
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
 
-# Coverage reports
-htmlcov/
-.coverage
-.coverage.*
-coverage.xml
-*.cover
+# SageMath parsed files
+*.sage.py
 
-# pytest
-.pytest_cache/
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
 
 # mypy
 .mypy_cache/
 .dmypy.json
 dmypy.json
 
-# System files
-Thumbs.db
-.DS_Store
-desktop.ini
+# Pyre type checker
+.pyre/
+
+# MuJoCo specific
+*.mjb
+MUJOCO_LOG.TXT
+
+# Map files (keep important ones)
+# *.npz
+
+# API keys
+config/key_config.py
+
+# Backup files
+.backup/
+*.bak
+*.backup
+*.old
 
 # Temporary files
 *.tmp
-*.bak
-*.backup
-temp/
-tmp/
+*.temp
+*~
 
-# Config files with sensitive data (if any)
-config/local_settings.py
-config/secrets.py
+# IDE specific
+.vscode/
+.idea/
+*.swp
+*.swo
 
-# Model files (if large)
-models/*.xml.backup
-models/temp/
+# macOS
+.DS_Store
 
-# Video/Image outputs
-*.mp4
-*.avi
-*.gif
-*.png
-*.jpg
-*.jpeg
-screenshots/
-recordings/
+# Windows
+Thumbs.db
+desktop.ini
 
-# Profiling data
-*.prof
-*.stats
+# C generated code (keep for now)
+# c_generated_code/
 
-# Custom
-.env
-.env.local
-*.pid
+# ==============================================================================
+# Large External Dependencies (Install separately)
+# ==============================================================================
+# These folders are too large for git and should be installed via the 
+# installation script (install_ubuntu_22.04.sh) or manual installation.
+# See README_UBUNTU_22.04.md for installation instructions.
+
+# RoboCasa kitchen environments (install with: pip install -e ~/robocasa)
+robocasa/
+RoboCasa/
+
+# Robosuite framework (install with: pip install -e ~/robosuite)
+robosuite/
+Robosuite/
+
+# ACADOS build artifacts
+c_generated_code/
+acados_ocp.json
+acados_ocp_robot.json
+robot_mpc.json
+*.dll
+*.so
+*.dylib
+
+# Large data files
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+large_data/
+datasets/
