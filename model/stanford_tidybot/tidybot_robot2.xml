@@ -1,0 +1,312 @@
+<mujoco model="tidybot_robot2">
+  <compiler angle="radian" meshdir="assets"/>
+
+  <worldbody>  
+  <!-- Updated: 1-1.8=-0.8, -1+0=-1, 0+0.3=0.3 -->
+    <camera name="robot2_fixed_front"
+          pos="-0.8 -1 0.3"  
+          euler="0 1.57 -1.57" 
+          fovy="55" 
+          resolution="640 480"/>
+    <!-- <body name="robot2_base_link" pos="0 0 0"> -->
+    <body name="robot2_base_link" pos="0 0 0">
+      <inertial pos="0 0 0" mass="60" diaginertia="0.001 0.001 0.001"/>
+      <joint name="robot2_joint_x" type="slide" axis="1 0 0" damping="10"/>
+      <joint name="robot2_joint_y" type="slide" axis="0 1 0" damping="10"/>
+      <joint name="robot2_joint_th"/>
+      <geom class="base/visual" mesh="bumper" material="black"/>
+      <geom class="base/visual" mesh="bottom_plate" material="dark_gray"/>
+      <geom class="base/visual" mesh="body" material="gray"/>
+      <geom class="base/visual" mesh="top_plate" material="dark_gray"/>
+      <geom class="base/visual" mesh="arm_plate" material="gray"/>
+      <geom class="base/collision" mesh="bumper"/>
+      <geom class="base/collision" mesh="bottom_plate"/>
+      <geom class="base/collision" mesh="body"/>
+      <geom class="base/collision" mesh="top_plate"/>
+      <geom class="base/collision" mesh="arm_plate"/>
+      <camera name="robot2_base" pos="0.2525 0 0.335" euler="0 -0.7853981634 -1.5707963268" fovy="52.23384539951277"
+        resolution="640 360"/>
+      <body name="robot2_gen3/base_link" pos="0 0 0.335" quat="-1 0 0 0">
+        <inertial pos="-0.000648 -0.000166 0.084487" quat="0.999294 0.00139618 -0.0118387 0.035636" mass="1.697"
+          diaginertia="0.00462407 0.00449437 0.00207755"/>
+        <geom class="gen3/visual" mesh="gen3/base_link"/>
+        <geom class="gen3/collision" mesh="gen3/base_link"/>
+        <site name="robot2_rf_00" class="rangefinder" euler="-1.57080 0.00000  1.57080"/>
+        <site name="robot2_rf_01" class="rangefinder" euler="-1.57080 0.08727  1.57080"/>
+        <site name="robot2_rf_02" class="rangefinder" euler="-1.57080 0.17453  1.57080"/>
+        <site name="robot2_rf_03" class="rangefinder" euler="-1.57080 0.26180  1.57080"/>
+        <site name="robot2_rf_04" class="rangefinder" euler="-1.57080 0.34907  1.57080"/>
+        <site name="robot2_rf_05" class="rangefinder" euler="-1.57080 0.43633  1.57080"/>
+        <site name="robot2_rf_06" class="rangefinder" euler="-1.57080 0.52360  1.57080"/>
+        <site name="robot2_rf_07" class="rangefinder" euler="-1.57080 0.61087  1.57080"/>
+        <site name="robot2_rf_08" class="rangefinder" euler="-1.57080 0.69813  1.57080"/>
+        <site name="robot2_rf_09" class="rangefinder" euler="-1.57080 0.78540  1.57080"/>
+        <site name="robot2_rf_10" class="rangefinder" euler="-1.57080 0.87266  1.57080"/>
+        <site name="robot2_rf_11" class="rangefinder" euler="-1.57080 0.95993  1.57080"/>
+        <site name="robot2_rf_12" class="rangefinder" euler="-1.57080 1.04720  1.57080"/>
+        <site name="robot2_rf_13" class="rangefinder" euler="-1.57080 1.13446  1.57080"/>
+        <site name="robot2_rf_14" class="rangefinder" euler="-1.57080 1.22173  1.57080"/>
+        <site name="robot2_rf_15" class="rangefinder" euler="-1.57080 1.30900  1.57080"/>
+        <site name="robot2_rf_16" class="rangefinder" euler="-1.57080 1.39626  1.57080"/>
+        <site name="robot2_rf_17" class="rangefinder" euler="-1.57080 1.48353  1.57080"/>
+        <site name="robot2_rf_18" class="rangefinder" euler=" 0.00000 1.57080  0.00000"/>
+        <site name="robot2_rf_19" class="rangefinder" euler=" 1.57080 1.48353 -1.57080"/>
+        <site name="robot2_rf_20" class="rangefinder" euler=" 1.57080 1.39626 -1.57080"/>
+        <site name="robot2_rf_21" class="rangefinder" euler=" 1.57080 1.30900 -1.57080"/>
+        <site name="robot2_rf_22" class="rangefinder" euler=" 1.57080 1.22173 -1.57080"/>
+        <site name="robot2_rf_23" class="rangefinder" euler=" 1.57080 1.13446 -1.57080"/>
+        <site name="robot2_rf_24" class="rangefinder" euler=" 1.57080 1.04720 -1.57080"/>
+        <site name="robot2_rf_25" class="rangefinder" euler=" 1.57080 0.95993 -1.57080"/>
+        <site name="robot2_rf_26" class="rangefinder" euler=" 1.57080 0.87266 -1.57080"/>
+        <site name="robot2_rf_27" class="rangefinder" euler=" 1.57080 0.78540 -1.57080"/>
+        <site name="robot2_rf_28" class="rangefinder" euler=" 1.57080 0.69813 -1.57080"/>
+        <site name="robot2_rf_29" class="rangefinder" euler=" 1.57080 0.61087 -1.57080"/>
+        <site name="robot2_rf_30" class="rangefinder" euler=" 1.57080 0.52360 -1.57080"/>
+        <site name="robot2_rf_31" class="rangefinder" euler=" 1.57080 0.43633 -1.57080"/>
+        <site name="robot2_rf_32" class="rangefinder" euler=" 1.57080 0.34907 -1.57080"/>
+        <site name="robot2_rf_33" class="rangefinder" euler=" 1.57080 0.26180 -1.57080"/>
+        <site name="robot2_rf_34" class="rangefinder" euler=" 1.57080 0.17453 -1.57080"/>
+        <site name="robot2_rf_35" class="rangefinder" euler=" 1.57080 0.08727 -1.57080"/>
+        <site name="robot2_rf_36" class="rangefinder" euler=" 1.57080 0.00000 -1.57080"/>
+        <body name="robot2_shoulder_link" pos="0 0 0.15643" quat="0 1 0 0">
+          <inertial pos="-2.3e-05 -0.010364 -0.07336" quat="0.707051 0.0451246 -0.0453544 0.704263" mass="1.3773"
+            diaginertia="0.00488868 0.00457 0.00135132"/>
+          <joint name="robot2_joint_1" range="-3.14159 3.14159"/>
+          <geom class="gen3/visual" mesh="shoulder_link"/>
+          <geom class="gen3/collision" mesh="shoulder_link"/>
+          <body name="robot2_half_arm_1_link" pos="0 0.005375 -0.12838" quat="1 1 0 0">
+            <inertial pos="-4.4e-05 -0.09958 -0.013278" quat="0.482348 0.516286 -0.516862 0.483366" mass="1.1636"
+              diaginertia="0.0113017 0.011088 0.00102532"/>
+            <joint name="robot2_joint_2" range="-2.24 2.24"/>
+            <geom class="gen3/visual" mesh="half_arm_1_link"/>
+            <geom class="gen3/collision" mesh="half_arm_1_link"/>
+            <body name="robot2_half_arm_2_link" pos="0 -0.21038 -0.006375" quat="1 -1 0 0">
+              <inertial pos="-4.4e-05 -0.006641 -0.117892" quat="0.706144 0.0213722 -0.0209128 0.707437" mass="1.1636"
+                diaginertia="0.0111633 0.010932 0.00100671"/>
+              <joint name="robot2_joint_3" range="-3.14159 3.14159"/>
+              <geom class="gen3/visual" mesh="half_arm_2_link"/>
+              <geom class="gen3/collision" mesh="half_arm_2_link"/>
+              <body name="robot2_forearm_link" pos="0 0.006375 -0.21038" quat="1 1 0 0">
+                <inertial pos="-1.8e-05 -0.075478 -0.015006" quat="0.483678 0.515961 -0.515859 0.483455" mass="0.9302"
+                  diaginertia="0.00834839 0.008147 0.000598606"/>
+                <joint name="robot2_joint_4" range="-2.57 2.57"/>
+                <geom class="gen3/visual" mesh="forearm_link"/>
+                <geom class="gen3/collision" mesh="forearm_link"/>
+                <body name="robot2_spherical_wrist_1_link" pos="0 -0.20843 -0.006375" quat="1 -1 0 0">
+                  <inertial pos="1e-06 -0.009432 -0.063883" quat="0.703558 0.0707492 -0.0707492 0.703558" mass="0.6781"
+                    diaginertia="0.00165901 0.001596 0.000346988"/>
+                  <joint name="robot2_joint_5" range="-3.14159 3.14159"/>
+                  <geom class="gen3/visual" mesh="spherical_wrist_1_link"/>
+                  <geom class="gen3/collision" mesh="spherical_wrist_1_link"/>
+                  <body name="robot2_spherical_wrist_2_link" pos="0 0.00017505 -0.10593" quat="1 1 0 0">
+                    <inertial pos="1e-06 -0.045483 -0.00965" quat="0.44426 0.550121 -0.550121 0.44426" mass="0.6781"
+                      diaginertia="0.00170087 0.001641 0.00035013"/>
+                    <joint name="robot2_joint_6" range="-2.09 2.09"/>
+                    <geom class="gen3/visual" mesh="spherical_wrist_2_link"/>
+                    <geom class="gen3/collision" mesh="spherical_wrist_2_link"/>
+                    <body name="robot2_bracelet_link" pos="0 -0.10593 -0.00017505" quat="1 -1 0 0">
+                      <inertial pos="0.000281 0.011402 -0.029798" quat="0.394358 0.596779 -0.577293 0.393789" mass="0.5"
+                        diaginertia="0.000657336 0.000587019 0.000320645"/>
+                      <joint name="robot2_joint_7" range="-3.14159 3.14159"/>
+                      <geom class="gen3/visual" mesh="bracelet_with_vision_link"/>
+                      <geom class="gen3/collision" mesh="bracelet_with_vision_link"/>
+                      <body name="robot2_base" pos="0 0 -0.06149039" quat="0 -1 1 0" childclass="2f85">
+                        <inertial mass="0.777441" pos="0 -2.70394e-05 0.0354675" quat="1 -0.00152849 0 0"
+                          diaginertia="0.000260285 0.000225381 0.000152708"/>
+                        <geom class="2f85/visual" mesh="base" material="2f85/black"/>
+                        <geom class="2f85/collision" mesh="base"/>
+                        <!-- Right-hand side 4-bar linkage -->
+                        <body name="robot2_right_driver" pos="0 0.0306011 0.054904">
+                          <inertial mass="0.00899563" pos="2.96931e-12 0.0177547 0.00107314"
+                            quat="0.681301 0.732003 0 0" diaginertia="1.72352e-06 1.60906e-06 3.22006e-07"/>
+                          <joint name="robot2_right_driver_joint" class="driver"/>
+                          <geom class="2f85/visual" mesh="driver" material="2f85/gray"/>
+                          <geom class="2f85/collision" mesh="driver"/>
+                          <body name="robot2_right_coupler" pos="0 0.0315 -0.0041">
+                            <inertial mass="0.0140974" pos="0 0.00301209 0.0232175"
+                              quat="0.705636 -0.0455904 0.0455904 0.705636"
+                              diaginertia="4.16206e-06 3.52216e-06 8.88131e-07"/>
+                            <joint name="robot2_right_coupler_joint" class="coupler"/>
+                            <geom class="2f85/visual" mesh="coupler" material="2f85/black"/>
+                            <geom class="2f85/collision" mesh="coupler"/>
+                          </body>
+                        </body>
+                        <body name="robot2_right_spring_link" pos="0 0.0132 0.0609">
+                          <inertial mass="0.0221642" pos="-8.65005e-09 0.0181624 0.0212658"
+                            quat="0.663403 -0.244737 0.244737 0.663403"
+                            diaginertia="8.96853e-06 6.71733e-06 2.63931e-06"/>
+                          <joint name="robot2_right_spring_link_joint" class="spring_link"/>
+                          <geom class="2f85/visual" mesh="spring_link" material="2f85/black"/>
+                          <geom class="2f85/collision" mesh="spring_link"/>
+                          <body name="robot2_right_follower" pos="0 0.055 0.0375">
+                            <inertial mass="0.0125222" pos="0 -0.011046 0.0124786" quat="1 0.1664 0 0"
+                              diaginertia="2.67415e-06 2.4559e-06 6.02031e-07"/>
+                            <joint name="robot2_right_follower_joint" class="follower"/>
+                            <geom class="2f85/visual" mesh="follower" material="2f85/black"/>
+                            <geom class="2f85/collision" mesh="follower"/>
+                            <body name="robot2_right_pad" pos="0 -0.0189 0.01352">
+                              <geom class="pad_box1" name="robot2_right_pad1" friction="5 1 1" contype="1" conaffinity="1"/>
+                              <geom class="pad_box2" name="robot2_right_pad2" friction="5 1 1" contype="1" conaffinity="1"/>
+                              <inertial mass="0.0035" pos="0 -0.0025 0.0185" quat="0.707107 0 0 0.707107"
+                                diaginertia="4.73958e-07 3.64583e-07 1.23958e-07"/>
+                              <geom class="2f85/visual" mesh="pad"/>
+                              <body name="robot2_right_silicone_pad">
+                                <geom class="2f85/visual" mesh="silicone_pad" material="2f85/black"/>
+                              </body>
+                            </body>
+                          </body>
+                        </body>
+                        <!-- Left-hand side 4-bar linkage -->
+                        <body name="robot2_left_driver" pos="0 -0.0306011 0.054904" quat="0 0 0 1">
+                          <inertial mass="0.00899563" pos="0 0.0177547 0.00107314" quat="0.681301 0.732003 0 0"
+                            diaginertia="1.72352e-06 1.60906e-06 3.22006e-07"/>
+                          <joint name="robot2_left_driver_joint" class="driver"/>
+                          <geom class="2f85/visual" mesh="driver" material="2f85/gray"/>
+                          <geom class="2f85/collision" mesh="driver"/>
+                          <body name="robot2_left_coupler" pos="0 0.0315 -0.0041">
+                            <inertial mass="0.0140974" pos="0 0.00301209 0.0232175"
+                              quat="0.705636 -0.0455904 0.0455904 0.705636"
+                              diaginertia="4.16206e-06 3.52216e-06 8.88131e-07"/>
+                            <joint name="robot2_left_coupler_joint" class="coupler"/>
+                            <geom class="2f85/visual" mesh="coupler" material="2f85/black"/>
+                            <geom class="2f85/collision" mesh="coupler"/>
+                          </body>
+                        </body>
+                        <body name="robot2_left_spring_link" pos="0 -0.0132 0.0609" quat="0 0 0 1">
+                          <inertial mass="0.0221642" pos="-8.65005e-09 0.0181624 0.0212658"
+                            quat="0.663403 -0.244737 0.244737 0.663403"
+                            diaginertia="8.96853e-06 6.71733e-06 2.63931e-06"/>
+                          <joint name="robot2_left_spring_link_joint" class="spring_link"/>
+                          <geom class="2f85/visual" mesh="spring_link" material="2f85/black"/>
+                          <geom class="2f85/collision" mesh="spring_link"/>
+                          <body name="robot2_left_follower" pos="0 0.055 0.0375">
+                            <inertial mass="0.0125222" pos="0 -0.011046 0.0124786" quat="1 0.1664 0 0"
+                              diaginertia="2.67415e-06 2.4559e-06 6.02031e-07"/>
+                            <joint name="robot2_left_follower_joint" class="follower"/>
+                            <geom class="2f85/visual" mesh="follower" material="2f85/black"/>
+                            <geom class="2f85/collision" mesh="follower"/>
+                            <body name="robot2_left_pad" pos="0 -0.0189 0.01352">
+                              <geom class="pad_box1" name="robot2_left_pad1" friction="5 1 1" contype="1" conaffinity="1"/>
+                              <geom class="pad_box2" name="robot2_left_pad2" friction="5 1 1" contype="1" conaffinity="1"/>
+                              <inertial mass="0.0035" pos="0 -0.0025 0.0185" quat="1 0 0 1"
+                                diaginertia="4.73958e-07 3.64583e-07 1.23958e-07"/>
+                              <geom class="2f85/visual" mesh="pad"/>
+                              <body name="robot2_left_silicone_pad">
+                                <geom class="2f85/visual" mesh="silicone_pad" material="2f85/black"/>
+                              </body>
+                            </body>
+                          </body>
+                        </body>
+                      </body>
+                      <camera name="robot2_wrist1" pos="0 -0.18 -0.15" euler="0.95 0 0" fovy="60" resolution="224 224"/> 
+                      <camera name="robot2_wrist2" pos="0 -0.05 -0.06" euler="0 0 0" fovy="60" resolution="224 224"/>
+                      <site name="robot2_pinch_site" pos="0 0 -0.181525" quat="0 1 0 0"/>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <contact>
+    <exclude body1="robot2_base" body2="robot2_left_driver"/>
+    <exclude body1="robot2_base" body2="robot2_right_driver"/>
+    <exclude body1="robot2_base" body2="robot2_left_spring_link"/>
+    <exclude body1="robot2_base" body2="robot2_right_spring_link"/>
+    <exclude body1="robot2_right_coupler" body2="robot2_right_follower"/>
+    <exclude body1="robot2_left_coupler" body2="robot2_left_follower"/>
+  </contact>
+
+  <tendon>
+    <fixed name="robot2_split">
+      <joint joint="robot2_right_driver_joint" coef="0.5"/>
+      <joint joint="robot2_left_driver_joint" coef="0.5"/>
+    </fixed>
+  </tendon>
+
+  <equality>
+    <connect anchor="0 0 0" body1="robot2_right_follower" body2="robot2_right_coupler" solimp="0.95 0.99 0.001" solref="0.005 1"/>
+    <connect anchor="0 0 0" body1="robot2_left_follower" body2="robot2_left_coupler" solimp="0.95 0.99 0.001" solref="0.005 1"/>
+    <joint joint1="robot2_right_driver_joint" joint2="robot2_left_driver_joint" polycoef="0 1 0 0 0" solimp="0.95 0.99 0.001"
+      solref="0.005 1"/>
+  </equality>
+
+  <actuator>
+    <velocity name="robot2_joint_x" joint="robot2_joint_x" kv="200" forcerange="-800 800"/>
+    <velocity name="robot2_joint_y" joint="robot2_joint_y" kv="200" forcerange="-800 800"/>
+    <velocity name="robot2_joint_th" joint="robot2_joint_th" kv="100"  forcerange="-800 800"/>
+
+    <motor name="robot2_joint_1" joint="robot2_joint_1" gear="100" forcerange="-10000 10000"/>
+    <motor name="robot2_joint_2" joint="robot2_joint_2" gear="100" forcerange="-10000 10000"/>
+    <motor name="robot2_joint_3" joint="robot2_joint_3" gear="100" forcerange="-10000 10000"/>
+    <motor name="robot2_joint_4" joint="robot2_joint_4" gear="100"  forcerange="-10000 10000"/>
+    <motor name="robot2_joint_5" joint="robot2_joint_5" gear="100"  forcerange="-10000 10000"/>
+    <motor name="robot2_joint_6" joint="robot2_joint_6" gear="100"  forcerange="-10000 10000"/>
+    <motor name="robot2_joint_7" joint="robot2_joint_7" gear="100"  forcerange="-10000 10000"/>
+
+    <general class="2f85" name="robot2_fingers_actuator" tendon="robot2_split"
+            forcerange="-300 300" ctrlrange="0 255"
+            gainprm="1 0 0" biasprm="0 -100 -10"/>
+  </actuator>
+
+  <!-- Keyframes commented out for dual robot setup -->
+  <!--
+  <keyframe>
+    <key name="robot2_home"
+        qpos="2 -2 0 1 0 0 0
+           0 0 0
+            0.26179939 3.14159265 -2.26892803 0 0.95993109 1.57079633 0 0"
+            
+        ctrl="0 0 0 0 0.26179939 3.14159265 -2.26892803 0 0.95993109 1.57079633 0"/>
+    <key name="robot2_retract"
+        qpos="-1.5 0 0 1 0 0 0   
+        0 0 0 
+        -0.34906585 3.14159265 -2.54818071 0 -0.87266463 1.57079633 0 0"
+        ctrl="0 0 0 0 -0.34906585 3.14159265 -2.54818071 0 -0.87266463 1.57079633 0"/>
+  </keyframe>
+  -->
+
+  <sensor>
+    <rangefinder name="robot2_rf_00" site="robot2_rf_00" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_01" site="robot2_rf_01" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_02" site="robot2_rf_02" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_03" site="robot2_rf_03" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_04" site="robot2_rf_04" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_05" site="robot2_rf_05" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_06" site="robot2_rf_06" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_07" site="robot2_rf_07" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_08" site="robot2_rf_08" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_09" site="robot2_rf_09" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_10" site="robot2_rf_10" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_11" site="robot2_rf_11" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_12" site="robot2_rf_12" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_13" site="robot2_rf_13" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_14" site="robot2_rf_14" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_15" site="robot2_rf_15" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_16" site="robot2_rf_16" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_17" site="robot2_rf_17" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_18" site="robot2_rf_18" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_19" site="robot2_rf_19" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_20" site="robot2_rf_20" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_21" site="robot2_rf_21" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_22" site="robot2_rf_22" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_23" site="robot2_rf_23" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_24" site="robot2_rf_24" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_25" site="robot2_rf_25" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_26" site="robot2_rf_26" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_27" site="robot2_rf_27" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_28" site="robot2_rf_28" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_29" site="robot2_rf_29" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_30" site="robot2_rf_30" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_31" site="robot2_rf_31" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_32" site="robot2_rf_32" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_33" site="robot2_rf_33" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_34" site="robot2_rf_34" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_35" site="robot2_rf_35" cutoff="6.0"/>
+    <rangefinder name="robot2_rf_36" site="robot2_rf_36" cutoff="6.0"/>
+  </sensor>
+</mujoco>

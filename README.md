@@ -1,162 +1,1157 @@
-# MuJoCo Tidybot Pick-and-Place
+# MuJoCo Dual-Robot Navigation & Pick-and-Place System
 
-Stanford Tidybot 모델을 사용한 MuJoCo 물리 엔진 기반 pick-and-place 로봇 매니퓰레이션 시뮬레이션
+A sophisticated dual-robot simulation system featuring advanced control algorithms for mobile manipulation in kitchen environments using MuJoCo physics engine.
 
-## 주요 기능
+## 🌟 Features
 
-- **역기구학(IK)**: SLSQP 최적화를 통한 실시간 관절 각도 계산
-- **부드러운 궤적 생성**: Ruckig 라이브러리를 활용한 7-DOF 팔의 jerk-limited 모션 계획  
-- **베이스 이동 제어**: 키보드 텔레오퍼레이션 및 팔 안정화
-- **힘 기반 파지 감지**: 접촉력 기반 파지 검증
-- **대화형 GUI**: MuJoCo viewer를 통한 실시간 3D 시각화
+### Advanced Control Systems
+- **ACADOS MPC Navigation**: Model Predictive Control for optimal path following
+- **ESO-DOB Cascade Control**: Extended State Observer with Disturbance Observer for precise arm control
+- **A* Path Planning**: Efficient pathfinding with dynamic obstacle avoidance
+- **LLM-Based Task Planning**: Natural language command interpretation using GPT-4o
 
-## 설치 방법
+### Dual-Robot Coordination
+- **Robot1 (TidyBot)**: Primary mobile manipulator
+- **Robot2**: Secondary robot for collaborative tasks
+- **Collision Avoidance**: Real-time collision detection and avoidance
+- **Coordinated Pick-and-Place**: Multi-robot task execution
 
-### 요구사항
-- Python 3.8+
-- Ubuntu 20.04+ / Windows 10+ / macOS 10.15+
-- OpenGL 3.3+ 호환 그래픽
+### RoboCasa Integration
+- **Realistic Kitchen Environments**: G-shaped, U-shaped, L-shaped layouts
+- **Dynamic Object Spawning**: Random object placement for training
+- **Multiple Design Styles**: Modern, industrial, scandinavian, coastal, traditional
+- **Fixture Generation**: Realistic kitchen appliances and furniture
 
-### 의존성 설치
+### Real-Time Capabilities
+- **LIDAR Mapping**: Dynamic environment mapping
+- **Visual Servoing**: Camera-based manipulation control
+- **Thread-Safe Simulation**: Parallel processing for real-time performance
+- **Performance Monitoring**: Comprehensive diagnostics and logging
+
+---
+
+## 📋 Table of Contents
+
+- [Installation](#installation)
+  - [Quick Installation](#quick-installation-3-steps)
+  - [Detailed Installation](#detailed-installation)
+  - [Post-Installation Steps](#post-installation-steps)
+  - [Platform-Specific Instructions](#platform-specific-instructions)
+- [RoboCasa Kitchen Environments](#robocasa-kitchen-environments)
+- [ACADOS MPC Setup](#acados-mpc-setup)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [Development](#development)
+- [Troubleshooting](#troubleshooting)
+- [Additional Resources](#additional-resources)
+
+---
+
+## Installation
+
+This section contains complete installation instructions for all platforms and configurations.
+
+### Quick Installation (3 Steps)
 
 ```bash
-pip install mujoco numpy scipy keyboard ruckig
+# Step 1: Install Python dependencies
+cd ~/mujoco_pick_place
+pip install -r requirements.txt --break-system-packages
+
+# Step 2: Generate ACADOS MPC code (required for control)
+python3 generate_and_compile.py
+
+# Step 3: Run the simulation
+python3 main.py
 ```
 
-또는 requirements.txt 사용:
+**Optional**: Install RoboCasa for kitchen environments (see [RoboCasa section](#robocasa-kitchen-environments))
+
+---
+
+### Detailed Installation
+
+#### Prerequisites
+
+- **Python**: 3.8 or higher
+- **Operating System**: Ubuntu 22.04, Ubuntu 20.04, Windows 10/11, or macOS
+- **GPU**: Recommended for visualization (optional)
+- **RAM**: Minimum 8GB, recommended 16GB
+- **Storage**: ~500MB for core dependencies, ~1GB with RoboCasa
+
+#### Installation Methods
+
+##### Method 1: Virtual Environment (Recommended)
+
+Best for development and isolated environments:
 
 ```bash
+# Create virtual environment
+cd ~/mujoco_pick_place
+python3 -m venv venv
+
+# Activate virtual environment
+source venv/bin/activate  # Linux/macOS
+# or
+venv\Scripts\activate  # Windows
+
+# Install dependencies
 pip install -r requirements.txt
+
+# Install development tools (optional)
+pip install -r requirements-dev.txt
 ```
 
-### 설정
+**Benefits:**
+- ✅ Isolated from system packages
+- ✅ No permission issues
+- ✅ Easy to reset if needed
+- ✅ Multiple Python versions possible
 
-`main.py`에서 모델 경로를 수정하세요:
+##### Method 2: System-Wide Installation (Ubuntu)
 
-```python
-# main.py
-XML_PATH = "./model/stanford_tidybot/scene.xml"
-```
-
-## 실행
+For system-wide access:
 
 ```bash
+pip install -r requirements.txt --break-system-packages
+```
+
+**Note**: Requires `--break-system-packages` flag on Ubuntu 22.04+
+
+##### Method 3: User Installation
+
+Install in user directory without root:
+
+```bash
+pip install -r requirements.txt --user
+```
+
+#### Core Dependencies
+
+The following packages will be installed:
+
+| Package | Version | Purpose |
+|---------|---------|---------|
+| numpy | >=1.21.0, <2.0.0 | Numerical computing |
+| mujoco | >=2.3.0, <=3.2.6 | Physics simulation |
+| scipy | >=1.7.0, <1.15.0 | Scientific computing |
+| opencv-python | >=4.5.0 | Computer vision |
+| matplotlib | >=3.3.0 | Visualization |
+| casadi | >=3.5.5 | Optimization |
+| networkx | >=2.6.0 | Graph algorithms |
+| pynput | >=1.7.0 | Keyboard input |
+| Pillow | >=8.0.0 | Image processing |
+| pyyaml | >=5.4.0 | Configuration files |
+| h5py | >=3.1.0 | Data file handling |
+| tqdm | >=4.60.0 | Progress bars |
+| termcolor | >=1.1.0 | Colored output |
+| imageio | >=2.9.0 | Image I/O |
+
+#### Optional Dependencies
+
+```bash
+# LLM Integration (for natural language control)
+pip install openai>=1.0.0
+
+# Development Tools
+pip install pytest ipython jupyter
+
+# Or install all development tools
+pip install -r requirements-dev.txt
+```
+
+---
+
+### Post-Installation Steps
+
+#### 1. Generate ACADOS MPC Code (Required)
+
+The `generate_and_compile.py` script creates optimized C code for Model Predictive Control:
+
+```bash
+python3 generate_and_compile.py
+```
+
+**What it does:**
+- Generates optimized C solver code for MPC
+- Creates `c_generated_code/` directory
+- Compiles solver for your platform
+- Generates Python interface
+
+**What's in `c_generated_code/`:**
+- Compiled solver libraries (.so, .dll, .dylib)
+- MPC configuration files
+- Python wrapper code
+- ACADOS problem formulation
+
+**When to regenerate:**
+- ✅ After cloning the repository (required!)
+- ✅ After modifying MPC parameters
+- ✅ When switching between different machines/OS
+- ✅ If you see MPC-related import errors
+
+**Why excluded from git:**
+- Platform-specific (compiled for your OS)
+- Large file size (~10-50 MB)
+- Can be regenerated easily
+
+**Troubleshooting:**
+```bash
+# If generation fails, check ACADOS installation
+python3 -c "from acados_template import AcadosOcp; print('✅ ACADOS OK')"
+
+# Check path
+echo $ACADOS_SOURCE_DIR  # Should point to ACADOS installation
+```
+
+#### 2. Set Up OpenAI API Key (Optional)
+
+For LLM-based natural language control:
+
+```bash
+# Linux/macOS
+export OPENAI_API_KEY="your-api-key-here"
+
+# Or add to ~/.bashrc for persistence
+echo 'export OPENAI_API_KEY="your-api-key-here"' >> ~/.bashrc
+
+# Windows (PowerShell)
+$env:OPENAI_API_KEY="your-api-key-here"
+
+# Windows (CMD)
+set OPENAI_API_KEY=your-api-key-here
+```
+
+---
+
+### Platform-Specific Instructions
+
+#### Ubuntu 22.04 / 24.04
+
+```bash
+# Update system
+sudo apt update && sudo apt upgrade -y
+
+# Install Python and pip
+sudo apt install python3 python3-pip python3-venv -y
+
+# Install system dependencies
+sudo apt install build-essential cmake git libgl1-mesa-glx libglib2.0-0 -y
+
+# Clone repository
+git clone https://github.com/HoyongNa/mujoco_pick_place.git
+cd mujoco_pick_place
+
+# Create virtual environment (recommended)
+python3 -m venv venv
+source venv/bin/activate
+
+# Install Python dependencies
+pip install -r requirements.txt
+
+# Generate ACADOS code
+python3 generate_and_compile.py
+
+# Run simulation
+python3 main.py
+```
+
+**Ubuntu-Specific Notes:**
+- Use `--break-system-packages` for system-wide installs
+- Virtual environment recommended to avoid system package conflicts
+- For headless servers: `export MUJOCO_GL=osmesa`
+
+#### Windows 10/11
+
+```powershell
+# Install Python from python.org (3.8+)
+# Install Git from git-scm.com
+
+# Install Visual C++ Build Tools (required for some packages)
+# Download from: https://visualstudio.microsoft.com/visual-cpp-build-tools/
+
+# Clone repository
+git clone https://github.com/HoyongNa/mujoco_pick_place.git
+cd mujoco_pick_place
+
+# Create virtual environment
+python -m venv venv
+venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Generate ACADOS code
+python generate_and_compile.py
+
+# Run simulation
 python main.py
 ```
 
-## 조작 방법
+**Windows-Specific Notes:**
+- Requires Visual C++ Build Tools for compilation
+- Use PowerShell or CMD
+- GPU drivers recommended for visualization
 
-| 키 | 동작 |
-|---|------|
-| `Space` | pick-and-place 시퀀스 시작 |
-| `8` / `5` | 베이스 전진 / 후진 |
-| `4` / `6` | 베이스 좌 / 우 이동 |
-| `7` / `9` | 베이스 좌회전 / 우회전 |
-| `2` | 베이스 정지 |
-| `ESC` | 시뮬레이션 종료 |
+#### macOS
 
-## 프로젝트 구조
+```bash
+# Install Homebrew if not installed
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Install Python
+brew install python@3.10
+
+# Clone repository
+git clone https://github.com/HoyongNa/mujoco_pick_place.git
+cd mujoco_pick_place
+
+# Create virtual environment
+python3 -m venv venv
+source venv/bin/activate
+
+# Install dependencies
+pip3 install -r requirements.txt
+
+# Generate ACADOS code
+python3 generate_and_compile.py
+
+# Run simulation
+python3 main.py
+```
+
+**macOS-Specific Notes:**
+- Use Homebrew Python (not system Python)
+- May require Xcode Command Line Tools: `xcode-select --install`
+
+---
+
+### Verification
+
+After installation, verify everything works:
+
+```bash
+# Check Python version
+python3 --version  # Should be 3.8+
+
+# Check core dependencies
+python3 << EOF
+import numpy
+import mujoco
+import cv2
+import matplotlib
+import scipy
+import casadi
+import yaml
+import h5py
+print("✅ All core dependencies installed!")
+print(f"NumPy: {numpy.__version__}")
+print(f"MuJoCo: {mujoco.__version__}")
+EOF
+
+# Check ACADOS code generation
+ls -la c_generated_code/  # Should contain compiled files
+
+# Test run (should open visualization)
+python3 main.py
+```
+
+**Expected output:**
+```
+[SimulationManager] Initializing dual-robot simulation system
+[SimulationManager] Robot1: 11 DOF (3 base + 8 arm)
+[SimulationManager] Robot2: 11 DOF (3 base + 8 arm)
+[Controller] ACADOS MPC initialized
+[Controller] ESO-DOB cascade control initialized
+[SimulationManager] ✅ Simulation ready!
+```
+
+---
+
+## RoboCasa Kitchen Environments
+
+**Note**: The `robocasa_integration.py` file in the project root is **required** to use RoboCasa kitchen environments. This file handles the integration between your robots and the RoboCasa kitchen scenes.
+
+### Why RoboCasa?
+
+- **Realistic Environments**: Photo-realistic kitchen layouts
+- **Diverse Scenarios**: Multiple kitchen designs and styles
+- **Object Datasets**: Thousands of kitchen objects
+- **Training Data**: For imitation learning and reinforcement learning
+
+### Quick RoboCasa Installation
+
+```bash
+# Step 1: Install robosuite (CRITICAL - missing dependency!)
+pip install robosuite --break-system-packages
+
+# Step 2: Clone RoboCasa into your project
+cd ~/mujoco_pick_place
+git clone https://github.com/robocasa/robocasa.git
+
+# Step 3: Install robocasa
+cd robocasa
+pip install -e . --break-system-packages
+
+# Step 4: Verify installation
+python3 -c "from robocasa.environments.kitchen.kitchen import Kitchen; print('✅ RoboCasa Success!')"
+```
+
+### Automated RoboCasa Installation
+
+We provide helper scripts to make installation easier:
+
+#### Option 1: Interactive Diagnostic Tool
+
+```bash
+python3 scripts/installation/fix_robocasa_deps.py
+```
+
+**Features:**
+- Checks all dependencies
+- Shows what's missing
+- Offers to install missing packages
+- Provides detailed diagnostics
+- Step-by-step guidance
+
+#### Option 2: Automated Installation Script
+
+```bash
+bash scripts/installation/install_robocasa_complete.sh
+```
+
+**What it does:**
+- Installs robosuite automatically
+- Clones and installs robocasa
+- Verifies both packages
+- Tests Kitchen class import
+- Reports success/failure
+
+### RoboCasa Verification
+
+Run these commands to verify your RoboCasa installation:
+
+```bash
+# Check robosuite
+python3 -c "import robosuite; print('✅ robosuite:', robosuite.__version__)"
+
+# Check robocasa
+python3 -c "import robocasa; print('✅ robocasa:', robocasa.__version__)"
+
+# Check Kitchen class
+python3 -c "from robocasa.environments.kitchen.kitchen import Kitchen; print('✅ Kitchen class OK')"
+
+# Check KitchenArena
+python3 -c "from robocasa.models.scenes.kitchen_arena import KitchenArena; print('✅ KitchenArena OK')"
+```
+
+### Common Warnings (Safe to Ignore)
+
+These warnings are normal and won't affect functionality:
+
+- ⚠️ "No private macro file found" - Optional feature
+- ⚠️ "Could not import robosuite_models" - Optional models
+- ⚠️ "Could not load the mink-based whole-body IK" - Optional IK solver
+- ⚠️ "mimicgen environments not imported" - Optional package
+
+### Testing RoboCasa Integration
+
+Once installed, test the integration with different configurations:
+
+```bash
+# Test with G-shaped kitchen (default)
+python3 robocasa_integration.py --layout G-shaped --style modern
+
+# Test with U-shaped kitchen
+python3 robocasa_integration.py --layout U-shaped --style industrial
+
+# Test with different physics modes
+python3 robocasa_integration.py --physics-mode balanced
+```
+
+**Available Options:**
+
+| Parameter | Options | Description |
+|-----------|---------|-------------|
+| `--layout` | G-shaped, U-shaped, L-shaped, galley, one-wall | Kitchen layout |
+| `--style` | modern, industrial, scandinavian, coastal, traditional | Design style |
+| `--physics-mode` | fast, balanced, accurate | Physics quality |
+
+**Physics Modes:**
+- **fast**: Development mode, less accurate but faster
+- **balanced**: Recommended for most use cases
+- **accurate**: Precise physics, slower simulation
+
+### RoboCasa Troubleshooting
+
+#### Error: ModuleNotFoundError: No module named 'robocasa.environments'
+
+**Solution:**
+```bash
+# Install robosuite first (it's a missing dependency)
+pip install robosuite --break-system-packages
+
+# Then install robocasa
+cd ~/mujoco_pick_place/robocasa
+pip install -e . --break-system-packages
+
+# Verify
+python3 -c "from robocasa.environments.kitchen.kitchen import Kitchen; print('✅')"
+```
+
+#### Error: "Invalid username or token" when cloning
+
+**Solution:**
+```bash
+# Option 1: Use SSH
+git clone git@github.com:robocasa/robocasa.git
+
+# Option 2: Configure git
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+
+# Option 3: Use HTTPS with token
+# Create token at: https://github.com/settings/tokens
+```
+
+#### Error: NumPy version incompatibility
+
+**Solution:**
+```bash
+# RoboCasa specifically works with numpy 1.23.x
+pip install numpy==1.23.3 --force-reinstall --break-system-packages
+```
+
+#### Error: Kitchen generation takes too long
+
+**Solution:**
+```bash
+# Use faster physics mode during development
+python3 robocasa_integration.py --physics-mode fast
+
+# Or disable fixture generation
+# Edit robocasa_integration.py and set use_fixtures=False
+```
+
+---
+
+## ACADOS MPC Setup
+
+### What is ACADOS?
+
+ACADOS is a fast and embedded-optimization-solver for optimal control and model predictive control. This project uses ACADOS for:
+
+- **Navigation MPC**: Optimal path following for mobile base
+- **Torque Control**: Precise arm control with constraints
+- **Real-Time Performance**: Fast enough for 100Hz+ control loops
+
+### Installation
+
+#### Ubuntu 22.04 (Complete Guide)
+
+See **[README_UBUNTU_22.04.md](README_UBUNTU_22.04.md)** for complete ACADOS installation guide.
+
+Quick summary:
+```bash
+# Install dependencies
+sudo apt install build-essential cmake git
+
+# Clone ACADOS
+git clone https://github.com/acados/acados.git
+cd acados
+git submodule update --recursive --init
+
+# Build
+mkdir -p build && cd build
+cmake -DACADOS_WITH_QPOASES=ON ..
+make install -j4
+
+# Set environment variables
+export ACADOS_SOURCE_DIR="$HOME/acados"
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"$ACADOS_SOURCE_DIR/lib"
+```
+
+#### Verifying ACADOS Installation
+
+```bash
+# Check ACADOS is installed
+python3 -c "from acados_template import AcadosOcp; print('✅ ACADOS OK')"
+
+# Check environment
+echo $ACADOS_SOURCE_DIR  # Should show path to acados
+
+# Generate MPC code
+python3 generate_and_compile.py
+```
+
+### The `generate_and_compile.py` Script
+
+This script is **crucial** for the project - it generates the optimized C code for MPC:
+
+```bash
+python3 generate_and_compile.py
+```
+
+**What it does:**
+
+1. **Defines MPC Problem**: Sets up robot dynamics, constraints, cost functions
+2. **Generates C Code**: Creates optimized solver code using ACADOS
+3. **Compiles**: Builds platform-specific libraries
+4. **Creates Interface**: Generates Python wrapper
+
+**Generated Files** (in `c_generated_code/`):
 
 ```
-.
+c_generated_code/
+├── acados_ocp_robot.json       # MPC problem configuration
+├── libacados_ocp_solver_robot.so  # Compiled solver (Linux)
+├── acados_solver_robot.py      # Python interface
+├── acados_sim_robot.py         # Simulation interface
+└── [various C files]           # Generated solver code
+```
+
+**When to Run:**
+
+| Scenario | Action |
+|----------|--------|
+| After cloning repository | ✅ Run it |
+| After modifying MPC parameters | ✅ Run it |
+| Switching to different computer | ✅ Run it |
+| Switching OS | ✅ Run it |
+| Normal simulation run | ❌ Not needed |
+
+**Why NOT in Git:**
+
+The `c_generated_code/` directory is excluded from git because:
+- **Platform-specific**: Compiled for your OS (Linux .so, Windows .dll, macOS .dylib)
+- **Large size**: 10-50 MB of compiled code
+- **Regeneratable**: Can be created anytime with `generate_and_compile.py`
+
+**Troubleshooting:**
+
+```bash
+# If generation fails
+# 1. Check ACADOS installation
+python3 -c "from acados_template import AcadosOcp; print('OK')"
+
+# 2. Check environment variable
+echo $ACADOS_SOURCE_DIR
+
+# 3. Check compiler
+gcc --version  # Linux
+cl  # Windows
+
+# 4. Clean and regenerate
+rm -rf c_generated_code/
+python3 generate_and_compile.py
+```
+
+---
+
+## Usage
+
+### Basic Usage
+
+```bash
+# Run with default settings
+python3 main.py
+
+# Run with specific configuration
+python3 main.py --config config/robot_config.py
+```
+
+### Keyboard Controls
+
+| Key | Action |
+|-----|--------|
+| `w` | Move forward |
+| `s` | Move backward |
+| `a` | Turn left |
+| `d` | Turn right |
+| `q` | Quit simulation |
+| `r` | Reset simulation |
+| `p` | Pause/Resume |
+| `Space` | Emergency stop |
+
+### Command Line Arguments
+
+```bash
+# Show help
+python3 main.py --help
+
+# Use RoboCasa kitchen
+python3 main.py --use-robocasa --layout G-shaped --style modern
+
+# Set physics mode
+python3 main.py --physics-mode balanced
+
+# Enable LLM control
+python3 main.py --llm-control --openai-key YOUR_KEY
+
+# Enable LIDAR mapping
+python3 main.py --enable-lidar
+
+# Set simulation speed
+python3 main.py --speed 1.5
+
+# Disable visualization (headless)
+python3 main.py --headless
+```
+
+### Example Workflows
+
+#### 1. Basic Pick-and-Place
+
+```bash
+# Run simulation with default settings
+python3 main.py
+
+# In Python console or via LLM:
+# "Pick up the cup and place it on the table"
+```
+
+#### 2. Kitchen Environment Testing
+
+```bash
+# Test different kitchen layouts
+python3 main.py --use-robocasa --layout G-shaped
+python3 main.py --use-robocasa --layout U-shaped
+python3 main.py --use-robocasa --layout L-shaped
+```
+
+#### 3. Performance Testing
+
+```bash
+# Fast physics for development
+python3 main.py --physics-mode fast --speed 2.0
+
+# Accurate physics for final testing
+python3 main.py --physics-mode accurate --speed 1.0
+```
+
+#### 4. LLM-Based Control
+
+```bash
+# Set API key
+export OPENAI_API_KEY="your-key"
+
+# Run with LLM control
+python3 main.py --llm-control
+
+# Give natural language commands:
+# "Move to the kitchen counter"
+# "Pick up the red mug"
+# "Place it on the shelf"
+```
+
+### Running Tests
+
+```bash
+# Run all tests
+pytest tests/
+
+# Run specific test file
+pytest tests/test_controllers.py
+
+# Run with coverage
+pytest --cov=. tests/
+
+# Run with verbose output
+pytest -v tests/
+```
+
+---
+
+## Project Structure
+
+```
+mujoco_pick_place/
+├── main.py                          # Main entry point and system orchestration
+├── README.md                        # This file - complete documentation
+├── requirements.txt                 # Python dependencies (14 core packages)
+├── requirements-dev.txt             # Development dependencies (testing, linting)
+├── robocasa_integration.py          # ⭐ RoboCasa kitchen integration (required for kitchen scenes)
+├── generate_and_compile.py          # ⭐ ACADOS MPC code generator (creates c_generated_code/)
+├── c_generated_code/                # Generated ACADOS solver code (excluded from git)
+│                                    # Note: Regenerate with generate_and_compile.py after cloning
+├── config/
+│   ├── constants.py                 # System constants and parameters
+│   ├── robot_config.py              # Robot configuration
+│   └── stabilization_config.py      # Stabilization parameters
+├── controllers/
+│   ├── base_controller.py           # Mobile base control
+│   ├── arm_controller.py            # Robotic arm control
+│   ├── eso_controller.py            # Extended State Observer
+│   ├── dob_controller.py            # Disturbance Observer
+│   ├── cascade_controller.py        # ESO-DOB cascade implementation
+│   └── mpc_controller.py            # ACADOS MPC navigation controller
+├── path_planning/
+│   ├── a_star.py                    # A* pathfinding algorithm
+│   ├── mpc_hybrid_controller.py     # A* + MPC hybrid navigation
+│   └── collision_checker.py         # Collision detection
+├── kinematics/
+│   ├── forward_kinematics.py        # FK solver
+│   ├── inverse_kinematics.py        # IK solver
+│   └── jacobian.py                  # Jacobian computation
+├── simulation/
+│   ├── simulation_manager.py        # Main simulation controller
+│   ├── robot.py                     # Robot model wrapper
+│   └── sensors.py                   # Sensor implementations (LIDAR, cameras)
+├── lidar_mapping/
+│   ├── lidar_mapper.py              # LIDAR mapping system
+│   └── map_visualizer.py            # Map visualization
+├── llm_planner/
+│   ├── gpt_planner.py               # GPT-4o integration
+│   ├── command_parser.py            # Natural language parsing
+│   └── task_executor.py             # High-level task execution
+├── tasks/
+│   ├── pick_and_place.py            # Pick-and-place task
+│   ├── navigation.py                # Navigation task
+│   └── multi_robot.py               # Multi-robot coordination
 ├── model/
 │   └── stanford_tidybot/
-│       └── scene.xml              # MuJoCo 모델 정의
-├── main.py                        # 메인 실행 파일 (Space 키 트리거)
-├── simulation.py                  # 시뮬레이션 오케스트레이션/상태 관리
-├── arm_controller.py              # Ruckig + 토크 제어 기반 팔 제어
-├── mobility_controller.py         # 베이스 텔레오퍼레이션 & 중력 보상
-├── ik_solver.py                   # SLSQP 기반 역기구학 솔버
-├── grasp_checker.py               # 접촉력 기반 파지 검증
-└── README.md                      # 이 문서
+│       ├── scene.xml                # Main scene file
+│       ├── scene_robocasa.xml       # RoboCasa integration scene
+│       ├── tidybot.xml              # Robot1 model
+│       └── tidybot_robot2.xml       # Robot2 model
+└── scripts/
+    ├── installation/
+    │   ├── fix_robocasa_deps.py             # RoboCasa dependency checker
+    │   └── install_robocasa_complete.sh     # Automated RoboCasa installer
+    └── [various utility scripts]
 ```
 
-## 핵심 컴포넌트
+### Key Files Explained
 
-### Arm Controller (`arm_controller.py`)
-- Computed-torque 제어 + PD 피드백
-- Ruckig을 사용한 jerk-limited 궤적 생성
-- 7-DOF 팔의 실시간 토크 계산
+#### Core Files
 
-### Mobility Controller (`mobility_controller.py`)
-- 베이스/팔 분리 제어 아키텍처
-- 텔레오퍼레이션 중 중력 보상
-- 스레드 안전 명령 버퍼 관리
+- **main.py**: Entry point that initializes the simulation system
+- **robocasa_integration.py** ⭐: Required for RoboCasa kitchen environments
+- **generate_and_compile.py** ⭐: Generates ACADOS MPC solver code
 
-### IK Solver (`ik_solver.py`)
-- 위치/방향 오차 최소화를 위한 SLSQP 최적화
-- 관절 한계 적용
-- 실시간 성능 최적화
+#### Configuration
 
-### Grasp Checker (`grasp_checker.py`)
-- 접촉력 임계값 감지 (0.05 N)
-- 패드 거리 모니터링
-- 실시간 파지 상태 피드백
+- **config/robot_config.py**: Robot parameters (DOF, limits, gains)
+- **config/constants.py**: System-wide constants
+- **config/stabilization_config.py**: Control tuning parameters
 
-## 기술 사양
+#### Controllers
 
-| 파라미터 | 값 |
-|---------|-----|
-| 제어 주기 | 500 Hz (2ms timestep) |
-| 팔 속도 제한 | 3 rad/s |
-| 팔 가속도 제한 | 7 rad/s² |
-| 팔 저크 제한 | 150 rad/s³ |
-| 파지 힘 임계값 | 0.05 N |
-| PD 게인 (팔) | Kp = 1500, Kd = 30 |
+- **mpc_controller.py**: ACADOS-based navigation MPC
+- **cascade_controller.py**: ESO-DOB cascade for arm control
+- **eso_controller.py**: Extended State Observer for disturbance estimation
+- **dob_controller.py**: Disturbance Observer for rejection
 
-## 작동 흐름
+#### Dependencies
 
-### 1. 초기화
-- MuJoCo 모델 로드 및 컨트롤러 초기화
+- **requirements.txt**: 14 core packages with version constraints
+- **requirements-dev.txt**: Development tools (pytest, black, flake8, mypy)
 
-### 2. 텔레오퍼레이션 모드
-- 키보드로 베이스 제어
-- 팔은 현재 자세 유지
+---
 
-### 3. Pick 시퀀스 (Space 키)
-- 접근 위치 IK 계산
-- 파지 자세로 이동
-- 그리퍼 닫고 파지 확인
-- 물체 들어올리기
+## Development
 
-### 4. Place 시퀀스
-- 목표 위치로 이동
-- 물체 내려놓기
-- 그리퍼 열기
-- 홈 포지션 복귀
+### ACADOS MPC Code Generation
 
-### 5. 텔레오퍼레이션 재개
+Detailed in the [ACADOS MPC Setup](#acados-mpc-setup) section above.
 
-## 구현 세부사항
+### Code Quality
 
-- **스레드 안전성**: 모든 `mjData` 접근은 락으로 직렬화되어 GUI/제어 루프 충돌 방지
-- **실시간 제어**: 모빌리티와 팔 제어를 위한 별도 스레드로 부드러운 작동 보장
-- **힘 피드백**: MuJoCo 내장 접촉 솔버를 사용한 접촉력 계산
-- **궤적 부드러움**: Ruckig이 C³ 연속 궤적 보장 (연속 저크)
+```bash
+# Format code
+black .
+isort .
 
-## 문제 해결
+# Lint code
+flake8 .
+pylint **/*.py
 
-### 모델을 찾을 수 없음
+# Type checking
+mypy .
+
+# Run all checks
+black . && isort . && flake8 . && mypy .
 ```
-FileNotFoundError: XML file not found
+
+### Testing
+
+```bash
+# Run all tests
+pytest
+
+# Run with coverage
+pytest --cov=.
+
+# Run specific test
+pytest tests/test_mpc.py
+
+# Run with verbose output
+pytest -v
 ```
-**해결**: `main.py`의 `XML_PATH`가 올바른 모델 파일을 가리키는지 확인
 
-### 키보드 입력이 작동하지 않음
+### Debugging
+
+```bash
+# Run with Python debugger
+python3 -m pdb main.py
+
+# Enable debug logging
+export LOG_LEVEL=DEBUG
+python3 main.py
+
+# Visual debugging with MuJoCo viewer
+python3 main.py --debug-render
 ```
-PermissionError: Keyboard access denied
+
+### Profiling
+
+```bash
+# Profile with cProfile
+python3 -m cProfile -o profile.stats main.py
+
+# Analyze results
+python3 -m pstats profile.stats
+
+# Memory profiling
+python3 -m memory_profiler main.py
 ```
-**해결**: Linux에서 sudo로 실행하거나 Windows에서 관리자 권한으로 실행
 
-### 파지 감지 실패
-- `grasp_checker.py`에서 힘 임계값 조정
-- 그리퍼 패드 충돌 형상 확인
-- 물체 질량 및 마찰 파라미터 검증
+---
 
-## 성능 최적화
+## Troubleshooting
 
-- 제어 성능 향상을 위해 viewer 업데이트 빈도 감소
-- 특정 로봇 구성에 맞게 PD 게인 조정
-- 액추에이터 성능에 따라 Ruckig 제한 조정
+### Common Issues
 
-- Ruckig 라이브러리 - 궤적 생성
+#### 1. Import Errors
+
+**Problem**: `ModuleNotFoundError: No module named 'X'`
+
+**Solutions:**
+```bash
+# Check Python version
+python3 --version  # Should be 3.8+
+
+# Reinstall dependencies
+pip install -r requirements.txt --force-reinstall
+
+# Check pip is using correct Python
+python3 -m pip --version
+
+# Use virtual environment
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+#### 2. MuJoCo Errors
+
+**Problem**: `ImportError: libmujoco.so: cannot open shared object file`
+
+**Solutions:**
+```bash
+# Install MuJoCo
+pip install mujoco --upgrade
+
+# For headless systems
+export MUJOCO_GL=osmesa
+
+# Check installation
+python3 -c "import mujoco; print(mujoco.__version__)"
+```
+
+#### 3. NumPy Version Conflicts
+
+**Problem**: `AttributeError: module 'numpy' has no attribute 'X'`
+
+**Solutions:**
+```bash
+# Use compatible version
+pip install "numpy>=1.21.0,<2.0.0" --force-reinstall
+
+# For RoboCasa specifically
+pip install numpy==1.23.3 --force-reinstall
+```
+
+#### 4. ACADOS MPC Errors
+
+**Problem**: `ModuleNotFoundError: No module named 'acados_template'`
+
+**Solutions:**
+```bash
+# Check ACADOS installation
+echo $ACADOS_SOURCE_DIR
+
+# Reinstall ACADOS Python interface
+cd $ACADOS_SOURCE_DIR/interfaces/acados_template
+pip install -e .
+
+# Regenerate MPC code
+python3 generate_and_compile.py
+```
+
+#### 5. RoboCasa Installation Issues
+
+See detailed solutions in [RoboCasa Troubleshooting](#robocasa-troubleshooting) section above.
+
+#### 6. Performance Issues
+
+**Problem**: Simulation running slowly
+
+**Solutions:**
+```bash
+# Use fast physics mode
+python3 main.py --physics-mode fast
+
+# Reduce rendering quality
+python3 main.py --render-quality low
+
+# Disable visualization
+python3 main.py --headless
+
+# Check system resources
+htop  # Linux
+```
+
+#### 7. GPU/OpenGL Issues
+
+**Problem**: `ERROR: GLEW initalization error: Missing GL version`
+
+**Solutions:**
+```bash
+# Use CPU rendering (headless systems)
+export MUJOCO_GL=osmesa
+
+# Update GPU drivers
+# NVIDIA: https://www.nvidia.com/download/index.aspx
+# AMD: https://www.amd.com/en/support
+
+# Check OpenGL support
+glxinfo | grep "OpenGL version"
+```
+
+### Getting Help
+
+If you encounter issues not covered here:
+
+1. **Check Documentation**:
+   - This README.md
+   - INSTALL_GUIDE.md
+   - README_UBUNTU_22.04.md
+
+2. **Check Dependencies**:
+   ```bash
+   pip list | grep -E "numpy|mujoco|opencv|scipy"
+   ```
+
+3. **Check Environment**:
+   ```bash
+   python3 --version
+   pip --version
+   echo $ACADOS_SOURCE_DIR
+   ```
+
+4. **Enable Debug Logging**:
+   ```bash
+   export LOG_LEVEL=DEBUG
+   python3 main.py
+   ```
+
+5. **Create GitHub Issue**:
+   - Include error messages
+   - Include system information
+   - Include steps to reproduce
+
+---
+
+## Additional Resources
+
+### Project Documentation
+- **Installation Guide**: This README (comprehensive)
+- **Quick Start (Ubuntu 22.04)**: See README_UBUNTU_22.04.md
+- **Development Tools**: See requirements-dev.txt
+
+### External Documentation
+- **[MuJoCo Documentation](https://mujoco.readthedocs.io/)**
+- **[ACADOS Documentation](https://docs.acados.org/)**
+- **[RoboCasa Documentation](https://robocasa.ai/docs)**
+- **[RoboSuite Documentation](https://robosuite.ai/docs)**
+- **[CasADi Documentation](https://web.casadi.org/docs/)**
+
+### Research Papers
+- TidyBot: Personalized Robot Assistance with Large Language Models
+- ACADOS: A Modular Open-Source Framework for Fast Embedded Optimal Control
+- Extended State Observer Based Control for Systems with Mismatched Uncertainties
+
+### Related Projects
+- **Stanford TidyBot**: https://tidybot.cs.stanford.edu/
+- **RoboCasa**: https://robocasa.ai/
+- **RoboSuite**: https://robosuite.ai/
+- **ACADOS**: https://github.com/acados/acados
+
+---
+
+## Credits
+
+### Authors
+- **Hoyon Na** - Lead Developer
+
+### Acknowledgments
+- **Stanford TidyBot Team** - Robot model and concept
+- **RoboCasa Team** - Kitchen environments
+- **RoboSuite Team** - Simulation framework
+- **ACADOS Team** - MPC solver
+- **MuJoCo Team** - Physics engine
+
+### License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+### Citation
+If you use this project in your research, please cite:
+```bibtex
+@software{mujoco_dual_robot_2024,
+  author = {Na, Hoyon},
+  title = {MuJoCo Dual-Robot Navigation and Pick-and-Place System},
+  year = {2024},
+  url = {https://github.com/HoyongNa/mujoco_pick_place}
+}
+```
+
+---
+
+## Support
+
+### Community
+- GitHub Issues: Report bugs or request features
+- GitHub Discussions: Ask questions, share ideas
+- Pull Requests: Contributions welcome!
+
+### Contact
+- GitHub: [@HoyongNa](https://github.com/HoyongNa)
+- Email: [Contact through GitHub]
+
+---
+
+**Last Updated**: November 2024  
+**Version**: 4.0  
+**Status**: Active Development
+
+---
+
+## Quick Links
+
+- [Installation](#installation) - Get started
+- [RoboCasa Setup](#robocasa-kitchen-environments) - Kitchen environments
+- [Usage](#usage) - Run simulations
+- [Troubleshooting](#troubleshooting) - Fix common issues
+- [Project Structure](#project-structure) - Understand the codebase
+
+---
+
+**Ready to start? Run:**
+```bash
+pip install -r requirements.txt
+python3 generate_and_compile.py
+python3 main.py
+```
+
+Enjoy! 🤖🎉

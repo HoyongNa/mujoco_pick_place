@@ -114,11 +114,11 @@
           resolution="640 480"/>
 
     <!-- <body name="robot1_base_link" pos="-1 1 0"> -->
-    <body name="robot1_base_link" pos="0 0 0"> 
+    <body name="robot1_base_link" pos="-1 1 0"> 
       <inertial pos="0 0 0" mass="60" diaginertia="0.001 0.001 0.001"/>
       <joint name="joint_x" type="slide" axis="1 0 0" damping="10"/>
       <joint name="joint_y" type="slide" axis="0 1 0" damping="10"/>
-      <joint name="joint_th"/>
+      <joint name="joint_th" />
       <geom class="base/visual" mesh="bumper" material="black"/>
       <geom class="base/visual" mesh="bottom_plate" material="dark_gray"/>
       <geom class="base/visual" mesh="body" material="gray"/>

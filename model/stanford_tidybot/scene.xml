@@ -1,5 +1,6 @@
-<mujoco model="tidybot scene">
+<mujoco model="tidybot 4-room scene">
   <include file="tidybot.xml"/>
+  <include file="tidybot_robot2.xml"/>
   <option timestep="0.002" solver="Newton" iterations="100" noslip_iterations="40"/>
 
   <!-- 더 큰 환경에 맞게 통계 조정 -->
@@ -17,12 +18,17 @@
              markrgb="0.8 0.8 0.8" width="300" height="300"/>
     <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="20 20" reflectance="0.2"/>
     
-    <!-- 벽 재질 추가 -->
-    <material name="wall_material" rgba="0.8 0.8 0.8 1" reflectance="0.1"/>
+    <!-- 벽 재질 -->
+    <material name="wall_material" rgba="0.85 0.85 0.85 1" reflectance="0.1"/>
+    <material name="interior_wall" rgba="0.75 0.75 0.75 1" reflectance="0.1"/>
   </asset>
 
   <worldbody>
-    <light pos="0 0 3" directional="true"/>
+    <!-- 조명 - 각 방에 하나씩 -->
+    <light pos="-2.5 2.5 3" directional="false" diffuse="0.8 0.8 0.8"/>
+    <light pos="2.5 2.5 3" directional="false" diffuse="0.8 0.8 0.8"/>
+    <light pos="-2.5 -2.5 3" directional="false" diffuse="0.8 0.8 0.8"/>
+    <light pos="2.5 -2.5 3" directional="false" diffuse="0.8 0.8 0.8"/>
     
     <!-- 10m x 10m 바닥 -->
     <geom name="floor" type="box" size="5 5 0.05" pos="0 0 -0.05" material="groundplane"
@@ -30,39 +36,132 @@
           friction="1 0.005 0.0001" solimp="0.9 0.95 0.002" solref="0.001 1"
           margin="0.001" priority="1"/>
 
-    <!-- 벽 구조 (높이 2m, 바닥과 완전 연결) -->
+    <!-- ================ 외벽 (높이 2m) ================ -->
     <!-- 북쪽 벽 -->
     <geom name="wall_north" type="box" size="5.1 0.1 1.05" pos="0 5 0.95" 
-          material="wall_material" rgba="0.8 0.8 0.8 1"/>
+          material="wall_material"/>
     
     <!-- 남쪽 벽 -->
     <geom name="wall_south" type="box" size="5.1 0.1 1.05" pos="0 -5 0.95" 
-          material="wall_material" rgba="0.8 0.8 0.8 1"/>
+          material="wall_material"/>
     
     <!-- 동쪽 벽 -->
     <geom name="wall_east" type="box" size="0.1 5 1.05" pos="5 0 0.95" 
-          material="wall_material" rgba="0.8 0.8 0.8 1"/>
+          material="wall_material"/>
     
     <!-- 서쪽 벽 -->
     <geom name="wall_west" type="box" size="0.1 5 1.05" pos="-5 0 0.95" 
-          material="wall_material" rgba="0.8 0.8 0.8 1"/>
+          material="wall_material"/>
 
-    <!-- 기존 장애물들 (위치 조정) -->
-    <!-- ✅ 수정: obstacle1을 body로 감쌈 -->
-    <body name="obstacle1" pos="0.5 0 0.035">
-      <joint type = "free"/>
+    <!-- ================ 내부 벽 (십자 구조) ================ -->
+    <!-- 수평 내부벽 (동서 방향) - 문 구멍 포함 -->
+    <geom name="interior_horizontal_1" type="box" size="1.8 0.05 1.05" pos="-3.2 0 0.95" 
+          material="interior_wall"/>
+    <geom name="interior_horizontal_2" type="box" size="1.8 0.05 1.05" pos="3.2 0 0.95" 
+          material="interior_wall"/>
+    <!-- <geom name="interior_horizontal_top" type="box" size="0.6 0.05 0.3" pos="0 0 1.85" 
+          material="interior_wall"/> -->
+    
+    <!-- 수직 내부벽 (남북 방향) - 문 구멍 포함 -->
+    <geom name="interior_vertical_1" type="box" size="0.05 1.8 1.05" pos="0 3.2 0.95" 
+          material="interior_wall"/>
+    <geom name="interior_vertical_2" type="box" size="0.05 1.8 1.05" pos="0 -3.2 0.95" 
+          material="interior_wall"/>
+    <!-- <geom name="interior_vertical_top" type="box" size="0.05 0.6 0.3" pos="0 0 1.85" 
+          material="interior_wall"/> -->
+
+    <!-- ================ 방 1 (북서쪽) - 중심: (-2.5, 2.5) ================ -->
+    <!-- 작업 쌍 1: 빨간색 -> 파란색 -->
+    <body name="red_box" pos="-2.7 2.5 0.035">
+      <joint type="free"/>
       <geom type="box" size="0.035 0.035 0.035" 
             rgba="1 0 0 1" mass="0.5" friction="2 2 2"
             solref="0.01 1" solimp="0.9 0.95 0.002"/>
     </body>
 
-    <!-- ✅ 선택: obstacle2도 body로 감쌈 -->
-    <body name="obstacle2" pos="0.5 0.2 0.05">
-      <joint type = "free"/>
-      <geom type="box" size="0.05 0.05 0.05" 
-      rgba="0 0 1 1" mass="0.5" friction="2 2 2"
-      solref="0.01 1" solimp="0.9 0.95 0.002"/>
+    <body name="blue_box" pos="-2.4 2.5 0.1">
+      <joint type="free"/>
+      <geom type="box" size="0.1 0.1 0.1" 
+            rgba="0 0 1 1" mass="0.5" friction="2 2 2"
+            solref="0.01 1" solimp="0.9 0.95 0.002"/>
     </body>
+
+    <!-- ================ 방 2 (북동쪽) - 중심: (2.5, 2.5) ================ -->
+    <!-- 작업 쌍 2: 초록색 -> 노란색 -->
+    <body name="green_box" pos="2.3 2.5 0.035">
+      <joint type="free"/>
+      <geom type="box" size="0.035 0.035 0.035" 
+            rgba="0 1 0 1" mass="0.5" friction="2 2 2"
+            solref="0.01 1" solimp="0.9 0.95 0.002"/>
+    </body>
+
+    <body name="yellow_box" pos="2.7 2.5 0.05">
+      <joint type="free"/>
+      <geom type="box" size="0.05 0.05 0.05" 
+            rgba="1 1 0 1" mass="0.5" friction="2 2 2"
+            solref="0.01 1" solimp="0.9 0.95 0.002"/>
+    </body>
+
+    <!-- ================ 방 3 (남서쪽) - 중심: (-2.5, -2.5) ================ -->
+    <!-- 작업 쌍 3: 주황색 -> 보라색 -->
+    <body name="orange_box" pos="-2.7 -2.5 0.035">
+      <joint type="free"/>
+      <geom type="box" size="0.035 0.035 0.035" 
+            rgba="1 0.5 0 1" mass="0.5" friction="2 2 2"
+            solref="0.01 1" solimp="0.9 0.95 0.002"/>
+    </body>
+
+    <body name="purple_box" pos="-2.3 -2.5 0.05">
+      <joint type="free"/>
+      <geom type="box" size="0.05 0.05 0.05" 
+            rgba="0.5 0 0.5 1" mass="0.5" friction="2 2 2"
+            solref="0.01 1" solimp="0.9 0.95 0.002"/>
+    </body>
+
+    <!-- ================ 방 4 (남동쪽) - 중심: (2.5, -2.5) ================ -->
+    <!-- 작업 쌍 4: 청록색 -> 분홍색 -->
+    <body name="cyan_box" pos="2.3 -2.5 0.035">
+      <joint type="free"/>
+      <geom type="box" size="0.035 0.035 0.035" 
+            rgba="0 1 1 1" mass="0.5" friction="2 2 2"
+            solref="0.01 1" solimp="0.9 0.95 0.002"/>
+    </body>
+
+    <body name="pink_box" pos="2.7 -2.5 0.05">
+      <joint type="free"/>
+      <geom type="box" size="0.05 0.05 0.05" 
+            rgba="1 0.5 0.8 1" mass="0.5" friction="2 2 2"
+            solref="0.01 1" solimp="0.9 0.95 0.002"/>
+    </body>
+
+    <!-- ================ 문 입구 장애물 벽 (장애물 회피 테스트용) ================ -->
+    <!-- 각 문 입구를 부분적으로 막아 통로를 좁게 만듦 -->
+    <!-- 문 범위: 동서 방향 x=-1.4~1.4, 남북 방향 y=-1.4~1.4 -->
+    
+    <!-- 장애물 테스트를 위해 활성화 -->
+    <geom name="obstacle_horizontal_left" type="box" size="0.1 0.05 0.5" pos="-0.9 0.3 0.5" 
+          rgba="0.9 0.7 0.1 1" contype="1" conaffinity="1"/>
+    <geom name="obstacle_horizontal_right" type="box" size="0.1 0.05 0.5" pos="0.9 0.3 0.5" 
+          rgba="0.9 0.7 0.1 1" contype="1" conaffinity="1"/>
+    
+    <geom name="obstacle_vertical_top" type="box" size="0.05 0.1 0.5" pos="0.3 0.9 0.5" 
+          rgba="0.9 0.7 0.1 1" contype="1" conaffinity="1"/>
+    <geom name="obstacle_vertical_bottom" type="box" size="0.05 0.1 0.5" pos="0.3 -0.9 0.5" 
+          rgba="0.9 0.7 0.1 1" contype="1" conaffinity="1"/>
+
+    <!-- ================ 장식 요소 (선택사항) ================ -->
+    <!-- 각 방에 테이블 추가
+    <geom name="room1_table" type="box" size="0.3 0.3 0.35" pos="-2.5 3.5 0.35" 
+          rgba="0.6 0.4 0.2 1" contype="1" conaffinity="1"/>
+    
+    <geom name="room2_table" type="box" size="0.3 0.3 0.35" pos="2.5 3.5 0.35" 
+          rgba="0.6 0.4 0.2 1" contype="1" conaffinity="1"/>
+    
+    <geom name="room3_table" type="box" size="0.3 0.3 0.35" pos="-2.5 -3.5 0.35" 
+          rgba="0.6 0.4 0.2 1" contype="1" conaffinity="1"/>
+    
+    <geom name="room4_table" type="box" size="0.3 0.3 0.35" pos="2.5 -3.5 0.35" 
+          rgba="0.6 0.4 0.2 1" contype="1" conaffinity="1"/> -->
 
   </worldbody>
 </mujoco>
