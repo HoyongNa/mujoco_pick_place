@@ -64,72 +64,72 @@
     <map znear="0.001"/>
   </visual>
   <asset>
-    <texture type="skybox" colorspace="auto" builtin="flat" rgb1="1 1 1" rgb2="1 1 1" width="256" height="1536"/>
-    <texture type="2d" colorspace="linear" name="wall_room_wall" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/textures/marble/marble_2.png"/>
-    <texture type="2d" colorspace="linear" name="wall_backing_room_wall" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/textures/flat/light_gray.png"/>
-    <texture type="2d" colorspace="linear" name="wall_left_room_wall" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/textures/marble/marble_2.png"/>
-    <texture type="2d" colorspace="linear" name="wall_left_backing_room_wall" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/textures/flat/light_gray.png"/>
-    <texture type="2d" colorspace="linear" name="wall_right_room_wall" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/textures/marble/marble_2.png"/>
-    <texture type="2d" colorspace="linear" name="wall_right_backing_room_wall" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/textures/flat/light_gray.png"/>
-    <texture type="2d" colorspace="linear" name="outlet_room_tex-outlet" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/outlets/simple_white/visuals/material_0.png"/>
-    <texture type="2d" colorspace="linear" name="outlet_room_image0" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/outlets/simple_white/visuals/image0.png"/>
-    <texture type="2d" colorspace="linear" name="outlet_2_room_tex-outlet" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/outlets/simple_white/visuals/material_0.png"/>
-    <texture type="2d" colorspace="linear" name="outlet_2_room_image0" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/outlets/simple_white/visuals/image0.png"/>
-    <texture type="2d" colorspace="linear" name="light_switch_room_tex-light_switch" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/light_switches/white_wide_switch/visuals/material_0.png"/>
-    <texture type="2d" colorspace="linear" name="light_switch_room_image0" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/light_switches/white_wide_switch/visuals/image0.png"/>
-    <texture type="2d" colorspace="linear" name="light_switch_2_room_tex-light_switch" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/light_switches/white_wide_switch/visuals/material_0.png"/>
-    <texture type="2d" colorspace="linear" name="light_switch_2_room_image0" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/light_switches/white_wide_switch/visuals/image0.png"/>
-    <texture type="2d" colorspace="linear" name="floor_room_wall" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/textures/wood/light_wood_planks_2.png"/>
-    <texture type="2d" colorspace="linear" name="floor_backing_room_wall" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/textures/flat/light_gray.png"/>
-    <texture type="2d" colorspace="linear" name="flat/white_2d" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/textures/flat/white.png"/>
-    <texture type="cube" colorspace="linear" name="flat/blue_gray" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/textures/flat/blue_gray.png"/>
-    <texture type="cube" colorspace="linear" name="box" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/textures/flat/blue_gray.png"/>
-    <texture type="2d" colorspace="linear" name="flat/blue_gray_2d" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/textures/flat/blue_gray.png"/>
-    <texture type="cube" colorspace="linear" name="flat/dark_gray" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/textures/flat/dark_gray.png"/>
-    <texture type="2d" colorspace="sRGB" name="window_group_main_group_panel_tex" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/textures/wood/dark_wood_planks.png"/>
-    <texture type="2d" colorspace="linear" name="window_group_main_group_blurred_bak" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/textures/flat/warm_white.png"/>
-    <texture type="2d" colorspace="linear" name="toaster_main_group_tex-model" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/toasters/vintage/visuals/material_0.png"/>
-    <texture type="2d" colorspace="linear" name="toaster_main_group_image0" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/toasters/vintage/visuals/image0.png"/>
-    <texture type="2d" colorspace="linear" name="knife_block_main_group_tex-model" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/knife_blocks/light_wood_3/visuals/material_0.png"/>
-    <texture type="2d" colorspace="linear" name="knife_block_main_group_image0" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/knife_blocks/light_wood_3/visuals/image0.png"/>
-    <texture type="2d" colorspace="linear" name="plant_front_group_tex-model" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/plants/aloe/visuals/material_0.png"/>
-    <texture type="2d" colorspace="linear" name="plant_front_group_image0" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/plants/aloe/visuals/image0.png"/>
-    <texture type="2d" colorspace="linear" name="plant_front_group_image1" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/plants/aloe/visuals/image1.png"/>
-    <texture type="2d" colorspace="linear" name="plant_front_group_image2" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/plants/aloe/visuals/image2.png"/>
-    <texture type="2d" colorspace="linear" name="plant_front_group_image3" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/plants/aloe/visuals/image3.png"/>
-    <texture type="2d" colorspace="linear" name="stool_1_front_group_tex-model" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/stools/rattan_stool/visuals/material_0.png"/>
-    <texture type="2d" colorspace="linear" name="stool_1_front_group_image0" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/stools/rattan_stool/visuals/image0.png"/>
-    <texture type="2d" colorspace="linear" name="stool_2_front_group_tex-model" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/stools/rattan_stool/visuals/material_0.png"/>
-    <texture type="2d" colorspace="linear" name="stool_2_front_group_image0" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/stools/rattan_stool/visuals/image0.png"/>
-    <texture type="2d" colorspace="linear" name="stove_left_group_tex-model" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/stoves/square_gas/visuals/material_0.png"/>
-    <texture type="2d" colorspace="linear" name="stove_left_group_image0" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/stoves/square_gas/visuals/image0.png"/>
-    <texture type="2d" colorspace="linear" name="stove_left_group_image4" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/stoves/square_gas/visuals/image4.png"/>
-    <texture type="2d" colorspace="linear" name="fridge_left_group_tex-model" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/fridges/pack_1/visuals/material_0.png"/>
-    <texture type="2d" colorspace="linear" name="fridge_left_group_image23" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/fridges/pack_1/visuals/image23.png"/>
-    <texture type="2d" colorspace="linear" name="fridge_left_group_image0" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/fridges/pack_1/visuals/image0.png"/>
-    <texture type="2d" colorspace="linear" name="microwave_left_group_tex-model" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/microwaves/pack_1/visuals/material_0.png"/>
-    <texture type="2d" colorspace="linear" name="microwave_left_group_image7" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/microwaves/pack_1/visuals/image7.png"/>
-    <texture type="2d" colorspace="linear" name="microwave_left_group_image2" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/microwaves/pack_1/visuals/image2.png"/>
-    <texture type="2d" colorspace="linear" name="microwave_left_group_image5" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/microwaves/pack_1/visuals/image5.png"/>
-    <texture type="2d" colorspace="linear" name="coffee_machine_left_group_tex-model" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/material_0.png"/>
-    <texture type="2d" colorspace="linear" name="coffee_machine_left_group_image3" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/image3.png"/>
-    <texture type="2d" colorspace="linear" name="coffee_machine_left_group_image0" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/image0.png"/>
-    <texture type="2d" colorspace="linear" name="coffee_machine_left_group_image8" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/image8.png"/>
-    <texture type="2d" colorspace="linear" name="coffee_machine_left_group_image1" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/image1.png"/>
-    <texture type="2d" colorspace="linear" name="coffee_machine_left_group_image6" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/image6.png"/>
-    <texture type="2d" colorspace="linear" name="coffee_machine_left_group_image10" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/image10.png"/>
-    <texture type="2d" colorspace="linear" name="coffee_machine_left_group_image12" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/image12.png"/>
-    <texture type="2d" colorspace="linear" name="utensil_holder_left_group_tex-model" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/utensil_holders/holder_2/visuals/material_0.png"/>
-    <texture type="2d" colorspace="linear" name="utensil_holder_left_group_image3" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/utensil_holders/holder_2/visuals/image3.png"/>
-    <texture type="2d" colorspace="linear" name="utensil_holder_left_group_image0" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/utensil_holders/holder_2/visuals/image0.png"/>
-    <texture type="2d" colorspace="linear" name="tex_2d" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/textures/ceramic.png"/>
-    <texture type="2d" colorspace="linear" name="dishwasher_right_group_tex-model" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/dishwashers/pack_1/visuals/material_0.png"/>
-    <texture type="2d" colorspace="linear" name="dishwasher_right_group_image9" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/dishwashers/pack_1/visuals/image9.png"/>
-    <texture type="2d" colorspace="linear" name="dishwasher_right_group_image13" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/dishwashers/pack_1/visuals/image13.png"/>
-    <texture type="2d" colorspace="linear" name="wood/light_wood_parquet_2d" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/textures/wood/light_wood_parquet.png"/>
-    <texture type="2d" colorspace="linear" name="paper_towel_right_group_tex-model" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/paper_towel_holders/holder_2/visuals/material_0.png"/>
-    <texture type="2d" colorspace="linear" name="paper_towel_right_group_image0" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/paper_towel_holders/holder_2/visuals/image0.png"/>
-    <texture type="2d" colorspace="linear" name="paper_towel_right_group_image1" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/paper_towel_holders/holder_2/visuals/image1.png"/>
+    <texture type="skybox" builtin="flat" rgb1="1 1 1" rgb2="1 1 1" width="256" height="1536"/>
+    <texture type="2d" name="wall_room_wall" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/textures/marble/marble_2.png"/>
+    <texture type="2d" name="wall_backing_room_wall" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/textures/flat/light_gray.png"/>
+    <texture type="2d" name="wall_left_room_wall" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/textures/marble/marble_2.png"/>
+    <texture type="2d" name="wall_left_backing_room_wall" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/textures/flat/light_gray.png"/>
+    <texture type="2d" name="wall_right_room_wall" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/textures/marble/marble_2.png"/>
+    <texture type="2d" name="wall_right_backing_room_wall" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/textures/flat/light_gray.png"/>
+    <texture type="2d" name="outlet_room_tex-outlet" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/outlets/simple_white/visuals/material_0.png"/>
+    <texture type="2d" name="outlet_room_image0" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/outlets/simple_white/visuals/image0.png"/>
+    <texture type="2d" name="outlet_2_room_tex-outlet" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/outlets/simple_white/visuals/material_0.png"/>
+    <texture type="2d" name="outlet_2_room_image0" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/outlets/simple_white/visuals/image0.png"/>
+    <texture type="2d" name="light_switch_room_tex-light_switch" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/light_switches/white_wide_switch/visuals/material_0.png"/>
+    <texture type="2d" name="light_switch_room_image0" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/light_switches/white_wide_switch/visuals/image0.png"/>
+    <texture type="2d" name="light_switch_2_room_tex-light_switch" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/light_switches/white_wide_switch/visuals/material_0.png"/>
+    <texture type="2d" name="light_switch_2_room_image0" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/light_switches/white_wide_switch/visuals/image0.png"/>
+    <texture type="2d" name="floor_room_wall" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/textures/wood/light_wood_planks_2.png"/>
+    <texture type="2d" name="floor_backing_room_wall" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/textures/flat/light_gray.png"/>
+    <texture type="2d" name="flat/white_2d" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/textures/flat/white.png"/>
+    <texture type="cube" name="flat/blue_gray" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/textures/flat/blue_gray.png"/>
+    <texture type="cube" name="box" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/textures/flat/blue_gray.png"/>
+    <texture type="2d" name="flat/blue_gray_2d" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/textures/flat/blue_gray.png"/>
+    <texture type="cube" name="flat/dark_gray" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/textures/flat/dark_gray.png"/>
+    <texture type="2d" name="window_group_main_group_panel_tex" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/textures/wood/dark_wood_planks.png"/>
+    <texture type="2d" name="window_group_main_group_blurred_bak" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/textures/flat/warm_white.png"/>
+    <texture type="2d" name="toaster_main_group_tex-model" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/toasters/vintage/visuals/material_0.png"/>
+    <texture type="2d" name="toaster_main_group_image0" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/toasters/vintage/visuals/image0.png"/>
+    <texture type="2d" name="knife_block_main_group_tex-model" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/knife_blocks/light_wood_3/visuals/material_0.png"/>
+    <texture type="2d" name="knife_block_main_group_image0" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/knife_blocks/light_wood_3/visuals/image0.png"/>
+    <texture type="2d" name="plant_front_group_tex-model" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/plants/aloe/visuals/material_0.png"/>
+    <texture type="2d" name="plant_front_group_image0" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/plants/aloe/visuals/image0.png"/>
+    <texture type="2d" name="plant_front_group_image1" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/plants/aloe/visuals/image1.png"/>
+    <texture type="2d" name="plant_front_group_image2" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/plants/aloe/visuals/image2.png"/>
+    <texture type="2d" name="plant_front_group_image3" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/plants/aloe/visuals/image3.png"/>
+    <texture type="2d" name="stool_1_front_group_tex-model" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/stools/rattan_stool/visuals/material_0.png"/>
+    <texture type="2d" name="stool_1_front_group_image0" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/stools/rattan_stool/visuals/image0.png"/>
+    <texture type="2d" name="stool_2_front_group_tex-model" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/stools/rattan_stool/visuals/material_0.png"/>
+    <texture type="2d" name="stool_2_front_group_image0" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/stools/rattan_stool/visuals/image0.png"/>
+    <texture type="2d" name="stove_left_group_tex-model" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/stoves/square_gas/visuals/material_0.png"/>
+    <texture type="2d" name="stove_left_group_image0" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/stoves/square_gas/visuals/image0.png"/>
+    <texture type="2d" name="stove_left_group_image4" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/stoves/square_gas/visuals/image4.png"/>
+    <texture type="2d" name="fridge_left_group_tex-model" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/fridges/pack_1/visuals/material_0.png"/>
+    <texture type="2d" name="fridge_left_group_image23" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/fridges/pack_1/visuals/image23.png"/>
+    <texture type="2d" name="fridge_left_group_image0" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/fridges/pack_1/visuals/image0.png"/>
+    <texture type="2d" name="microwave_left_group_tex-model" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/microwaves/pack_1/visuals/material_0.png"/>
+    <texture type="2d" name="microwave_left_group_image7" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/microwaves/pack_1/visuals/image7.png"/>
+    <texture type="2d" name="microwave_left_group_image2" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/microwaves/pack_1/visuals/image2.png"/>
+    <texture type="2d" name="microwave_left_group_image5" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/microwaves/pack_1/visuals/image5.png"/>
+    <texture type="2d" name="coffee_machine_left_group_tex-model" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/material_0.png"/>
+    <texture type="2d" name="coffee_machine_left_group_image3" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/image3.png"/>
+    <texture type="2d" name="coffee_machine_left_group_image0" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/image0.png"/>
+    <texture type="2d" name="coffee_machine_left_group_image8" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/image8.png"/>
+    <texture type="2d" name="coffee_machine_left_group_image1" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/image1.png"/>
+    <texture type="2d" name="coffee_machine_left_group_image6" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/image6.png"/>
+    <texture type="2d" name="coffee_machine_left_group_image10" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/image10.png"/>
+    <texture type="2d" name="coffee_machine_left_group_image12" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/image12.png"/>
+    <texture type="2d" name="utensil_holder_left_group_tex-model" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/utensil_holders/holder_2/visuals/material_0.png"/>
+    <texture type="2d" name="utensil_holder_left_group_image3" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/utensil_holders/holder_2/visuals/image3.png"/>
+    <texture type="2d" name="utensil_holder_left_group_image0" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/utensil_holders/holder_2/visuals/image0.png"/>
+    <texture type="2d" name="tex_2d" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/textures/ceramic.png"/>
+    <texture type="2d" name="dishwasher_right_group_tex-model" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/dishwashers/pack_1/visuals/material_0.png"/>
+    <texture type="2d" name="dishwasher_right_group_image9" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/dishwashers/pack_1/visuals/image9.png"/>
+    <texture type="2d" name="dishwasher_right_group_image13" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/dishwashers/pack_1/visuals/image13.png"/>
+    <texture type="2d" name="wood/light_wood_parquet_2d" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/textures/wood/light_wood_parquet.png"/>
+    <texture type="2d" name="paper_towel_right_group_tex-model" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/paper_towel_holders/holder_2/visuals/material_0.png"/>
+    <texture type="2d" name="paper_towel_right_group_image0" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/paper_towel_holders/holder_2/visuals/image0.png"/>
+    <texture type="2d" name="paper_towel_right_group_image1" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/paper_towel_holders/holder_2/visuals/image1.png"/>
     <material name="robot0_Face636_001" shininess="0.45" rgba="0.901961 0.921569 0.929412 1"/>
     <material name="robot0_Part__Feature017_001" shininess="0.45"/>
     <material name="robot0_Part__Feature018_001" shininess="0.45"/>
@@ -372,156 +372,156 @@
     <material name="paper_towel_right_group_paperSide" texture="paper_towel_right_group_image0" shininess="0"/>
     <material name="paper_towel_right_group_paperTopAndBottom" texture="paper_towel_right_group_image1" shininess="0"/>
     <material name="paper_towel_right_group_paperboard" shininess="0" rgba="0.327778 0.266356 0.198069 1"/>
-    <mesh name="robot0_link0" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/meshes/link0.stl"/>
-    <mesh name="robot0_link1" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/meshes/link1.stl"/>
-    <mesh name="robot0_link2" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/meshes/link2.stl"/>
-    <mesh name="robot0_link3" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/meshes/link3.stl"/>
-    <mesh name="robot0_link4" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/meshes/link4.stl"/>
-    <mesh name="robot0_link5" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/meshes/link5.stl"/>
-    <mesh name="robot0_link6" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/meshes/link6.stl"/>
-    <mesh name="robot0_link7" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/meshes/link7.stl"/>
-    <mesh name="robot0_link0_vis_0" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link0_vis/link0_vis_0.obj"/>
-    <mesh name="robot0_link0_vis_1" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link0_vis/link0_vis_1.obj"/>
-    <mesh name="robot0_link0_vis_2" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link0_vis/link0_vis_2.obj"/>
-    <mesh name="robot0_link0_vis_3" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link0_vis/link0_vis_3.obj"/>
-    <mesh name="robot0_link0_vis_4" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link0_vis/link0_vis_4.obj"/>
-    <mesh name="robot0_link0_vis_5" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link0_vis/link0_vis_5.obj"/>
-    <mesh name="robot0_link0_vis_6" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link0_vis/link0_vis_6.obj"/>
-    <mesh name="robot0_link0_vis_7" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link0_vis/link0_vis_7.obj"/>
-    <mesh name="robot0_link0_vis_8" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link0_vis/link0_vis_8.obj"/>
-    <mesh name="robot0_link0_vis_9" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link0_vis/link0_vis_9.obj"/>
-    <mesh name="robot0_link0_vis_10" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link0_vis/link0_vis_10.obj"/>
-    <mesh name="robot0_link0_vis_11" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link0_vis/link0_vis_11.obj"/>
-    <mesh name="robot0_link1_vis" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link1_vis/link1_vis.obj"/>
-    <mesh name="robot0_link2_vis" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link2_vis/link2_vis.obj"/>
-    <mesh name="robot0_link3_vis_0" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link3_vis/link3_vis_0.obj"/>
-    <mesh name="robot0_link3_vis_1" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link3_vis/link3_vis_1.obj"/>
-    <mesh name="robot0_link3_vis_2" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link3_vis/link3_vis_2.obj"/>
-    <mesh name="robot0_link3_vis_3" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link3_vis/link3_vis_3.obj"/>
-    <mesh name="robot0_link4_vis_0" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link4_vis/link4_vis_0.obj"/>
-    <mesh name="robot0_link4_vis_1" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link4_vis/link4_vis_1.obj"/>
-    <mesh name="robot0_link4_vis_2" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link4_vis/link4_vis_2.obj"/>
-    <mesh name="robot0_link4_vis_3" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link4_vis/link4_vis_3.obj"/>
-    <mesh name="robot0_link5_vis_0" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link5_vis/link5_vis_0.obj"/>
-    <mesh name="robot0_link5_vis_1" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link5_vis/link5_vis_1.obj"/>
-    <mesh name="robot0_link5_vis_2" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link5_vis/link5_vis_2.obj"/>
-    <mesh name="robot0_link6_vis_0" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_0.obj"/>
-    <mesh name="robot0_link6_vis_1" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_1.obj"/>
-    <mesh name="robot0_link6_vis_2" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_2.obj"/>
-    <mesh name="robot0_link6_vis_3" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_3.obj"/>
-    <mesh name="robot0_link6_vis_4" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_4.obj"/>
-    <mesh name="robot0_link6_vis_5" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_5.obj"/>
-    <mesh name="robot0_link6_vis_6" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_6.obj"/>
-    <mesh name="robot0_link6_vis_7" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_7.obj"/>
-    <mesh name="robot0_link6_vis_8" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_8.obj"/>
-    <mesh name="robot0_link6_vis_9" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_9.obj"/>
-    <mesh name="robot0_link6_vis_10" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_10.obj"/>
-    <mesh name="robot0_link6_vis_11" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_11.obj"/>
-    <mesh name="robot0_link6_vis_12" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_12.obj"/>
-    <mesh name="robot0_link6_vis_13" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_13.obj"/>
-    <mesh name="robot0_link6_vis_14" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_14.obj"/>
-    <mesh name="robot0_link6_vis_15" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_15.obj"/>
-    <mesh name="robot0_link6_vis_16" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_16.obj"/>
-    <mesh name="robot0_link7_vis_0" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link7_vis/link7_vis_0.obj"/>
-    <mesh name="robot0_link7_vis_1" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link7_vis/link7_vis_1.obj"/>
-    <mesh name="robot0_link7_vis_2" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link7_vis/link7_vis_2.obj"/>
-    <mesh name="robot0_link7_vis_3" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link7_vis/link7_vis_3.obj"/>
-    <mesh name="robot0_link7_vis_4" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link7_vis/link7_vis_4.obj"/>
-    <mesh name="robot0_link7_vis_5" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link7_vis/link7_vis_5.obj"/>
-    <mesh name="robot0_link7_vis_6" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link7_vis/link7_vis_6.obj"/>
-    <mesh name="robot0_link7_vis_7" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/robots/panda/obj_meshes/link7_vis/link7_vis_7.obj"/>
-    <mesh name="fixed_mount0_pedestal" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/bases/meshes/rethink_mount/pedestal.stl"/>
-    <mesh name="gripper0_right_hand" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/grippers/meshes/panda_gripper/hand.stl"/>
-    <mesh name="gripper0_right_hand_vis" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/grippers/meshes/panda_gripper/hand_vis.stl"/>
-    <mesh name="gripper0_right_finger" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/grippers/meshes/panda_gripper/finger.stl"/>
-    <mesh name="gripper0_right_finger_vis" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/grippers/meshes/panda_gripper/finger_vis.stl"/>
-    <mesh name="gripper0_right_finger_vis2" file="C:\Users/nahoy/Mujoco_local_structured/code2/robosuite/robosuite/models/assets/grippers/meshes/panda_gripper/finger_longer.stl"/>
-    <mesh name="outlet_room_outlet_0_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/outlets/simple_white/visuals/outlet_0.obj" scale="0.15 0.15 0.15"/>
-    <mesh name="outlet_2_room_outlet_0_vis" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/outlets/simple_white/visuals/outlet_0.obj" scale="0.15 0.15 0.15"/>
-    <mesh name="light_switch_room_light_switch_0_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/light_switches/white_wide_switch/visuals/light_switch_0.obj" scale="0.15 0.15 0.15"/>
-    <mesh name="light_switch_2_room_light_switch_0_vis" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/light_switches/white_wide_switch/visuals/light_switch_0.obj" scale="0.15 0.15 0.15"/>
-    <mesh name="utensil_rack_room_model_0_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/utensil_racks/metal_cg_2/visuals/model_0.obj" scale="0.4 0.4 0.4"/>
-    <mesh name="toaster_main_group_model_0_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/toasters/vintage/visuals/model_0.obj" scale="0.3 0.3 0.3"/>
-    <mesh name="knife_block_main_group_model_0_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/knife_blocks/light_wood_3/visuals/model_0.obj" scale="0.381892 0.381892 0.381892"/>
-    <mesh name="plant_front_group_model_0_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/plants/aloe/visuals/model_0.obj" scale="0.3 0.3 0.3"/>
-    <mesh name="plant_front_group_model_1_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/plants/aloe/visuals/model_1.obj" scale="0.3 0.3 0.3"/>
-    <mesh name="plant_front_group_model_2_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/plants/aloe/visuals/model_2.obj" scale="0.3 0.3 0.3"/>
-    <mesh name="plant_front_group_model_3_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/plants/aloe/visuals/model_3.obj" scale="0.3 0.3 0.3"/>
-    <mesh name="stool_1_front_group_model_0_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/stools/rattan_stool/visuals/model_0.obj"/>
-    <mesh name="stool_2_front_group_model_0_vis" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/stools/rattan_stool/visuals/model_0.obj"/>
-    <mesh name="stove_left_group_model_0_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/stoves/square_gas/visuals/model_0.obj" scale="0.897959 0.897959 0.897959"/>
-    <mesh name="stove_left_group_model_1_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/stoves/square_gas/visuals/model_1.obj" scale="0.897959 0.897959 0.897959"/>
-    <mesh name="stove_left_group_knob_rear_right_0_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/stoves/square_gas/visuals/knob_rear_right_0.obj" scale="0.897959 0.897959 0.897959"/>
-    <mesh name="stove_left_group_knob_dummy_0_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/stoves/square_gas/visuals/knob_dummy_0.obj" scale="0.897959 0.897959 0.897959"/>
-    <mesh name="stove_left_group_knob_front_left_0_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/stoves/square_gas/visuals/knob_front_left_0.obj" scale="0.897959 0.897959 0.897959"/>
-    <mesh name="stove_left_group_knob_front_right_0_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/stoves/square_gas/visuals/knob_front_right_0.obj" scale="0.897959 0.897959 0.897959"/>
-    <mesh name="stove_left_group_knob_rear_left_0_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/stoves/square_gas/visuals/knob_rear_left_0.obj" scale="0.897959 0.897959 0.897959"/>
-    <mesh name="fridge_left_group_model_0_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/fridges/pack_1/visuals/model_0.obj" scale="1.75 1.75 1.75"/>
-    <mesh name="fridge_left_group_model_1_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/fridges/pack_1/visuals/model_1.obj" scale="1.75 1.75 1.75"/>
-    <mesh name="microwave_left_group_model_0_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/microwaves/pack_1/visuals/model_0.obj" scale="0.823901 0.515464 0.823901"/>
-    <mesh name="microwave_left_group_model_1_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/microwaves/pack_1/visuals/model_1.obj" scale="0.823901 0.515464 0.823901"/>
-    <mesh name="microwave_left_group_model_2_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/microwaves/pack_1/visuals/model_2.obj" scale="0.823901 0.515464 0.823901"/>
-    <mesh name="microwave_left_group_door_0_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/microwaves/pack_1/visuals/door_0.obj" scale="0.823901 0.515464 0.823901"/>
-    <mesh name="microwave_left_group_door_1_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/microwaves/pack_1/visuals/door_1.obj" scale="0.823901 0.515464 0.823901"/>
-    <mesh name="microwave_left_group_door_2_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/microwaves/pack_1/visuals/door_2.obj" scale="0.823901 0.515464 0.823901"/>
-    <mesh name="coffee_machine_left_group_model_0_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/model_0.obj" scale="0.501402 0.501402 0.501402"/>
-    <mesh name="coffee_machine_left_group_model_1_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/model_1.obj" scale="0.501402 0.501402 0.501402"/>
-    <mesh name="coffee_machine_left_group_model_2_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/model_2.obj" scale="0.501402 0.501402 0.501402"/>
-    <mesh name="coffee_machine_left_group_model_3_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/model_3.obj" scale="0.501402 0.501402 0.501402"/>
-    <mesh name="coffee_machine_left_group_model_4_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/model_4.obj" scale="0.501402 0.501402 0.501402"/>
-    <mesh name="coffee_machine_left_group_model_5_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/model_5.obj" scale="0.501402 0.501402 0.501402"/>
-    <mesh name="coffee_machine_left_group_model_6_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/model_6.obj" scale="0.501402 0.501402 0.501402"/>
-    <mesh name="coffee_machine_left_group_model_7_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/model_7.obj" scale="0.501402 0.501402 0.501402"/>
-    <mesh name="coffee_machine_left_group_model_8_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/model_8.obj" scale="0.501402 0.501402 0.501402"/>
-    <mesh name="coffee_machine_left_group_model_9_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/model_9.obj" scale="0.501402 0.501402 0.501402"/>
-    <mesh name="coffee_machine_left_group_model_10_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/model_10.obj" scale="0.501402 0.501402 0.501402"/>
-    <mesh name="coffee_machine_left_group_model_11_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/model_11.obj" scale="0.501402 0.501402 0.501402"/>
-    <mesh name="coffee_machine_left_group_model_12_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/model_12.obj" scale="0.501402 0.501402 0.501402"/>
-    <mesh name="utensil_holder_left_group_model_0_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/utensil_holders/holder_2/visuals/model_0.obj" scale="0.35 0.35 0.35"/>
-    <mesh name="utensil_holder_left_group_model_1_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/utensil_holders/holder_2/visuals/model_1.obj" scale="0.35 0.35 0.35"/>
-    <mesh name="utensil_holder_left_group_model_2_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/utensil_holders/holder_2/visuals/model_2.obj" scale="0.35 0.35 0.35"/>
-    <mesh name="utensil_holder_left_group_model_3_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/utensil_holders/holder_2/visuals/model_3.obj" scale="0.35 0.35 0.35"/>
-    <mesh name="sink_right_group_model_0_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/sinks/2_bins_stainless/visuals/model_0.obj" scale="0.941781 0.941781 0.941781"/>
-    <mesh name="sink_right_group_model_1_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/sinks/2_bins_stainless/visuals/model_1.obj" scale="0.941781 0.941781 0.941781"/>
-    <mesh name="sink_right_group_model_2_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/sinks/2_bins_stainless/visuals/model_2.obj" scale="0.941781 0.941781 0.941781"/>
-    <mesh name="sink_right_group_spout_0_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/sinks/2_bins_stainless/visuals/spout_0.obj" scale="0.941781 0.941781 0.941781"/>
-    <mesh name="sink_right_group_handle_0_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/sinks/2_bins_stainless/visuals/handle_0.obj" scale="0.941781 0.941781 0.941781"/>
-    <mesh name="dishwasher_right_group_model_0_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/dishwashers/pack_1/visuals/model_0.obj" scale="0.887868 0.828685 0.89"/>
-    <mesh name="dishwasher_right_group_model_1_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/dishwashers/pack_1/visuals/model_1.obj" scale="0.887868 0.828685 0.89"/>
-    <mesh name="paper_towel_right_group_model_0_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/paper_towel_holders/holder_2/visuals/model_0.obj" scale="0.35 0.35 0.35"/>
-    <mesh name="paper_towel_right_group_model_1_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/paper_towel_holders/holder_2/visuals/model_1.obj" scale="0.35 0.35 0.35"/>
-    <mesh name="paper_towel_right_group_model_2_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/paper_towel_holders/holder_2/visuals/model_2.obj" scale="0.35 0.35 0.35"/>
-    <mesh name="paper_towel_right_group_model_3_vis" content_type="model/obj" file="C:\Users/nahoy/Mujoco_local_structured/code2/robocasa/robocasa/models/assets/fixtures/accessories/paper_towel_holders/holder_2/visuals/model_3.obj" scale="0.35 0.35 0.35"/>
+    <mesh name="robot0_link0" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/meshes/link0.stl"/>
+    <mesh name="robot0_link1" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/meshes/link1.stl"/>
+    <mesh name="robot0_link2" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/meshes/link2.stl"/>
+    <mesh name="robot0_link3" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/meshes/link3.stl"/>
+    <mesh name="robot0_link4" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/meshes/link4.stl"/>
+    <mesh name="robot0_link5" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/meshes/link5.stl"/>
+    <mesh name="robot0_link6" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/meshes/link6.stl"/>
+    <mesh name="robot0_link7" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/meshes/link7.stl"/>
+    <mesh name="robot0_link0_vis_0" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link0_vis/link0_vis_0.obj"/>
+    <mesh name="robot0_link0_vis_1" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link0_vis/link0_vis_1.obj"/>
+    <mesh name="robot0_link0_vis_2" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link0_vis/link0_vis_2.obj"/>
+    <mesh name="robot0_link0_vis_3" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link0_vis/link0_vis_3.obj"/>
+    <mesh name="robot0_link0_vis_4" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link0_vis/link0_vis_4.obj"/>
+    <mesh name="robot0_link0_vis_5" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link0_vis/link0_vis_5.obj"/>
+    <mesh name="robot0_link0_vis_6" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link0_vis/link0_vis_6.obj"/>
+    <mesh name="robot0_link0_vis_7" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link0_vis/link0_vis_7.obj"/>
+    <mesh name="robot0_link0_vis_8" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link0_vis/link0_vis_8.obj"/>
+    <mesh name="robot0_link0_vis_9" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link0_vis/link0_vis_9.obj"/>
+    <mesh name="robot0_link0_vis_10" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link0_vis/link0_vis_10.obj"/>
+    <mesh name="robot0_link0_vis_11" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link0_vis/link0_vis_11.obj"/>
+    <mesh name="robot0_link1_vis" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link1_vis/link1_vis.obj"/>
+    <mesh name="robot0_link2_vis" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link2_vis/link2_vis.obj"/>
+    <mesh name="robot0_link3_vis_0" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link3_vis/link3_vis_0.obj"/>
+    <mesh name="robot0_link3_vis_1" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link3_vis/link3_vis_1.obj"/>
+    <mesh name="robot0_link3_vis_2" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link3_vis/link3_vis_2.obj"/>
+    <mesh name="robot0_link3_vis_3" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link3_vis/link3_vis_3.obj"/>
+    <mesh name="robot0_link4_vis_0" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link4_vis/link4_vis_0.obj"/>
+    <mesh name="robot0_link4_vis_1" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link4_vis/link4_vis_1.obj"/>
+    <mesh name="robot0_link4_vis_2" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link4_vis/link4_vis_2.obj"/>
+    <mesh name="robot0_link4_vis_3" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link4_vis/link4_vis_3.obj"/>
+    <mesh name="robot0_link5_vis_0" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link5_vis/link5_vis_0.obj"/>
+    <mesh name="robot0_link5_vis_1" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link5_vis/link5_vis_1.obj"/>
+    <mesh name="robot0_link5_vis_2" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link5_vis/link5_vis_2.obj"/>
+    <mesh name="robot0_link6_vis_0" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_0.obj"/>
+    <mesh name="robot0_link6_vis_1" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_1.obj"/>
+    <mesh name="robot0_link6_vis_2" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_2.obj"/>
+    <mesh name="robot0_link6_vis_3" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_3.obj"/>
+    <mesh name="robot0_link6_vis_4" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_4.obj"/>
+    <mesh name="robot0_link6_vis_5" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_5.obj"/>
+    <mesh name="robot0_link6_vis_6" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_6.obj"/>
+    <mesh name="robot0_link6_vis_7" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_7.obj"/>
+    <mesh name="robot0_link6_vis_8" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_8.obj"/>
+    <mesh name="robot0_link6_vis_9" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_9.obj"/>
+    <mesh name="robot0_link6_vis_10" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_10.obj"/>
+    <mesh name="robot0_link6_vis_11" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_11.obj"/>
+    <mesh name="robot0_link6_vis_12" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_12.obj"/>
+    <mesh name="robot0_link6_vis_13" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_13.obj"/>
+    <mesh name="robot0_link6_vis_14" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_14.obj"/>
+    <mesh name="robot0_link6_vis_15" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_15.obj"/>
+    <mesh name="robot0_link6_vis_16" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link6_vis/link6_vis_16.obj"/>
+    <mesh name="robot0_link7_vis_0" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link7_vis/link7_vis_0.obj"/>
+    <mesh name="robot0_link7_vis_1" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link7_vis/link7_vis_1.obj"/>
+    <mesh name="robot0_link7_vis_2" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link7_vis/link7_vis_2.obj"/>
+    <mesh name="robot0_link7_vis_3" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link7_vis/link7_vis_3.obj"/>
+    <mesh name="robot0_link7_vis_4" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link7_vis/link7_vis_4.obj"/>
+    <mesh name="robot0_link7_vis_5" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link7_vis/link7_vis_5.obj"/>
+    <mesh name="robot0_link7_vis_6" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link7_vis/link7_vis_6.obj"/>
+    <mesh name="robot0_link7_vis_7" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/robots/panda/obj_meshes/link7_vis/link7_vis_7.obj"/>
+    <mesh name="fixed_mount0_pedestal" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/bases/meshes/rethink_mount/pedestal.stl"/>
+    <mesh name="gripper0_right_hand" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/grippers/meshes/panda_gripper/hand.stl"/>
+    <mesh name="gripper0_right_hand_vis" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/grippers/meshes/panda_gripper/hand_vis.stl"/>
+    <mesh name="gripper0_right_finger" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/grippers/meshes/panda_gripper/finger.stl"/>
+    <mesh name="gripper0_right_finger_vis" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/grippers/meshes/panda_gripper/finger_vis.stl"/>
+    <mesh name="gripper0_right_finger_vis2" file="/home/hoyongna/.local/lib/python3.10/site-packages/robosuite/models/assets/grippers/meshes/panda_gripper/finger_longer.stl"/>
+    <mesh name="outlet_room_outlet_0_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/outlets/simple_white/visuals/outlet_0.obj" scale="0.15 0.15 0.15"/>
+    <mesh name="outlet_2_room_outlet_0_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/outlets/simple_white/visuals/outlet_0.obj" scale="0.15 0.15 0.15"/>
+    <mesh name="light_switch_room_light_switch_0_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/light_switches/white_wide_switch/visuals/light_switch_0.obj" scale="0.15 0.15 0.15"/>
+    <mesh name="light_switch_2_room_light_switch_0_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/light_switches/white_wide_switch/visuals/light_switch_0.obj" scale="0.15 0.15 0.15"/>
+    <mesh name="utensil_rack_room_model_0_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/utensil_racks/metal_cg_2/visuals/model_0.obj" scale="0.4 0.4 0.4"/>
+    <mesh name="toaster_main_group_model_0_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/toasters/vintage/visuals/model_0.obj" scale="0.3 0.3 0.3"/>
+    <mesh name="knife_block_main_group_model_0_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/knife_blocks/light_wood_3/visuals/model_0.obj" scale="0.381892 0.381892 0.381892"/>
+    <mesh name="plant_front_group_model_0_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/plants/aloe/visuals/model_0.obj" scale="0.3 0.3 0.3"/>
+    <mesh name="plant_front_group_model_1_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/plants/aloe/visuals/model_1.obj" scale="0.3 0.3 0.3"/>
+    <mesh name="plant_front_group_model_2_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/plants/aloe/visuals/model_2.obj" scale="0.3 0.3 0.3"/>
+    <mesh name="plant_front_group_model_3_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/plants/aloe/visuals/model_3.obj" scale="0.3 0.3 0.3"/>
+    <mesh name="stool_1_front_group_model_0_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/stools/rattan_stool/visuals/model_0.obj"/>
+    <mesh name="stool_2_front_group_model_0_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/stools/rattan_stool/visuals/model_0.obj"/>
+    <mesh name="stove_left_group_model_0_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/stoves/square_gas/visuals/model_0.obj" scale="0.897959 0.897959 0.897959"/>
+    <mesh name="stove_left_group_model_1_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/stoves/square_gas/visuals/model_1.obj" scale="0.897959 0.897959 0.897959"/>
+    <mesh name="stove_left_group_knob_rear_right_0_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/stoves/square_gas/visuals/knob_rear_right_0.obj" scale="0.897959 0.897959 0.897959"/>
+    <mesh name="stove_left_group_knob_dummy_0_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/stoves/square_gas/visuals/knob_dummy_0.obj" scale="0.897959 0.897959 0.897959"/>
+    <mesh name="stove_left_group_knob_front_left_0_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/stoves/square_gas/visuals/knob_front_left_0.obj" scale="0.897959 0.897959 0.897959"/>
+    <mesh name="stove_left_group_knob_front_right_0_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/stoves/square_gas/visuals/knob_front_right_0.obj" scale="0.897959 0.897959 0.897959"/>
+    <mesh name="stove_left_group_knob_rear_left_0_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/stoves/square_gas/visuals/knob_rear_left_0.obj" scale="0.897959 0.897959 0.897959"/>
+    <mesh name="fridge_left_group_model_0_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/fridges/pack_1/visuals/model_0.obj" scale="1.75 1.75 1.75"/>
+    <mesh name="fridge_left_group_model_1_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/fridges/pack_1/visuals/model_1.obj" scale="1.75 1.75 1.75"/>
+    <mesh name="microwave_left_group_model_0_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/microwaves/pack_1/visuals/model_0.obj" scale="0.823901 0.515464 0.823901"/>
+    <mesh name="microwave_left_group_model_1_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/microwaves/pack_1/visuals/model_1.obj" scale="0.823901 0.515464 0.823901"/>
+    <mesh name="microwave_left_group_model_2_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/microwaves/pack_1/visuals/model_2.obj" scale="0.823901 0.515464 0.823901"/>
+    <mesh name="microwave_left_group_door_0_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/microwaves/pack_1/visuals/door_0.obj" scale="0.823901 0.515464 0.823901"/>
+    <mesh name="microwave_left_group_door_1_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/microwaves/pack_1/visuals/door_1.obj" scale="0.823901 0.515464 0.823901"/>
+    <mesh name="microwave_left_group_door_2_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/microwaves/pack_1/visuals/door_2.obj" scale="0.823901 0.515464 0.823901"/>
+    <mesh name="coffee_machine_left_group_model_0_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/model_0.obj" scale="0.501402 0.501402 0.501402"/>
+    <mesh name="coffee_machine_left_group_model_1_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/model_1.obj" scale="0.501402 0.501402 0.501402"/>
+    <mesh name="coffee_machine_left_group_model_2_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/model_2.obj" scale="0.501402 0.501402 0.501402"/>
+    <mesh name="coffee_machine_left_group_model_3_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/model_3.obj" scale="0.501402 0.501402 0.501402"/>
+    <mesh name="coffee_machine_left_group_model_4_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/model_4.obj" scale="0.501402 0.501402 0.501402"/>
+    <mesh name="coffee_machine_left_group_model_5_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/model_5.obj" scale="0.501402 0.501402 0.501402"/>
+    <mesh name="coffee_machine_left_group_model_6_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/model_6.obj" scale="0.501402 0.501402 0.501402"/>
+    <mesh name="coffee_machine_left_group_model_7_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/model_7.obj" scale="0.501402 0.501402 0.501402"/>
+    <mesh name="coffee_machine_left_group_model_8_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/model_8.obj" scale="0.501402 0.501402 0.501402"/>
+    <mesh name="coffee_machine_left_group_model_9_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/model_9.obj" scale="0.501402 0.501402 0.501402"/>
+    <mesh name="coffee_machine_left_group_model_10_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/model_10.obj" scale="0.501402 0.501402 0.501402"/>
+    <mesh name="coffee_machine_left_group_model_11_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/model_11.obj" scale="0.501402 0.501402 0.501402"/>
+    <mesh name="coffee_machine_left_group_model_12_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/coffee_machines/delonghi_espresso_2/visuals/model_12.obj" scale="0.501402 0.501402 0.501402"/>
+    <mesh name="utensil_holder_left_group_model_0_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/utensil_holders/holder_2/visuals/model_0.obj" scale="0.35 0.35 0.35"/>
+    <mesh name="utensil_holder_left_group_model_1_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/utensil_holders/holder_2/visuals/model_1.obj" scale="0.35 0.35 0.35"/>
+    <mesh name="utensil_holder_left_group_model_2_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/utensil_holders/holder_2/visuals/model_2.obj" scale="0.35 0.35 0.35"/>
+    <mesh name="utensil_holder_left_group_model_3_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/utensil_holders/holder_2/visuals/model_3.obj" scale="0.35 0.35 0.35"/>
+    <mesh name="sink_right_group_model_0_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/sinks/2_bins_stainless/visuals/model_0.obj" scale="0.941781 0.941781 0.941781"/>
+    <mesh name="sink_right_group_model_1_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/sinks/2_bins_stainless/visuals/model_1.obj" scale="0.941781 0.941781 0.941781"/>
+    <mesh name="sink_right_group_model_2_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/sinks/2_bins_stainless/visuals/model_2.obj" scale="0.941781 0.941781 0.941781"/>
+    <mesh name="sink_right_group_spout_0_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/sinks/2_bins_stainless/visuals/spout_0.obj" scale="0.941781 0.941781 0.941781"/>
+    <mesh name="sink_right_group_handle_0_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/sinks/2_bins_stainless/visuals/handle_0.obj" scale="0.941781 0.941781 0.941781"/>
+    <mesh name="dishwasher_right_group_model_0_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/dishwashers/pack_1/visuals/model_0.obj" scale="0.887868 0.828685 0.89"/>
+    <mesh name="dishwasher_right_group_model_1_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/dishwashers/pack_1/visuals/model_1.obj" scale="0.887868 0.828685 0.89"/>
+    <mesh name="paper_towel_right_group_model_0_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/paper_towel_holders/holder_2/visuals/model_0.obj" scale="0.35 0.35 0.35"/>
+    <mesh name="paper_towel_right_group_model_1_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/paper_towel_holders/holder_2/visuals/model_1.obj" scale="0.35 0.35 0.35"/>
+    <mesh name="paper_towel_right_group_model_2_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/paper_towel_holders/holder_2/visuals/model_2.obj" scale="0.35 0.35 0.35"/>
+    <mesh name="paper_towel_right_group_model_3_vis" file="/home/hoyongna/mujoco_pick_place/robocasa/robocasa/models/assets/fixtures/accessories/paper_towel_holders/holder_2/visuals/model_3.obj" scale="0.35 0.35 0.35"/>
     <material name="black" rgba="0.11372549 0.11372549 0.10196078 1"/>
     <material name="gray" rgba="0.62745098 0.65098039 0.64705882 1"/>
     <material name="dark_gray" rgba="0.35294118 0.37647059 0.37254902 1"/>
-    <mesh file="C:\Users\nahoy\Mujoco_local_structured\code2\model\stanford_tidybot\assets\base/bumper.stl"/>
-    <mesh file="C:\Users\nahoy\Mujoco_local_structured\code2\model\stanford_tidybot\assets\base/bottom_plate.stl"/>
-    <mesh file="C:\Users\nahoy\Mujoco_local_structured\code2\model\stanford_tidybot\assets\base/body.stl"/>
-    <mesh file="C:\Users\nahoy\Mujoco_local_structured\code2\model\stanford_tidybot\assets\base/top_plate.stl"/>
-    <mesh file="C:\Users\nahoy\Mujoco_local_structured\code2\model\stanford_tidybot\assets\base/arm_plate.stl"/>
-    <mesh name="gen3/base_link" file="C:\Users\nahoy\Mujoco_local_structured\code2\model\stanford_tidybot\assets\gen3/base_link.stl"/>
-    <mesh name="shoulder_link" file="C:\Users\nahoy\Mujoco_local_structured\code2\model\stanford_tidybot\assets\gen3/shoulder_link.stl"/>
-    <mesh name="half_arm_1_link" file="C:\Users\nahoy\Mujoco_local_structured\code2\model\stanford_tidybot\assets\gen3/half_arm_1_link.stl"/>
-    <mesh name="half_arm_2_link" file="C:\Users\nahoy\Mujoco_local_structured\code2\model\stanford_tidybot\assets\gen3/half_arm_2_link.stl"/>
-    <mesh name="forearm_link" file="C:\Users\nahoy\Mujoco_local_structured\code2\model\stanford_tidybot\assets\gen3/forearm_link.stl"/>
-    <mesh name="spherical_wrist_1_link" file="C:\Users\nahoy\Mujoco_local_structured\code2\model\stanford_tidybot\assets\gen3/spherical_wrist_1_link.stl"/>
-    <mesh name="spherical_wrist_2_link" file="C:\Users\nahoy\Mujoco_local_structured\code2\model\stanford_tidybot\assets\gen3/spherical_wrist_2_link.stl"/>
-    <mesh name="bracelet_with_vision_link" file="C:\Users\nahoy\Mujoco_local_structured\code2\model\stanford_tidybot\assets\gen3/bracelet_with_vision_link.stl"/>
+    <mesh file="/home/hoyongna/mujoco_pick_place/model/stanford_tidybot/assets/base/bumper.stl"/>
+    <mesh file="/home/hoyongna/mujoco_pick_place/model/stanford_tidybot/assets/base/bottom_plate.stl"/>
+    <mesh file="/home/hoyongna/mujoco_pick_place/model/stanford_tidybot/assets/base/body.stl"/>
+    <mesh file="/home/hoyongna/mujoco_pick_place/model/stanford_tidybot/assets/base/top_plate.stl"/>
+    <mesh file="/home/hoyongna/mujoco_pick_place/model/stanford_tidybot/assets/base/arm_plate.stl"/>
+    <mesh name="gen3/base_link" file="/home/hoyongna/mujoco_pick_place/model/stanford_tidybot/assets/gen3/base_link.stl"/>
+    <mesh name="shoulder_link" file="/home/hoyongna/mujoco_pick_place/model/stanford_tidybot/assets/gen3/shoulder_link.stl"/>
+    <mesh name="half_arm_1_link" file="/home/hoyongna/mujoco_pick_place/model/stanford_tidybot/assets/gen3/half_arm_1_link.stl"/>
+    <mesh name="half_arm_2_link" file="/home/hoyongna/mujoco_pick_place/model/stanford_tidybot/assets/gen3/half_arm_2_link.stl"/>
+    <mesh name="forearm_link" file="/home/hoyongna/mujoco_pick_place/model/stanford_tidybot/assets/gen3/forearm_link.stl"/>
+    <mesh name="spherical_wrist_1_link" file="/home/hoyongna/mujoco_pick_place/model/stanford_tidybot/assets/gen3/spherical_wrist_1_link.stl"/>
+    <mesh name="spherical_wrist_2_link" file="/home/hoyongna/mujoco_pick_place/model/stanford_tidybot/assets/gen3/spherical_wrist_2_link.stl"/>
+    <mesh name="bracelet_with_vision_link" file="/home/hoyongna/mujoco_pick_place/model/stanford_tidybot/assets/gen3/bracelet_with_vision_link.stl"/>
     <material name="metal" rgba="0.58 0.58 0.58 1"/>
     <material name="silicone" rgba="0.1882 0.1882 0.1882 1"/>
     <material name="2f85/gray" rgba="0.4627 0.4627 0.4627 1"/>
     <material name="2f85/black" rgba="0.149 0.149 0.149 1"/>
-    <mesh class="2f85" file="C:\Users\nahoy\Mujoco_local_structured\code2\model\stanford_tidybot\assets\2f85/base.stl"/>
-    <mesh class="2f85" file="C:\Users\nahoy\Mujoco_local_structured\code2\model\stanford_tidybot\assets\2f85/driver.stl"/>
-    <mesh class="2f85" file="C:\Users\nahoy\Mujoco_local_structured\code2\model\stanford_tidybot\assets\2f85/coupler.stl"/>
-    <mesh class="2f85" file="C:\Users\nahoy\Mujoco_local_structured\code2\model\stanford_tidybot\assets\2f85/follower.stl"/>
-    <mesh class="2f85" file="C:\Users\nahoy\Mujoco_local_structured\code2\model\stanford_tidybot\assets\2f85/pad.stl"/>
-    <mesh class="2f85" file="C:\Users\nahoy\Mujoco_local_structured\code2\model\stanford_tidybot\assets\2f85/silicone_pad.stl"/>
-    <mesh class="2f85" file="C:\Users\nahoy\Mujoco_local_structured\code2\model\stanford_tidybot\assets\2f85/spring_link.stl"/>
+    <mesh class="2f85" file="/home/hoyongna/mujoco_pick_place/model/stanford_tidybot/assets/2f85/base.stl"/>
+    <mesh class="2f85" file="/home/hoyongna/mujoco_pick_place/model/stanford_tidybot/assets/2f85/driver.stl"/>
+    <mesh class="2f85" file="/home/hoyongna/mujoco_pick_place/model/stanford_tidybot/assets/2f85/coupler.stl"/>
+    <mesh class="2f85" file="/home/hoyongna/mujoco_pick_place/model/stanford_tidybot/assets/2f85/follower.stl"/>
+    <mesh class="2f85" file="/home/hoyongna/mujoco_pick_place/model/stanford_tidybot/assets/2f85/pad.stl"/>
+    <mesh class="2f85" file="/home/hoyongna/mujoco_pick_place/model/stanford_tidybot/assets/2f85/silicone_pad.stl"/>
+    <mesh class="2f85" file="/home/hoyongna/mujoco_pick_place/model/stanford_tidybot/assets/2f85/spring_link.stl"/>
   </asset>
   <worldbody>
-    <light pos="2 -2 2" dir="0.009999 0.009999 -0.9999" type="directional" castshadow="false" ambient="0.3 0.3 0.3" diffuse="0.3 0.3 0.3"/>
+    <light pos="2 -2 2" dir="0.009999 0.009999 -0.9999" directional="true" castshadow="false" ambient="0.3 0.3 0.3" diffuse="0.3 0.3 0.3"/>
     <body name="wall_room_main" pos="2.2 0.02 1.5" quat="-0.707107 0.707107 0 0">
       <geom name="wall_room_g0" size="2.24 1.5 0.02" type="box" rgba="0.5 0 0 1"/>
       <geom name="wall_room_g0_vis" size="2.24 1.5 0.02" type="box" contype="0" conaffinity="0" group="1" mass="0" material="wall_room_wall_mat"/>
@@ -1376,12 +1376,12 @@
         </body>
       </body>
     </body>
-    <body name="toaster_main_group_main" pos="3.54616 -0.265187 1.02477">
+    <body name="toaster_main_group_main" pos="2.97635 -0.185938 1.02477">
       <geom name="toaster_main_group_g0" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="toaster_main_group_toaster" mesh="toaster_main_group_model_0_vis"/>
       <geom name="toaster_main_group_g1" size="0.0969662 0.15 0.104766" type="box" rgba="0.5 0 0 0.5"/>
       <site name="toaster_main_group_default_site" pos="0 0 0" size="0.0006" rgba="1 0 0 0"/>
     </body>
-    <body name="knife_block_main_group_main" pos="1.16682 -0.100566 1.11095">
+    <body name="knife_block_main_group_main" pos="1.0775 -0.102679 1.11095">
       <geom name="knife_block_main_group_g0" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="knife_block_main_group_Knife_rack" mesh="knife_block_main_group_model_0_vis"/>
       <geom name="knife_block_main_group_g1" size="0.06 0.0793856 0.190946" type="box" rgba="0.5 0 0 0.5"/>
       <site name="knife_block_main_group_default_site" pos="0 0 0" size="0.000763785" rgba="1 0 0 0"/>
@@ -1431,7 +1431,7 @@
       <site name="counter_corner_front_group_int_pz" pos="0 0 0" size="0.01" rgba="1 0 1 0"/>
       <site name="counter_corner_front_group_default_site" pos="0 0 0" size="0.002" rgba="1 0 0 0"/>
     </body>
-    <body name="plant_front_group_main" pos="3.07537 -3.2089 1.07" quat="0.124563 0 0 0.992212">
+    <body name="plant_front_group_main" pos="2.8506 -3.19662 1.07" quat="0.0356871 0 0 -0.999363">
       <geom name="plant_front_group_g0" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="plant_front_group_blinn2SG" mesh="plant_front_group_model_0_vis"/>
       <geom name="plant_front_group_g1" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="plant_front_group_blinn1SG" mesh="plant_front_group_model_1_vis"/>
       <geom name="plant_front_group_g2" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="plant_front_group_blinn4SG" mesh="plant_front_group_model_2_vis"/>
@@ -2012,7 +2012,7 @@
         </body>
       </body>
     </body>
-    <body name="coffee_machine_left_group_main" pos="0.257853 -0.938518 1.11" quat="0.707106 0 0 0.707108">
+    <body name="coffee_machine_left_group_main" pos="0.251362 -0.963278 1.11" quat="0.707106 0 0 0.707108">
       <geom name="coffee_machine_left_group_g0" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="coffee_machine_left_group_back" mesh="coffee_machine_left_group_model_0_vis"/>
       <geom name="coffee_machine_left_group_g1" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="coffee_machine_left_group_White_Plastic" mesh="coffee_machine_left_group_model_1_vis"/>
       <geom name="coffee_machine_left_group_g2" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="coffee_machine_left_group_logo" mesh="coffee_machine_left_group_model_2_vis"/>
@@ -2043,7 +2043,7 @@
       <site name="coffee_machine_left_group_ext_pz" pos="-0.136634 -0.250701 0.19" size="0.00501402" rgba="0 0 1 0"/>
       <site name="coffee_machine_left_group_default_site" pos="0 0 0" size="0.0010028" rgba="1 0 0 0"/>
     </body>
-    <body name="utensil_holder_left_group_main" pos="0.232547 -2.38051 1.095" quat="0.707106 0 0 0.707108">
+    <body name="utensil_holder_left_group_main" pos="0.216302 -2.35328 1.095" quat="0.707106 0 0 0.707108">
       <geom name="utensil_holder_left_group_g0" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="utensil_holder_left_group_M_Glass_Incolor_Refra_High" mesh="utensil_holder_left_group_model_0_vis"/>
       <geom name="utensil_holder_left_group_g1" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="utensil_holder_left_group_MI_Plastic_Smooth_Low_White" mesh="utensil_holder_left_group_model_1_vis"/>
       <geom name="utensil_holder_left_group_g2" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="utensil_holder_left_group_Silver_Ag_scnpagqp_inst" mesh="utensil_holder_left_group_model_2_vis"/>
@@ -2515,7 +2515,7 @@
         <site name="shelves_right_group_shelf_1_default_site" pos="0 0 0" size="0.002" rgba="1 0 0 0"/>
       </body>
     </body>
-    <body name="paper_towel_right_group_main" pos="4.25479 -1.86995 1.095" quat="0.707106 0 0 -0.707108">
+    <body name="paper_towel_right_group_main" pos="4.1177 -2.42823 1.095" quat="0.707106 0 0 -0.707108">
       <geom name="paper_towel_right_group_g0" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="paper_towel_right_group_paperboard" mesh="paper_towel_right_group_model_0_vis"/>
       <geom name="paper_towel_right_group_g1" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="paper_towel_right_group_paperTopAndBottom" mesh="paper_towel_right_group_model_1_vis"/>
       <geom name="paper_towel_right_group_g2" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="paper_towel_right_group_paperSide" mesh="paper_towel_right_group_model_2_vis"/>

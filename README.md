@@ -80,6 +80,37 @@ jupyter>=1.0.0     # For notebooks
 For full functionality including ACADOS MPC and RoboCasa kitchen environments, see:
 - **[Ubuntu 22.04 Installation Guide](README_UBUNTU_22.04.md)** - Complete setup with ACADOS, RoboCasa, and Ruckig
 
+### RoboCasa Kitchen Environments
+
+**Quick Reference**: See **[ROBOCASA_INSTALL.md](ROBOCASA_INSTALL.md)** for complete installation guide.
+
+**Important**: RoboCasa requires `robosuite` as a dependency, but it's not included in RoboCasa's `setup.py`. You must install it manually:
+
+```bash
+# Step 1: Install robosuite (CRITICAL - missing dependency!)
+pip install robosuite --break-system-packages
+
+# Step 2: Install robocasa from the local directory
+cd robocasa
+pip install -e . --break-system-packages
+
+# Step 3: Verify installation
+python3 -c "from robocasa.environments.kitchen.kitchen import Kitchen; print('✅ Success!')"
+```
+
+**Common Issues**:
+- If you see `ModuleNotFoundError: No module named 'robocasa.environments'`, you need to install robosuite first
+- Optional warnings about "No private macro file", "robosuite_models", or "mimicgen" can be safely ignored
+
+**Automated Installation**:
+```bash
+# Use the diagnostic tool to check and install dependencies
+python3 fix_robocasa_deps.py
+
+# Or use the automated script
+bash install_robocasa_complete.sh
+```
+
 ## Installation
 
 ### Quick Installation (Basic Dependencies Only)
@@ -109,9 +140,11 @@ This includes:
 - System dependencies
 - MuJoCo installation
 - ACADOS MPC framework
-- RoboCasa kitchen environments
+- RoboCasa kitchen environments (see RoboCasa section above for installation steps)
 - Optional Ruckig trajectory generation
 - Troubleshooting guide
+
+**Note**: For RoboCasa specifically, make sure to install `robosuite` first before installing `robocasa`. See the "RoboCasa Kitchen Environments" section above for detailed instructions.
 
 ## Usage
 
@@ -182,6 +215,7 @@ code2/
 ├── README.md                        # This file - project overview
 ├── README_UBUNTU_22.04.md           # Detailed Ubuntu 22.04 installation guide
 ├── QUICKSTART_UBUNTU.md             # Quick start guide for Ubuntu
+├── ROBOCASA_INSTALL.md              # RoboCasa installation quick reference
 ├── install_ubuntu_22.04.sh          # Automated installation script
 ├── config/
 │   ├── constants.py                 # System constants and parameters
@@ -241,6 +275,8 @@ code2/
 │       └── tidybot_robot2.xml       # Robot2 model
 ├── robocasa_integration.py          # RoboCasa kitchen integration
 ├── generate_and_compile.py          # ACADOS MPC code generator
+├── fix_robocasa_deps.py             # RoboCasa dependency diagnostic tool
+├── install_robocasa_complete.sh     # Automated RoboCasa installation script
 └── scripts/
     └── [various utility scripts]
 ```
@@ -299,6 +335,17 @@ Full kitchen environments with cabinets, counters, appliances, and realistic obj
 **LLM Module Unavailable**: Set `OPENAI_API_KEY` environment variable
 **Graphics Issues**: Try `export MUJOCO_GL=osmesa` for headless systems
 
+**RoboCasa Import Errors**:
+```bash
+# Error: ModuleNotFoundError: No module named 'robocasa.environments'
+# Solution: Install robosuite first, then robocasa
+pip install robosuite --break-system-packages
+cd robocasa && pip install -e . --break-system-packages
+
+# Verify installation
+python3 -c "from robocasa.environments.kitchen.kitchen import Kitchen; print('✅ Success!')"
+```
+
 ### Detailed Troubleshooting
 
 For comprehensive troubleshooting including ACADOS, RoboCasa, and system-specific issues, see:
@@ -326,6 +373,15 @@ python generate_and_compile.py
 python robocasa_integration.py --layout G-shaped --style modern --physics-mode balanced
 ```
 
+### Checking RoboCasa Dependencies
+```bash
+# Interactive diagnostic tool
+python3 fix_robocasa_deps.py
+
+# Automated installation
+bash install_robocasa_complete.sh
+```
+
 ## Credits
 
 - **Physics Engine**: MuJoCo (DeepMind)
@@ -341,8 +397,14 @@ python robocasa_integration.py --layout G-shaped --style modern --physics-mode b
 
 ## Additional Resources
 
+### Project Documentation
 - **[Quick Start (Ubuntu 22.04)](QUICKSTART_UBUNTU.md)**
 - **[Full Installation Guide (Ubuntu 22.04)](README_UBUNTU_22.04.md)**
+- **[RoboCasa Installation Guide](ROBOCASA_INSTALL.md)**
+- **[GitHub Upload Guide](GITHUB_UPLOAD_GUIDE.md)** - How to upload without robocasa
+
+### External Documentation
 - **[MuJoCo Documentation](https://mujoco.readthedocs.io/)**
 - **[ACADOS Documentation](https://docs.acados.org/)**
 - **[RoboCasa GitHub](https://github.com/robocasa/robocasa)**
+- **[RoboSuite Documentation](https://robosuite.ai/)**

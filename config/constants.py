@@ -28,7 +28,7 @@ if USE_ROBOCASA:
     DEFAULT_XML_PATH = None  
 else:
     # 기본 4방 씬
-    DEFAULT_XML_PATH = "C:/Users/nahoy/Mujoco_local_structured/code2/model/stanford_tidybot/scene_dual_robot.xml"
+    DEFAULT_XML_PATH = "/home/hoyongna/mujoco_pick_place/model/stanford_tidybot/scene_dual_robot.xml"
 
 # ==================== 로봇 인덱스 (환경별 분리) ====================
 # ⚠️  WARNING: RoboCasa 모드로 전환 시 반드시 verify_robot_indices.py를 실행하여

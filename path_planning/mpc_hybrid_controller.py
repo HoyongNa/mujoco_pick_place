@@ -66,20 +66,20 @@ class MPCControllerACADOS:
         
         # ACADOS MPC 파라미터
         self.dt = 0.1   # 예측 스텝
-        self.N = 50     # 예측 호라이즌
+        self.N = 30     # 예측 호라이즌
         
         # 로봇 파라미터
         self.max_linear_vel = 2    # m/s
-        self.max_angular_vel = 4.0   # rad/s
+        self.max_angular_vel =4.0   # rad/s
         self.max_linear_acc = 3.0
         self.max_angular_acc = 3
         
         # MPC 가중치
-        self.Q = np.diag([1000, 1000, 1000])      # 상태 가중치 [x, y, theta]
+        self.Q = np.diag([1, 1, 1])      # 상태 가중치 [x, y, theta]
         self.R = np.diag([1, 1])            # 제어 가중치 [v, omega]
         self.Q_e = np.diag([1, 1, 1])    # 종단 가중치
 
-        # ACADOS 솔버 설정
+        # ACADOS 솔버 설정 
         self.acados_available = self._setup_acados_solver()
         
         if not self.acados_available:
@@ -96,8 +96,8 @@ class MPCControllerACADOS:
         # 제어 파라미터
         self.control_frequency = 200
         self.control_dt = 1.0 / self.control_frequency
-        self.goal_threshold = 0.1
-        self.waypoint_threshold = 0.3  # m
+        self.goal_threshold = 0.15
+        self.waypoint_threshold = 0.4  # m
         self.lookahead_distance = 1  # m
         
         # 상태 초기화
@@ -123,12 +123,12 @@ class MPCControllerACADOS:
             import os
             import sys
             
-            # ACADOS 경로 설정
-            acados_path = r'C:\acados_new\acados'
-            mingw_path = r'C:\msys64\mingw64\bin'
-            
+
+            # ACADOS 경로 설정 (Linux)
+            acados_path = os.path.expanduser('~/acados')
+
             os.environ['ACADOS_SOURCE_DIR'] = acados_path
-            os.environ['PATH'] = f'{mingw_path};{acados_path}\\bin;' + os.environ.get('PATH', '')
+            os.environ['LD_LIBRARY_PATH'] = f"{acados_path}/lib:" + os.environ.get('LD_LIBRARY_PATH', '')
             sys.path.insert(0, os.path.join(acados_path, 'interfaces', 'acados_template'))
             
             from acados_template import AcadosOcp, AcadosOcpSolver, AcadosModel
