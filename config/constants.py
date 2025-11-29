@@ -101,7 +101,7 @@ ARM_TORQUE_SCALE = 0.01  # gear=100 고려, 실제로는 gear*ctrl이 토크
 ARM_TORQUE_LIMIT = 100.0  # ctrl 기준 제한 (실제 토크는 gear*100 = 10000 Nm)
 
 # Ruckig 파라미터 
-RUCKIG_MAX_V = 1  
+RUCKIG_MAX_V = 1 # m/s
 RUCKIG_MAX_A = 3  
 RUCKIG_MAX_J = 5 
 

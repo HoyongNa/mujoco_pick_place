@@ -1376,12 +1376,12 @@
         </body>
       </body>
     </body>
-    <body name="toaster_main_group_main" pos="2.97635 -0.185938 1.02477">
+    <body name="toaster_main_group_main" pos="2.8994 -0.249867 1.02477">
       <geom name="toaster_main_group_g0" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="toaster_main_group_toaster" mesh="toaster_main_group_model_0_vis"/>
       <geom name="toaster_main_group_g1" size="0.0969662 0.15 0.104766" type="box" rgba="0.5 0 0 0.5"/>
       <site name="toaster_main_group_default_site" pos="0 0 0" size="0.0006" rgba="1 0 0 0"/>
     </body>
-    <body name="knife_block_main_group_main" pos="1.0775 -0.102679 1.11095">
+    <body name="knife_block_main_group_main" pos="1.28987 -0.100734 1.11095">
       <geom name="knife_block_main_group_g0" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="knife_block_main_group_Knife_rack" mesh="knife_block_main_group_model_0_vis"/>
       <geom name="knife_block_main_group_g1" size="0.06 0.0793856 0.190946" type="box" rgba="0.5 0 0 0.5"/>
       <site name="knife_block_main_group_default_site" pos="0 0 0" size="0.000763785" rgba="1 0 0 0"/>
@@ -1431,7 +1431,7 @@
       <site name="counter_corner_front_group_int_pz" pos="0 0 0" size="0.01" rgba="1 0 1 0"/>
       <site name="counter_corner_front_group_default_site" pos="0 0 0" size="0.002" rgba="1 0 0 0"/>
     </body>
-    <body name="plant_front_group_main" pos="2.8506 -3.19662 1.07" quat="0.0356871 0 0 -0.999363">
+    <body name="plant_front_group_main" pos="2.99217 -3.15777 1.07" quat="0.0273837 0 0 0.999625">
       <geom name="plant_front_group_g0" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="plant_front_group_blinn2SG" mesh="plant_front_group_model_0_vis"/>
       <geom name="plant_front_group_g1" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="plant_front_group_blinn1SG" mesh="plant_front_group_model_1_vis"/>
       <geom name="plant_front_group_g2" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="plant_front_group_blinn4SG" mesh="plant_front_group_model_2_vis"/>
@@ -2012,7 +2012,7 @@
         </body>
       </body>
     </body>
-    <body name="coffee_machine_left_group_main" pos="0.251362 -0.963278 1.11" quat="0.707106 0 0 0.707108">
+    <body name="coffee_machine_left_group_main" pos="0.262413 -0.904426 1.11" quat="0.707106 0 0 0.707108">
       <geom name="coffee_machine_left_group_g0" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="coffee_machine_left_group_back" mesh="coffee_machine_left_group_model_0_vis"/>
       <geom name="coffee_machine_left_group_g1" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="coffee_machine_left_group_White_Plastic" mesh="coffee_machine_left_group_model_1_vis"/>
       <geom name="coffee_machine_left_group_g2" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="coffee_machine_left_group_logo" mesh="coffee_machine_left_group_model_2_vis"/>
@@ -2043,7 +2043,7 @@
       <site name="coffee_machine_left_group_ext_pz" pos="-0.136634 -0.250701 0.19" size="0.00501402" rgba="0 0 1 0"/>
       <site name="coffee_machine_left_group_default_site" pos="0 0 0" size="0.0010028" rgba="1 0 0 0"/>
     </body>
-    <body name="utensil_holder_left_group_main" pos="0.216302 -2.35328 1.095" quat="0.707106 0 0 0.707108">
+    <body name="utensil_holder_left_group_main" pos="0.134885 -2.21875 1.095" quat="0.707106 0 0 0.707108">
       <geom name="utensil_holder_left_group_g0" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="utensil_holder_left_group_M_Glass_Incolor_Refra_High" mesh="utensil_holder_left_group_model_0_vis"/>
       <geom name="utensil_holder_left_group_g1" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="utensil_holder_left_group_MI_Plastic_Smooth_Low_White" mesh="utensil_holder_left_group_model_1_vis"/>
       <geom name="utensil_holder_left_group_g2" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="utensil_holder_left_group_Silver_Ag_scnpagqp_inst" mesh="utensil_holder_left_group_model_2_vis"/>
@@ -2515,7 +2515,7 @@
         <site name="shelves_right_group_shelf_1_default_site" pos="0 0 0" size="0.002" rgba="1 0 0 0"/>
       </body>
     </body>
-    <body name="paper_towel_right_group_main" pos="4.1177 -2.42823 1.095" quat="0.707106 0 0 -0.707108">
+    <body name="paper_towel_right_group_main" pos="4.24558 -2.34465 1.095" quat="0.707106 0 0 -0.707108">
       <geom name="paper_towel_right_group_g0" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="paper_towel_right_group_paperboard" mesh="paper_towel_right_group_model_0_vis"/>
       <geom name="paper_towel_right_group_g1" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="paper_towel_right_group_paperTopAndBottom" mesh="paper_towel_right_group_model_1_vis"/>
       <geom name="paper_towel_right_group_g2" type="mesh" contype="0" conaffinity="0" group="1" friction="0.95 0.3 0.1" solref="0.001" solimp="0.998 0.998" density="100" material="paper_towel_right_group_paperSide" mesh="paper_towel_right_group_model_2_vis"/>

@@ -777,7 +777,6 @@ mujoco_pick_place/
 ├── config/
 │   ├── constants.py                 # System constants and parameters
 │   ├── robot_config.py              # Robot configuration
-│   └── stabilization_config.py      # Stabilization parameters
 ├── controllers/
 │   ├── base_controller.py           # Mobile base control
 │   ├── arm_controller.py            # Robotic arm control
